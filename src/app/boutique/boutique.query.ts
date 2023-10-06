@@ -6,6 +6,7 @@ export const ArticlesSchema = z.object({
   name: z.string(),
   imageUrl: z.string(),
   description: z.string(),
+  aspectRatio: z.string(),
   price: z.number(),
 });
 

@@ -1,13 +1,15 @@
 import prisma from "../../../../prisma/client";
 import { ArticlesSchema } from "../boutique.query";
 
-export const getArticleById = async (articleId: number) => {
+export const getArticleById = async (articleId: string) => {
   const articleById = await prisma.article.findUnique({
     where: {
-      id: articleId,
+      id: Number(articleId),
     },
   });
-  const validateArticles = ArticlesSchema.array().safeParse(articleById);
+
+  const validateArticles = ArticlesSchema.safeParse(articleById);
+
   if (!validateArticles.success) {
     throw new Error(validateArticles.error.message);
   }

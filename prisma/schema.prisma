@@ -64,6 +64,7 @@ model Article {
   imageUrl    String
   name        String
   price       Float
+  aspectRatio String @default("paysage")
 }
 
 model Carousel {
