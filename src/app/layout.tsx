@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
+import AuthContext from "@/lib/auth/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,10 +27,12 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <NextTopLoader />
-          <Navbar />
-          {children}
-          <Toaster />
+          <AuthContext>
+            <NextTopLoader />
+            <Navbar />
+            {children}
+            <Toaster />
+          </AuthContext>
         </ThemeProvider>
       </body>
     </html>
