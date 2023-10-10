@@ -6,6 +6,7 @@ import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import AuthContext from "@/lib/auth/AuthContext";
+import Footer from "@/components/Footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Toaster />
+            <Footer />
           </AuthContext>
         </ThemeProvider>
       </body>

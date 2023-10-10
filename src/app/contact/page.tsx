@@ -33,8 +33,8 @@ export default function Contact() {
             />
 
             <div className="absolute inset-0 bg-white/70 flex flex-col items-center justify-center">
-              <IoMdPaperPlane className="text-4xl text-grey-900" />
-              <p className="text-grey-900 text-lg md:text-xs lg:text-base xs:text-xs font-bold">
+              <IoMdPaperPlane className="text-4xl text-black" />
+              <p className="text-black text-lg md:text-xs lg:text-base xs:text-xs font-bold">
                 pierre.v.photographie@gmail.com
               </p>
             </div>
@@ -48,8 +48,8 @@ export default function Contact() {
               height={325}
             />
             <div className="absolute inset-0 bg-white/70 flex flex-col items-center justify-center">
-              <BiPhoneCall className="text-4xl text-grey-900" />
-              <p className="text-grey-900 text-lg font-bold">06 14 25 39 12</p>
+              <BiPhoneCall className="text-4xl text-black" />
+              <p className="text-black text-lg font-bold">06 14 25 39 12</p>
             </div>
           </div>
           <Link
@@ -72,9 +72,9 @@ export default function Contact() {
                 alt="Instagram"
                 width={40}
                 height={40}
-                className="text-4xl text-grey-900"
+                className="text-4xl text-black"
               />
-              <p className="text-grey-900 text-lg font-bold">
+              <p className="text-black text-lg font-bold">
                 @pierre.v.photographie
               </p>
             </div>

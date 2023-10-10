@@ -25,13 +25,13 @@ export default function Portfolio({ data }: PortfolioProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="group">
+        <div className="group mt-6 h-96 w-9/12">
           <div className="relative overflow-hidden h-full cursor-pointer">
             <Image
               src="/assets/Nature.jpg"
               alt="Photo de pierre"
-              height={300}
-              width={300}
+              height={1080}
+              width={1080}
               className="rounded-md col-span-1 w-full h-full  object-cover"
             />
             <div className="rounded-md absolute h-full w-full bg-black/50 flex items-center justify-center group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -42,11 +42,12 @@ export default function Portfolio({ data }: PortfolioProps) {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[650px] sm:max-h-[700px] p-0  bg-transparent border-none shadow-none">
+      <DialogContent className="p-0 bg-transparent border-none shadow-none lg:max-w-5xl lg:h-[60vh] ">
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
+          loop={true}
           slidesPerView={"auto"}
           coverflowEffect={{
             rotate: 50,
@@ -64,9 +65,9 @@ export default function Portfolio({ data }: PortfolioProps) {
               <Image
                 src={item.imageUrl}
                 alt={item.name}
-                height={800}
-                width={800}
-                className="rounded-md  w-full h-full object-cover"
+                height={600}
+                width={600}
+                className="rounded-md  w-full h-full object-cover "
               />
             </SwiperSlide>
           ))}
