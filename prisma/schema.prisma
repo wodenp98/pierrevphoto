@@ -45,6 +45,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
 
   @@map("users")
 }
@@ -65,7 +66,20 @@ model Article {
   name        String
   price       Float
   aspectRatio String @default("paysage")
+  orders      Order[]
 }
+
+model Order {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  orderedAt   DateTime @default(now())
+  totalPrice  Float
+  status     String   @default("en attente")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  articles    Article[]
+}
+
+
 
 model Carousel {
   id          Int      @id @default(autoincrement())

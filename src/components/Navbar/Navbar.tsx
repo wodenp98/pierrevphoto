@@ -25,7 +25,7 @@ export default function Navbar() {
   return (
     <header className="flex items-center justify-between z-50 p-4">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger className="cursor-pointer" asChild>
           <AlignJustify size={32} strokeWidth={1.5} />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-64 p-2">

@@ -42,7 +42,7 @@ export default function Portfolio({ data }: PortfolioProps) {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="p-0 bg-transparent border-none shadow-none lg:max-w-5xl lg:h-[60vh] ">
+      <DialogContent className="p-0 bg-transparent border-none shadow-none w-4/5 md:w-4/5 lg:w-2/3 xl:w-2/3 ">
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
@@ -65,8 +65,8 @@ export default function Portfolio({ data }: PortfolioProps) {
               <Image
                 src={item.imageUrl}
                 alt={item.name}
-                height={600}
-                width={600}
+                height={1080}
+                width={1080}
                 className="rounded-md  w-full h-full object-cover "
               />
             </SwiperSlide>

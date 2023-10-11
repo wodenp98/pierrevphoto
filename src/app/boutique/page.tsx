@@ -4,6 +4,7 @@ import { getArticles } from "./boutique.query";
 
 export default async function Page() {
   const articles = await getArticles();
+
   return (
     <main>
       <ul className="flex ml-6">
@@ -14,7 +15,7 @@ export default async function Page() {
 
       <h1 className="ml-6 mt-6 text-4xl">Boutique</h1>
       <section className="flex flex-col items-center mt-8">
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 w-11/12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4 w-11/12">
           {articles.map((article) => (
             <Link href={`/boutique/${article.id}`} key={article.id}>
               <Image
@@ -22,7 +23,7 @@ export default async function Page() {
                 alt={article.name}
                 width={1080}
                 height={1080}
-                className="w-full mb-6 object-cover"
+                className={`w-full h-full object-cover`}
               />
             </Link>
           ))}

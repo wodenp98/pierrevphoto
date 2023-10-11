@@ -7,6 +7,16 @@ import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { Button } from "../ui/button";
+import { useCartStore } from "@/lib/store/useCartStore";
+
+type Article = {
+  name: string;
+  id: number;
+  imageUrl: string;
+  aspectRatio: string;
+  description: string;
+  price: number;
+};
 
 type FormValues = {
   [key: string]: string;
@@ -68,8 +78,8 @@ const SelectInput: React.FC<{
   );
 };
 
-export const ShopForm = ({ product }: any) => {
-  const router = useRouter();
+export const ShopForm = ({ article }: { article: Article }) => {
+  const addToCart = useCartStore((state) => state.addToCart);
   const {
     register,
     handleSubmit,
@@ -87,7 +97,6 @@ export const ShopForm = ({ product }: any) => {
     rendu: "",
     impression: "",
   });
-  const addToCart = (product: any) => {};
 
   const getPrice = (formValues: FormValues) => {
     let price = 150;
@@ -104,19 +113,15 @@ export const ShopForm = ({ product }: any) => {
 
   const onSubmit = () => {
     const productToCart = {
-      id: product.id,
-      nom: product.nom,
-      price: price,
-      imageUrl: product.imageUrl,
+      ...article,
       format: formValues.format,
       rendu: formValues.rendu,
       impression: formValues.impression,
     };
-
-    addToCart("");
+    addToCart(productToCart);
     toast({
       className: "bg-green-500 text-white",
-      title: `${product.nom} a été ajouté à votre panier`,
+      title: `Votre article a été ajouté à votre panier`,
       action: (
         <Link href="/panier">
           <ToastAction altText="Voir le panier">Voir le panier</ToastAction>

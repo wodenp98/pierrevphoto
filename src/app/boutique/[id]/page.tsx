@@ -43,13 +43,7 @@ export default async function Page({ params: { id } }: Props) {
           <div className="flex flex-col  w-full md:w-10/12 justify-center mt-6 lg:w-1/2 lg:ml-6 ">
             <h1 className="text-3xl">{article.name}</h1>
             <p className="text-sm mt-6 text-gray-500">{article.description}</p>
-            <ShopForm
-              product={{
-                id: article.id,
-                name: article.name,
-                imageUrl: article.imageUrl,
-              }}
-            />
+            <ShopForm article={article} />
           </div>
         </div>
 
