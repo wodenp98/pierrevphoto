@@ -25,10 +25,7 @@ import { useToast } from "../ui/use-toast";
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const FormSchema = z.object({
-  email: z
-    .string()
-    .nonempty("Field is required")
-    .email({ message: "Must be a valid email" }),
+  email: z.string().email({ message: "Must be a valid email" }),
 });
 
 type FormValues = z.infer<typeof FormSchema>;
@@ -47,13 +44,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     signIn("email", {
       email: data.email,
-      callbackUrl: "/dashboard",
+      callbackUrl: "/compte",
       redirect: false,
     });
 
     toast({
       title: "Email sent",
-      description: "Check your inbox to sign in",
+      description: "Check your inbox to sign in, check your spam folder too!",
       duration: 5000,
     });
 
@@ -104,7 +101,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         variant="outline"
         type="button"
         disabled={isLoading}
-        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        onClick={() => signIn("google", { callbackUrl: "/compte" })}
       >
         {isLoading ? (
           <PiSpinnerGapBold className="mr-2 h-4 w-4 animate-spin" />

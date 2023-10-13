@@ -27,7 +27,7 @@ export default function Footer() {
 
       <div className="flex flex-col p-4 gap-4">
         <Link href="/mentions-legales">Mentions légales</Link>
-        <Link href="/CGVU">CGVU</Link>
+        <Link href="/cgvu">CGVU</Link>
         <LinkInstagram />
         <LinkGmail />
       </div>

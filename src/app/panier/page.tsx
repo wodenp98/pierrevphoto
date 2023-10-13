@@ -38,9 +38,12 @@ type CartItem = {
 };
 
 export default function Panier() {
-  const { cart } = useCartStore();
-  console.log(cart);
-  const handleDeleteFromCart = (id: string) => {};
+  const { cart, totalPrice } = useCartStore();
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const resetCart = useCartStore((state) => state.reset);
+  console.log(cart, totalPrice);
+
+  // const handleDeleteFromCart = (id: string) => {};
 
   // const totalPrice = cart?.reduce((acc, item: any) => acc + item.price, 0);
 
@@ -90,54 +93,54 @@ export default function Panier() {
             <CardTitle>Vos articles</CardTitle>
           </CardHeader>
           <CardContent>
-            {/* {cart?.map((item: any) => (
-                <div key={item.id} className="flex mt-5">
-                  <div className="flex-shrink-0">
-                    <Image
-                      key={item.id}
-                      src={item.imageUrl}
-                      alt={item.nom}
-                      width={360}
-                      height={360}
-                      className="object-cover w-28 h-28 sm:w-36 sm:h-36"
-                    />
-                  </div>
-                  <div className="flex-grow ml-4">
-                    <p className="text-sm lg:text-xl font-bold">{item.nom}</p>
-                    <Accordion type="single" collapsible>
-                      <AccordionItem value="item-1">
-                        <AccordionTrigger className="text-sm text-gray-500">
-                          Détails
-                        </AccordionTrigger>
-                        <AccordionContent className="text-xs">
-                          {item.format}
-                        </AccordionContent>
-                        <AccordionContent className="text-xs">
-                          {item.impression}
-                        </AccordionContent>
-                        <AccordionContent className="text-xs">
-                          {item.rendu}
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  </div>
-                  <div className="flex flex-col items-end justify-between ml-4">
-                    <span className="text-sm lg:text-xl">{item.price} €</span>
-                    <button
-                      onClick={() => handleDeleteFromCart(item.id)}
-                      className="text-gray-500 text-xs mt-2"
-                    >
-                      Supprimer
-                    </button>
-                  </div>
+            {cart?.map((item: any) => (
+              <div key={item.id} className="flex mt-5">
+                <div className="flex-shrink-0">
+                  <Image
+                    key={item.id}
+                    src={item.imageUrl}
+                    alt={item.nom}
+                    width={360}
+                    height={360}
+                    className="object-cover w-28 h-28 sm:w-36 sm:h-36"
+                  />
                 </div>
-              ))} */}
+                <div className="flex-grow ml-4">
+                  <p className="text-sm lg:text-xl font-bold">{item.nom}</p>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger className="text-sm text-gray-500">
+                        Détails
+                      </AccordionTrigger>
+                      <AccordionContent className="text-xs">
+                        {item.format}
+                      </AccordionContent>
+                      <AccordionContent className="text-xs">
+                        {item.impression}
+                      </AccordionContent>
+                      <AccordionContent className="text-xs">
+                        {item.rendu}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+                <div className="flex flex-col items-end justify-between ml-4">
+                  <span className="text-sm lg:text-xl">{item.price} €</span>
+                  <button
+                    onClick={() => removeFromCart(item)}
+                    className="text-gray-500 text-xs mt-2"
+                  >
+                    Supprimer
+                  </button>
+                </div>
+              </div>
+            ))}
           </CardContent>
           <CardFooter className="flex flex-col">
             <Separator className="my-4 bg-gray-500" />
             <div className="w-full flex justify-between">
               <span className="uppercase font-bold text-lg">Total</span>
-              {/* <span className="text-lg">{totalPrice} €</span> */}
+              <span className="text-lg">{totalPrice} €</span>
             </div>
             <Button className=" mt-8 w-1/2" onClick={handleCheckout}>
               <div className="flex items-center justify-center ">

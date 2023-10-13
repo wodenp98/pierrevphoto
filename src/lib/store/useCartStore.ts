@@ -29,7 +29,7 @@ const INITIAL_STATE: State = {
   totalPrice: 0,
 };
 
-export const useCartStore = create(
+export const useCartStore = create<State & Actions>()(
   persist(
     (set) => ({
       cart: INITIAL_STATE.cart,
