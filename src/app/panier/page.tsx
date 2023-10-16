@@ -18,10 +18,13 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@radix-ui/react-accordion";
-import { useToast } from "@/components/ui/use-toast";
+import { toast, useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import Link from "next/link";
 import { useCartStore } from "@/lib/store/useCartStore";
+import { useSession } from "next-auth/react";
+import NoDataCart from "@/components/NoDataComponents/NoDataCart";
+import prisma from "../../../prisma/client";
 
 const stripePromise = loadStripe(
   `${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`
@@ -38,45 +41,103 @@ type CartItem = {
 };
 
 export default function Panier() {
+  const { data: session } = useSession();
   const { cart, totalPrice } = useCartStore();
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const resetCart = useCartStore((state) => state.reset);
-  console.log(cart, totalPrice);
 
-  // const handleDeleteFromCart = (id: string) => {};
-
-  // const totalPrice = cart?.reduce((acc, item: any) => acc + item.price, 0);
+  if (cart.length === 0) {
+    return <NoDataCart />;
+  }
 
   const handleCheckout = async () => {
-    // if (!user) {
-    //   return toast({
-    //     variant: "destructive",
-    //     className: "bg-red-500 text-white",
-    //     title: "Vous devez avoir un compte pour passer commande.",
-    //     action: (
-    //       <Link href={"/compte"}>
-    //         <ToastAction altText="Go to account">Compte</ToastAction>
-    //       </Link>
-    //     ),
-    //   });
-    // }
-    // const stripe = await stripePromise;
-    // const response = await fetch("/api/payment", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     cart: cart,
-    //     userId: user?.uid,
-    //     email: user?.email,
-    //   }),
-    // });
-    // si response est ok push cookie ou zustand
-    // const responseData = await response.json();
-    // const result = await stripe?.redirectToCheckout({
-    //   sessionId: responseData.id,
-    // });
-    // if (result?.error) {
-    //   console.log(result.error.message);
-    // }
+    if (!session?.user) {
+      return toast({
+        variant: "destructive",
+        className: "bg-red-500 text-white",
+        title: "Vous devez avoir un compte pour passer commande.",
+        action: (
+          <Link href={"/compte"}>
+            <ToastAction altText="Go to account">Compte</ToastAction>
+          </Link>
+        ),
+      });
+    }
+
+    const stripe = await stripePromise;
+    const response = await fetch("/api/payment", {
+      method: "POST",
+      body: JSON.stringify({
+        cart: cart,
+        userId: session?.user?.id,
+        email: session?.user?.email,
+      }),
+    });
+
+    const responseData = await response.json();
+
+    const result = await stripe?.redirectToCheckout({
+      sessionId: responseData.id,
+    });
+
+    if (result?.error) {
+      toast({
+        variant: "destructive",
+        className: "bg-red-500 text-white",
+        title: "Une erreur est survenue lors du paiement.",
+      });
+    }
+
+    // create order
+    const user = await prisma.user.findUnique({
+      where: { id: session?.user?.id },
+    });
+
+    if (!user) {
+      throw new Error(`User with id ${session?.user?.id} not found`);
+    }
+
+    // check si order marche correctement, le code est pas éxécuté car redirect
+
+    const order = await prisma.order.create({
+      data: {
+        userId: user.id,
+        orderedAt: new Date(),
+        totalPrice: totalPrice,
+        status: "PENDING",
+        articles: {
+          create: cart.map((article) => ({
+            description: article.description,
+            imageUrl: article.imageUrl,
+            name: article.name,
+            price: article.price,
+            aspectRatio: article.aspectRatio,
+          })),
+        },
+      },
+      include: {
+        articles: true,
+      },
+    });
+
+    console.log(`Order ${order.id} créée pour l'utilisateur ${user.id}`);
+
+    // Mettez à jour l'historique des commandes de l'utilisateur
+    const updatedUser = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        orders: {
+          connect: {
+            id: order.id,
+          },
+        },
+      },
+    });
+
+    console.log(
+      `Historique des commandes de l'utilisateur ${updatedUser.id} mis à jour`
+    );
+    resetCart();
   };
 
   return (
@@ -99,7 +160,7 @@ export default function Panier() {
                   <Image
                     key={item.id}
                     src={item.imageUrl}
-                    alt={item.nom}
+                    alt={item.name}
                     width={360}
                     height={360}
                     className="object-cover w-28 h-28 sm:w-36 sm:h-36"
@@ -109,7 +170,7 @@ export default function Panier() {
                   <p className="text-sm lg:text-xl font-bold">{item.nom}</p>
                   <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
-                      <AccordionTrigger className="text-sm text-gray-500">
+                      <AccordionTrigger className="text-sm ">
                         Détails
                       </AccordionTrigger>
                       <AccordionContent className="text-xs">
@@ -125,13 +186,16 @@ export default function Panier() {
                   </Accordion>
                 </div>
                 <div className="flex flex-col items-end justify-between ml-4">
-                  <span className="text-sm lg:text-xl">{item.price} €</span>
-                  <button
+                  <span className="text-sm lg:text-xl px-4">
+                    {item.price} €
+                  </span>
+                  <Button
+                    variant="ghost"
                     onClick={() => removeFromCart(item)}
-                    className="text-gray-500 text-xs mt-2"
+                    className=" text-xs  hover:bg-red-600 hover:text-white"
                   >
                     Supprimer
-                  </button>
+                  </Button>
                 </div>
               </div>
             ))}

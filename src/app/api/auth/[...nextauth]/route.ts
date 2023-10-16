@@ -5,10 +5,6 @@ import prisma from "../../../../../prisma/client";
 import Email from "next-auth/providers/email";
 import { CustomsendVerificationRequest } from "../sendEmail/route";
 
-//  input pour le name avec save to push in bdd + history command + security, loader, scrollbar, images opti
-// quand profil je recupere l'user de la bdd ou de la session if(session) const user = await prisma.user.findUnique({where:{id:session.id}})
-// delete account
-
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -55,7 +51,7 @@ export const authOptions: NextAuthOptions = {
     jwt: async ({ token, user, session, trigger }) => {
       if (trigger === "update" && session?.name) {
         token.name = session.name;
-        console.log("token", token);
+
         const newName = await prisma.user.update({
           where: { id: token.id as string },
           data: { name: token.name },

@@ -5,31 +5,6 @@ import Image from "next/image";
 import Confetti from "react-confetti";
 
 export default function CustomerDetails({ customerDetails }: any) {
-  // const { user } = UserAuth();
-  // const getCart = useGetCartQuery(user?.uid);
-
-  // if (customerDetails && getCart?.data && user) {
-  // getCart?.data?.forEach(async (item: any) => {
-  //   await deleteDoc(doc(db, "users", user?.uid, "panier", item.id));
-  //   getCart.refetch();
-  // });
-
-  // customerDetails?.forEach(async (item: any) => {
-  //   const itemHistory = {
-  //     id: item.id,
-  //     nom: item.name,
-  //     price: item.price,
-  //     imageUrl: item.imageUrl,
-  //     format: item.details.split(" - ")[0],
-  //     rendu: item.details.split(" - ")[1],
-  //     impression: item.details.split(" - ")[2],
-  //     createdAt: item.createdAt,
-  //   };
-  //   const userCartRef = doc(db, "users", user?.uid, "history", item.id);
-  //   await setDoc(userCartRef, itemHistory);
-  // });
-  // }
-
   return (
     <div className="mt-8">
       <h2 className="text-2xl font-bold mb-4 flex flex-col items-center">

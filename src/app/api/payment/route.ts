@@ -15,14 +15,12 @@ export async function POST(request: Request) {
     tax_type: "vat",
   });
 
-  console.log(taxRate);
-
   const lineItems = userCart?.cart.map((item: any) => {
     return {
       price_data: {
         currency: "eur",
         product_data: {
-          name: item.nom,
+          name: item.name,
           images: [item.imageUrl],
           description:
             item.format + " - " + item.impression + " - " + item.rendu,
@@ -59,6 +57,8 @@ export async function POST(request: Request) {
     //   enabled: true,
     // },
   });
+
+  console.log("session", session);
 
   return NextResponse.json(session);
 }

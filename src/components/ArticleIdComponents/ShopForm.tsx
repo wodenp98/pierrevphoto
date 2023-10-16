@@ -79,6 +79,7 @@ const SelectInput: React.FC<{
 };
 
 export const ShopForm = ({ article }: { article: Article }) => {
+  const { cart } = useCartStore();
   const addToCart = useCartStore((state) => state.addToCart);
   const {
     register,
@@ -114,21 +115,38 @@ export const ShopForm = ({ article }: { article: Article }) => {
   const onSubmit = () => {
     const productToCart = {
       ...article,
+      price,
       format: formValues.format,
       rendu: formValues.rendu,
       impression: formValues.impression,
     };
-    addToCart(productToCart);
-    toast({
-      className: "bg-green-500 text-white",
-      title: `Votre article a été ajouté à votre panier`,
-      action: (
-        <Link href="/panier">
-          <ToastAction altText="Voir le panier">Voir le panier</ToastAction>
-        </Link>
-      ),
-      duration: 3000,
-    });
+
+    const itemExist = cart.find((item) => item.id === productToCart.id);
+
+    if (itemExist) {
+      return toast({
+        className: "bg-red-500 text-white",
+        title: `Cet article est déjà dans votre panier`,
+        action: (
+          <Link href="/panier">
+            <ToastAction altText="Voir le panier">Voir le panier</ToastAction>
+          </Link>
+        ),
+        duration: 3000,
+      });
+    } else {
+      addToCart(productToCart);
+      toast({
+        className: "bg-green-500 text-white",
+        title: `Votre article a été ajouté à votre panier`,
+        action: (
+          <Link href="/panier">
+            <ToastAction altText="Voir le panier">Voir le panier</ToastAction>
+          </Link>
+        ),
+        duration: 3000,
+      });
+    }
   };
 
   return (
