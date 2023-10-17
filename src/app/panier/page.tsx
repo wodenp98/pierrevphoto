@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import { loadStripe } from "@stripe/stripe-js";
-import { BsCreditCard } from "react-icons/bs";
+import { BsCartX, BsCreditCard } from "react-icons/bs";
 import {
   Card,
   CardContent,
@@ -25,6 +26,7 @@ import { useCartStore } from "@/lib/store/useCartStore";
 import { useSession } from "next-auth/react";
 import NoDataCart from "@/components/NoDataComponents/NoDataCart";
 import prisma from "../../../prisma/client";
+import { use, useEffect, useState } from "react";
 
 const stripePromise = loadStripe(
   `${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`
@@ -45,6 +47,50 @@ export default function Panier() {
   const { cart, totalPrice } = useCartStore();
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const resetCart = useCartStore((state) => state.reset);
+
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    setIsReady(true);
+  }, []);
+
+  if (!isReady) {
+    return (
+      <main>
+        <ul className="flex ml-6">
+          <li className="text-gray-300">Accueil</li>
+          <li className="text-gray-300 mx-2">-</li>
+          <li>Panier</li>
+        </ul>
+        <h1 className="ml-6 mt-6 text-4xl">Panier</h1>
+        <section className="flex flex-col items-center mt-4">
+          <Card className="w-11/12 lg:w-9/12">
+            <CardHeader>
+              <CardTitle>Vos articles</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Skeleton className="w-full h-36" />
+              <Skeleton className="w-full h-36" />
+              <Skeleton className="w-full h-36" />
+            </CardContent>
+            <CardFooter className="flex flex-col">
+              <Separator className="my-4 bg-gray-500" />
+              <div className="w-full flex justify-between">
+                <span className="uppercase font-bold text-lg">Total</span>
+                <span className="text-lg">0 €</span>
+              </div>
+              <Button className=" mt-8 w-1/2">
+                <div className="flex items-center justify-center ">
+                  <p>Paiement</p>
+                  <BsCreditCard className="ml-4 w-5 h-5 text-center" />
+                </div>
+              </Button>
+            </CardFooter>
+          </Card>
+        </section>
+      </main>
+    );
+  }
 
   if (cart.length === 0) {
     return <NoDataCart />;
@@ -87,56 +133,6 @@ export default function Panier() {
         title: "Une erreur est survenue lors du paiement.",
       });
     }
-
-    // create order
-    const user = await prisma.user.findUnique({
-      where: { id: session?.user?.id },
-    });
-
-    if (!user) {
-      throw new Error(`User with id ${session?.user?.id} not found`);
-    }
-
-    // check si order marche correctement, le code est pas éxécuté car redirect
-
-    const order = await prisma.order.create({
-      data: {
-        userId: user.id,
-        orderedAt: new Date(),
-        totalPrice: totalPrice,
-        status: "PENDING",
-        articles: {
-          create: cart.map((article) => ({
-            description: article.description,
-            imageUrl: article.imageUrl,
-            name: article.name,
-            price: article.price,
-            aspectRatio: article.aspectRatio,
-          })),
-        },
-      },
-      include: {
-        articles: true,
-      },
-    });
-
-    console.log(`Order ${order.id} créée pour l'utilisateur ${user.id}`);
-
-    // Mettez à jour l'historique des commandes de l'utilisateur
-    const updatedUser = await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        orders: {
-          connect: {
-            id: order.id,
-          },
-        },
-      },
-    });
-
-    console.log(
-      `Historique des commandes de l'utilisateur ${updatedUser.id} mis à jour`
-    );
     resetCart();
   };
 

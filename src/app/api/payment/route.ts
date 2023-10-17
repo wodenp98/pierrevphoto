@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/stripe";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(request: Request) {
+  const sessionUser = await getServerSession(authOptions);
+
+  if (!sessionUser?.user || !sessionUser?.user.email) {
+    return new Response(null, { status: 403 });
+  }
   const userCart = await request.json();
   const origin = request.headers.get("origin");
 
@@ -44,6 +51,9 @@ export async function POST(request: Request) {
     shipping_address_collection: {
       allowed_countries: ["FR"],
     },
+    metadata: {
+      userId: userCart?.userId,
+    },
     success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/panier`,
     client_reference_id: userCart?.userId,
@@ -57,8 +67,6 @@ export async function POST(request: Request) {
     //   enabled: true,
     // },
   });
-
-  console.log("session", session);
 
   return NextResponse.json(session);
 }

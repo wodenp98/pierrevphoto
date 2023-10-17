@@ -8,6 +8,26 @@ import { UserInfo } from "@/components/CompteComponents/UserInfo";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
+  const ordersWithArticles = await prisma.order.findMany({
+    where: {
+      userId: session?.user.id,
+    },
+    include: {
+      articles: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          imageUrl: true,
+          description: true,
+        },
+      },
+    },
+  });
+  // je peux map ceci
+  //ca se push dans Article et je ne veux pas
+  console.log("ordersWithArticles", ordersWithArticles);
+
   if (session) {
     return (
       <main>
