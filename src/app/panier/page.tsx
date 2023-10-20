@@ -46,7 +46,6 @@ export default function Panier() {
   const { data: session } = useSession();
   const { cart, totalPrice } = useCartStore();
   const removeFromCart = useCartStore((state) => state.removeFromCart);
-  const resetCart = useCartStore((state) => state.reset);
 
   const [isReady, setIsReady] = useState(false);
 
@@ -133,7 +132,6 @@ export default function Panier() {
         title: "Une erreur est survenue lors du paiement.",
       });
     }
-    resetCart();
   };
 
   return (

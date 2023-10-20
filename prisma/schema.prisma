@@ -72,12 +72,14 @@ model Article {
 model Order {
   id          String    @id @default(cuid())
   userId      String
+  articleId   Int
   orderedAt   DateTime @default(now())
   totalPrice  Float
   description String
   status     String   @default("en attente")
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  articles    Article[]
+  articles    Article @relation(fields: [articleId], references: [id])
+
 }
 
 

@@ -34,64 +34,38 @@ export async function POST(req: Request) {
     if (!user) {
       throw new Error(`User not found`);
     }
-
-    // check si order marche correctement, le code est pas éxécuté car redirect
-
-    const order = await prisma.order.create({
-      data: {
-        userId: session?.metadata?.userId!,
-        totalPrice: (sessionItem?.amount_total as number) / 100,
-        description: sessionItem?.line_items?.data.map((item: any) => ({
-          description: item.price.product?.description,
-        })),
-        articles: {
-          connect: sessionItem?.line_items?.data.map((item: any) => ({
-            id: item.price.product.metadata.id,
-          })),
+    sessionItem?.line_items?.data.map(async (item: any) => {
+      await prisma.order.create({
+        data: {
+          userId: sessionItem?.metadata?.userId as string,
+          articleId: Number(item.price.product.metadata.id),
+          totalPrice: item.amount_total,
+          description: item.price.product.description,
         },
-      },
-      include: {
-        articles: true,
-      },
+      });
     });
-
-    console.log(`Order ${order.id} créée pour l'utilisateur ${user.id}`);
-
-    // Mettez à jour l'historique des commandes de l'utilisateur
-    const updatedUser = await prisma.user.update({
-      where: { id: session?.metadata?.userId },
-      data: {
-        orders: {
-          connect: {
-            id: order.id,
-          },
-        },
-      },
-    });
-
-    console.log(
-      `Historique des commandes de l'utilisateur ${updatedUser.id} mis à jour`
-    );
+    return new NextResponse(null, { status: 200 });
   }
 
   return new NextResponse(null, { status: 200 });
 }
 
-/*session object: {
-  id: 'cs_test_b19em1J4qMyUNYe8E3j6qPBM6UuW80C3VZmSsVsQDB2DuGdqGkIxW1d7u7',
+/*
+session {
+  id: 'cs_test_b1p83YWJaqAFJfnTcctv3CI7J4N2waZsQbXvx3am0uMh0LmAxB9n0MwD9m',
   object: 'checkout.session',
   after_expiration: null,
   allow_promotion_codes: null,
-  amount_subtotal: 70500,
-  amount_total: 77550,
+  amount_subtotal: 66500,
+  amount_total: 73150,
   automatic_tax: { enabled: false, status: null },
   billing_address_collection: null,
   cancel_url: 'http://localhost:3000/panier',
-  client_reference_id: 'clnoqu2ol0000oqnwsn4wdt88',
+  client_reference_id: 'clnuirlrn0000oq941iih18d9',
   client_secret: null,
   consent: null,
   consent_collection: null,
-  created: 1697548452,
+  created: 1697577227,
   currency: 'eur',
   currency_conversion: null,
   custom_fields: [],
@@ -100,7 +74,7 @@ export async function POST(req: Request) {
     submit: null,
     terms_of_service_acceptance: null
   },
-  customer: 'cus_Opsskou9tYJyKs',
+  customer: 'cus_Oq0bsp5qlB3U5o',
   customer_creation: 'if_required',
   customer_details: {
     address: {
@@ -111,15 +85,15 @@ export async function POST(req: Request) {
       postal_code: '94270',
       state: null
     },
-    email: 'pipo27049298@gmail.com',
+    email: 'paulvigneron4698@gmail.com',
     name: 'Paul Vigneron',
     phone: '+33666666666',
     tax_exempt: 'none',
     tax_ids: []
   },
-  customer_email: 'pipo27049298@gmail.com',
-  expires_at: 1697634852,
-  invoice: 'in_1O2D6RCGBQIDG0SDGLhiOtMq',
+  customer_email: 'paulvigneron4698@gmail.com',
+  expires_at: 1697663627,
+  invoice: 'in_1O2KagCGBQIDG0SDxG9X1BGr',
   invoice_creation: {
     enabled: true,
     invoice_data: {
@@ -135,13 +109,13 @@ export async function POST(req: Request) {
     object: 'list',
     data: [ [Object], [Object] ],
     has_more: false,
-    url: '/v1/checkout/sessions/cs_test_b19em1J4qMyUNYe8E3j6qPBM6UuW80C3VZmSsVsQDB2DuGdqGkIxW1d7u7/line_items'
+    url: '/v1/checkout/sessions/cs_test_b1p83YWJaqAFJfnTcctv3CI7J4N2waZsQbXvx3am0uMh0LmAxB9n0MwD9m/line_items'
   },
   livemode: false,
   locale: null,
-  metadata: { userId: 'clnoqu2ol0000oqnwsn4wdt88' },
+  metadata: { userId: 'clnuirlrn0000oq941iih18d9' },
   mode: 'payment',
-  payment_intent: 'pi_3O2D6PCGBQIDG0SD0i4Cj8WF',
+  payment_intent: 'pi_3O2KaeCGBQIDG0SD0l5Y5ERk',
   payment_link: null,
   payment_method_collection: 'if_required',
   payment_method_configuration_details: null,
@@ -169,27 +143,115 @@ export async function POST(req: Request) {
   submit_type: 'pay',
   subscription: null,
   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
-  total_details: { amount_discount: 0, amount_shipping: 0, amount_tax: 7050 },
+  total_details: { amount_discount: 0, amount_shipping: 0, amount_tax: 6650 },
   ui_mode: 'hosted',
   url: null
 }
 
-ITEMS
-[
-  {
-    id: 'li_1O2D68CGBQIDG0SDfeYD4MiF',
-    name: 'Hôtel Castel Marie-Louise',
-    price: 385,
-    imageUrl: 'https://i.imgur.com/FecdXBQ.jpg',
-    details: '60*40 cm - Fine Art seul - Mat',
-    createdAt: 1697548474608
+items
+{
+  id: 'li_1O2KaFCGBQIDG0SDNd1DaQOD',
+  object: 'item',
+  amount_discount: 0,
+  amount_subtotal: 36000,
+  amount_tax: 3600,
+  amount_total: 39600,
+  currency: 'eur',
+  description: 'Pêcheur',
+  price: {
+    id: 'price_1O2KaFCGBQIDG0SD17o4kKQK',
+    object: 'price',
+    active: false,
+    billing_scheme: 'per_unit',
+    created: 1697577227,
+    currency: 'eur',
+    custom_unit_amount: null,
+    livemode: false,
+    lookup_key: null,
+    metadata: {},
+    nickname: null,
+    product: {
+      id: 'prod_OpumD3fybVhb7w',
+      object: 'product',
+      active: false,
+      attributes: [],
+      created: 1697555584,
+      default_price: null,
+      description: '60*40 cm - Fine Art seul - Satiné',
+      features: [],
+      images: [Array],
+      livemode: false,
+      metadata: [Object],
+      name: 'Pêcheur',
+      package_dimensions: null,
+      shippable: null,
+      statement_descriptor: null,
+      tax_code: null,
+      type: 'service',
+      unit_label: null,
+      updated: 1697555584,
+      url: null
+    },
+    recurring: null,
+    tax_behavior: 'unspecified',
+    tiers_mode: null,
+    transform_quantity: null,
+    type: 'one_time',
+    unit_amount: 36000,
+    unit_amount_decimal: '36000'
   },
-  {
-    id: 'li_1O2D68CGBQIDG0SDgzPBx9ur',
-    name: 'Pêcherie de Tharon-Plage',
-    price: 390.5,
-    imageUrl: 'https://i.imgur.com/hGSHu5X.jpg',
-    details: '60*40 cm - Subligraphie - Mat',
-    createdAt: 1697548474608
-  }
-] */
+  quantity: 1
+}
+{
+  id: 'li_1O2KaFCGBQIDG0SDPDkN9Uie',
+  object: 'item',
+  amount_discount: 0,
+  amount_subtotal: 30500,
+  amount_tax: 3050,
+  amount_total: 33550,
+  currency: 'eur',
+  description: 'Phare de Villes Martin',
+  price: {
+    id: 'price_1O2KaFCGBQIDG0SDx8hi5Xum',
+    object: 'price',
+    active: false,
+    billing_scheme: 'per_unit',
+    created: 1697577227,
+    currency: 'eur',
+    custom_unit_amount: null,
+    livemode: false,
+    lookup_key: null,
+    metadata: {},
+    nickname: null,
+    product: {
+      id: 'prod_OpvxHkm3hZ8CMg',
+      object: 'product',
+      active: false,
+      attributes: [],
+      created: 1697559959,
+      default_price: null,
+      description: '30*45 cm - Subligraphie - Mat',
+      features: [],
+      images: [Array],
+      livemode: false,
+      metadata: [Object],
+      name: 'Phare de Villes Martin',
+      package_dimensions: null,
+      shippable: null,
+      statement_descriptor: null,
+      tax_code: null,
+      type: 'service',
+      unit_label: null,
+      updated: 1697559959,
+      url: null
+    },
+    recurring: null,
+    tax_behavior: 'unspecified',
+    tiers_mode: null,
+    transform_quantity: null,
+    type: 'one_time',
+    unit_amount: 30500,
+    unit_amount_decimal: '30500'
+  },
+  quantity: 1
+} */

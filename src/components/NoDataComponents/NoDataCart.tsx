@@ -26,7 +26,7 @@ export default function NoDataCart() {
           <CardHeader>
             <CardTitle>Vos articles</CardTitle>
           </CardHeader>
-          <CardContent className="h-96 w-full">
+          <CardContent className="h-96 w-full flex flex-col items-center">
             <div className="text-center">
               <BsCartX className="w-20 h-20 mx-auto " />
               <p className="my-8">
@@ -37,19 +37,6 @@ export default function NoDataCart() {
               <Button className="uppercase">Boutique</Button>
             </Link>
           </CardContent>
-          <CardFooter className="flex flex-col">
-            <Separator className="my-4 bg-gray-500" />
-            <div className="w-full flex justify-between">
-              <span className="uppercase font-bold text-lg">Total</span>
-              <span className="text-lg">0 €</span>
-            </div>
-            <Button className=" mt-8 w-1/2">
-              <div className="flex items-center justify-center ">
-                <p>Paiement</p>
-                <BsCreditCard className="ml-4 w-5 h-5 text-center" />
-              </div>
-            </Button>
-          </CardFooter>
         </Card>
       </section>
     </main>

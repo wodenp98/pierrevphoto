@@ -10,6 +10,10 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     expand: ["line_items.data.price.product", "line_items"],
   });
 
+  if (!session) {
+    return <div>Session not found</div>;
+  }
+
   const items = session?.line_items?.data.map((item: any) => {
     return {
       id: item.id + Date.now(),

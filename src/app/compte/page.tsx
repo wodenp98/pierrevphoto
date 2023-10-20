@@ -1,34 +1,48 @@
+/* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import SignOutButton from "@/components/SignOutButton/SignOutButton";
 import { Login } from "@/components/CompteComponents/Login";
 import prisma from "../../../prisma/client";
-import { UserInfo } from "@/components/CompteComponents/UserInfo";
+import UserInfo from "@/components/CompteComponents/UserInfo";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import Link from "next/link";
+import OrderComponent from "@/components/CompteComponents/OrderComponent";
+import { Separator } from "@/components/ui/separator";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  const ordersWithArticles = await prisma.order.findMany({
-    where: {
-      userId: session?.user.id,
-    },
-    include: {
-      articles: {
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          imageUrl: true,
-          description: true,
-        },
-      },
-    },
-  });
-  // je peux map ceci
-  //ca se push dans Article et je ne veux pas
-  console.log("ordersWithArticles", ordersWithArticles);
 
   if (session) {
+    const ordersWithArticles = await prisma.order.findMany({
+      where: {
+        userId: session?.user.id,
+      },
+      include: {
+        articles: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            imageUrl: true,
+            description: true,
+          },
+        },
+      },
+    });
+
+    const sortedOrders = ordersWithArticles.sort((a, b) => {
+      return new Date(b.orderedAt).getTime() - new Date(a.orderedAt).getTime();
+    });
     return (
       <main>
         <ul className="flex ml-6">
@@ -51,7 +65,55 @@ export default async function Page() {
             </div>
           </div>
 
-          <UserInfo />
+          <>
+            <div className="text-center my-4">
+              Bonjour {session?.user?.name ?? ""} !
+            </div>
+            <Tabs defaultValue="informations" className="w-11/12 lg:w-8/12">
+              <TabsList
+                className="grid w-full h-10 grid-cols-2"
+                style={{ backgroundColor: "rgb(244 244 245)" }}
+              >
+                <TabsTrigger value="informations">Informations</TabsTrigger>
+                <TabsTrigger value="commandes">Commandes</TabsTrigger>
+              </TabsList>
+              <TabsContent value="informations">
+                <UserInfo />
+              </TabsContent>
+              <TabsContent value="commandes">
+                {" "}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="uppercase mb-4">Commandes</CardTitle>
+                    <Separator />
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    {ordersWithArticles.length === 0 ? (
+                      <div className="flex flex-col items-center text-center">
+                        <p>
+                          Vous n'avez pas encore effectué d'achat sur notre
+                          site!
+                        </p>
+                        <span>Mais vous pouvez changer ça 😉</span>
+                      </div>
+                    ) : (
+                      sortedOrders?.map((command: any) => (
+                        <div key={command.id}>
+                          <OrderComponent historyCommand={command} />
+                          <Separator />
+                        </div>
+                      ))
+                    )}
+                  </CardContent>
+                  <CardFooter className="flex flex-col items-center">
+                    <Link href="/boutique">
+                      <Button>BOUTIQUE</Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </>
         </section>
       </main>
     );
