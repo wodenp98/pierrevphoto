@@ -20,11 +20,7 @@ type CarouselData = {
   imageUrl: string;
 };
 
-type CarouselProps = {
-  data: CarouselData[];
-};
-
-export default function Carousel({ data }: CarouselProps) {
+export default function Carousel({ data }: { data: CarouselData[] }) {
   return (
     <div className="relative h-[calc(100vh-80px)]">
       <Swiper
@@ -34,7 +30,7 @@ export default function Carousel({ data }: CarouselProps) {
         loop={true}
         className="h-full"
       >
-        {data?.map((slide: any) => (
+        {data?.map((slide: CarouselData) => (
           <SwiperSlide key={slide.id}>
             <div className="relative h-full">
               <div className="absolute inset-0 flex items-center justify-center">

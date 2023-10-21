@@ -67,8 +67,8 @@ const SelectInput: React.FC<{
         <option value="" disabled hidden>
           -- Select an option --
         </option>
-        {options.map((option: any) => (
-          <option key={option} value={option.value}>
+        {options.map((option: string, index: number) => (
+          <option key={index} value={option}>
             {option}
           </option>
         ))}

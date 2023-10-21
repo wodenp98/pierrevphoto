@@ -27,23 +27,28 @@ import { useSession } from "next-auth/react";
 import NoDataCart from "@/components/NoDataComponents/NoDataCart";
 import prisma from "../../../prisma/client";
 import { use, useEffect, useState } from "react";
+import { set } from "zod";
+import { Loader2 } from "lucide-react";
 
 const stripePromise = loadStripe(
   `${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`
 );
 
 type CartItem = {
-  id: string;
-  nom: string;
+  id: number;
+  name: string;
   price: number;
   imageUrl: string;
   format: string;
   rendu: string;
   impression: string;
+  aspectRatio: string;
+  description: string;
 };
 
 export default function Panier() {
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
   const { cart, totalPrice } = useCartStore();
   const removeFromCart = useCartStore((state) => state.removeFromCart);
 
@@ -109,6 +114,8 @@ export default function Panier() {
       });
     }
 
+    setIsLoading(true);
+
     const stripe = await stripePromise;
     const response = await fetch("/api/payment", {
       method: "POST",
@@ -148,7 +155,7 @@ export default function Panier() {
             <CardTitle>Vos articles</CardTitle>
           </CardHeader>
           <CardContent>
-            {cart?.map((item: any) => (
+            {cart?.map((item: CartItem) => (
               <div key={item.id} className="flex mt-5">
                 <div className="flex-shrink-0">
                   <Image
@@ -161,7 +168,7 @@ export default function Panier() {
                   />
                 </div>
                 <div className="flex-grow ml-4">
-                  <p className="text-sm lg:text-xl font-bold">{item.nom}</p>
+                  <p className="text-sm lg:text-xl font-bold">{item.name}</p>
                   <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
                       <AccordionTrigger className="text-sm ">
@@ -200,11 +207,22 @@ export default function Panier() {
               <span className="uppercase font-bold text-lg">Total</span>
               <span className="text-lg">{totalPrice} €</span>
             </div>
-            <Button className=" mt-8 w-1/2" onClick={handleCheckout}>
-              <div className="flex items-center justify-center ">
-                <p>Paiement</p>
-                <BsCreditCard className="ml-4 w-5 h-5 text-center" />
-              </div>
+            <Button
+              className=" mt-8 w-1/2"
+              onClick={handleCheckout}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center">
+                  <Loader2 size={16} className="mr-2 h-4 w-4 animate-spin" />
+                  <p className="ml-4">Paiement en cours...</p>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center">
+                  <p>Paiement</p>
+                  <BsCreditCard className="ml-4 w-5 h-5 text-center" />
+                </div>
+              )}
             </Button>
           </CardFooter>
         </Card>

@@ -5,12 +5,10 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  params: {
-    id: string;
-  };
+  id: string;
 }
 
-export default async function Page({ params: { id } }: Props) {
+export default async function Page({ params: { id } }: { params: Props }) {
   const article = await getArticleById(id);
 
   return (

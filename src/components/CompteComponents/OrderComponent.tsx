@@ -6,9 +6,13 @@ import {
 } from "@/components/ui/accordion";
 
 import Image from "next/image";
+import { OrdersProps } from "@/types/OrderTypes";
 
-export default function CardHistoryItem({ historyCommand }: any) {
-  console.log(historyCommand);
+export default function CardHistoryItem({
+  historyCommand,
+}: {
+  historyCommand: OrdersProps;
+}) {
   const date = new Date(historyCommand.orderedAt).toLocaleDateString("fr-FR");
 
   return (

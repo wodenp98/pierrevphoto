@@ -5,8 +5,13 @@ import Image from "next/image";
 import Confetti from "react-confetti";
 import { useCartStore } from "@/lib/store/useCartStore";
 import { useEffect } from "react";
+import { Customer } from "@/types/CustomerTypes";
 
-export default function CustomerDetails({ customerDetails }: any) {
+export default function CustomerDetails({
+  customerDetails,
+}: {
+  customerDetails: Customer[];
+}) {
   const { reset } = useCartStore();
 
   useEffect(() => {
@@ -22,8 +27,8 @@ export default function CustomerDetails({ customerDetails }: any) {
       </h2>
       <div className="flex flex-wrap flex-row justify-center">
         {customerDetails.length > 0 ? (
-          customerDetails.map((item: any, index: number) => (
-            <div key={index} className="flex flex-col items-center">
+          customerDetails.map((item: Customer) => (
+            <div key={item.id} className="flex flex-col items-center">
               <Image
                 src={item.imageUrl}
                 alt={item.name}

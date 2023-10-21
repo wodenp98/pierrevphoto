@@ -18,6 +18,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import Link from "next/link";
 import OrderComponent from "@/components/CompteComponents/OrderComponent";
 import { Separator } from "@/components/ui/separator";
+import { OrdersProps } from "@/types/OrderTypes";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -43,6 +44,7 @@ export default async function Page() {
     const sortedOrders = ordersWithArticles.sort((a, b) => {
       return new Date(b.orderedAt).getTime() - new Date(a.orderedAt).getTime();
     });
+
     return (
       <main>
         <ul className="flex ml-6">
@@ -97,7 +99,7 @@ export default async function Page() {
                         <span>Mais vous pouvez changer ça 😉</span>
                       </div>
                     ) : (
-                      sortedOrders?.map((command: any) => (
+                      sortedOrders?.map((command: OrdersProps) => (
                         <div key={command.id}>
                           <OrderComponent historyCommand={command} />
                           <Separator />

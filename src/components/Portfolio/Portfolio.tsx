@@ -17,11 +17,7 @@ type PortfolioData = {
   imageUrl: string;
 };
 
-type PortfolioProps = {
-  data: PortfolioData[];
-};
-
-export default function Portfolio({ data }: PortfolioProps) {
+export default function Portfolio({ data }: { data: PortfolioData[] }) {
   return (
     <Dialog>
       <DialogTrigger asChild>

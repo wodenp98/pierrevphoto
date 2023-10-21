@@ -3,6 +3,18 @@ import { stripe } from "@/lib/stripe/stripe";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 
+interface Item {
+  id: number;
+  name: string;
+  imageUrl: string;
+  description: string;
+  aspectRatio: string;
+  price: number;
+  format: string;
+  rendu: string;
+  impression: string;
+}
+
 export async function POST(request: Request) {
   const sessionUser = await getServerSession(authOptions);
 
@@ -22,7 +34,7 @@ export async function POST(request: Request) {
     tax_type: "vat",
   });
 
-  const lineItems = userCart?.cart.map((item: any) => {
+  const lineItems = userCart?.cart.map((item: Item) => {
     return {
       price_data: {
         currency: "eur",
@@ -63,9 +75,6 @@ export async function POST(request: Request) {
     invoice_creation: {
       enabled: true,
     },
-    // automatic_tax: {
-    //   enabled: true,
-    // },
   });
 
   return NextResponse.json(session);

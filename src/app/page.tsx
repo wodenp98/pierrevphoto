@@ -6,7 +6,6 @@ import Carousel from "@/components/CarouselHomePage/CarouselHomePage";
 import Link from "next/link";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import { Button } from "@/components/ui/button";
-import { notFound } from "next/navigation";
 import { carouselImages } from "@/lib/carousel/carousel.query";
 import { portfolioImages } from "@/lib/portfolio/portfolio.query";
 
@@ -15,7 +14,7 @@ export default async function Page() {
   const portfolioData = await portfolioImages();
 
   if (!carouselData || !portfolioData) {
-    notFound();
+    return <div>Chargement...</div>;
   }
 
   return (

@@ -9,7 +9,7 @@ import { VscAccount } from "react-icons/vsc";
 import { ToggleDarkMode } from "@/components/Navbar/ToggleDarkMode";
 import Link from "next/link";
 import Image from "next/image";
-import { AlignJustify } from "lucide-react";
+import { AlignJustify, ShoppingCart } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -20,13 +20,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
+import CartIconNavbar from "./CartIconNavbar";
+
+{
+  /* <span class="relative inline-block">
+  <svg class="w-6 h-6 text-gray-700 fill-current" viewBox="0 0 20 20"><path d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+  <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">99</span>
+</span> */
+}
 
 export default function Navbar() {
   return (
     <header className="flex items-center justify-between z-50 p-4">
       <DropdownMenu>
-        <DropdownMenuTrigger className="cursor-pointer" asChild>
-          <AlignJustify size={32} strokeWidth={1.5} />
+        <DropdownMenuTrigger asChild>
+          <div className="w-20">
+            <AlignJustify
+              size={32}
+              strokeWidth={1.5}
+              className="cursor-pointer"
+            />
+          </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-64 p-2">
           <DropdownMenuLabel className="uppercase">Menu</DropdownMenuLabel>
@@ -119,7 +133,10 @@ export default function Navbar() {
           className="hidden dark:block"
         />
       </Link>
-      <ToggleDarkMode />
+      <div className="flex items-center">
+        <CartIconNavbar />
+        <ToggleDarkMode />
+      </div>
     </header>
   );
 }
