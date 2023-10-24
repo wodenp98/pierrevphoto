@@ -8,6 +8,7 @@ import { toast } from "../ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/lib/store/useCartStore";
+import useFromStore from "@/lib/store/hooks/useFromStore";
 
 type Article = {
   name: string;
@@ -53,7 +54,7 @@ const SelectInput: React.FC<{
   onChange: (value: string) => void;
 }> = ({ label, name, options, errors, required, register, onChange }) => {
   return (
-    <div className="flex flex-col mb-2 w-full">
+    <div className="flex flex-col mb-2 w-full md:w-3/4">
       <label htmlFor={name} className="mb-1 text-sm font-medium text-gray-700">
         {label}
       </label>
@@ -79,7 +80,7 @@ const SelectInput: React.FC<{
 };
 
 export const ShopForm = ({ article }: { article: Article }) => {
-  const { cart } = useCartStore();
+  const cart = useFromStore(useCartStore, (state) => state.cart);
   const addToCart = useCartStore((state) => state.addToCart);
   const {
     register,
@@ -121,7 +122,7 @@ export const ShopForm = ({ article }: { article: Article }) => {
       impression: formValues.impression,
     };
 
-    const itemExist = cart.find((item) => item.id === productToCart.id);
+    const itemExist = cart?.find((item) => item.id === productToCart.id);
 
     if (itemExist) {
       return toast({
@@ -150,8 +151,11 @@ export const ShopForm = ({ article }: { article: Article }) => {
   };
 
   return (
-    <div className="mt-6">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+    <div className="mt-6 md:w-1/2 md:mt-0">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full flex flex-col sm:items-center md:items-center lg:items-center"
+      >
         <SelectInput
           label="Format"
           name="format"

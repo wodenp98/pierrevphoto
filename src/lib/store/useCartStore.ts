@@ -62,7 +62,7 @@ export const useCartStore = create<State & Actions>()(
       },
     }),
     {
-      name: "cart-store", // name of the persisted store
+      name: "cart-store",
     }
   )
 );

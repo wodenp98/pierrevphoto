@@ -27,8 +27,8 @@ import { useSession } from "next-auth/react";
 import NoDataCart from "@/components/NoDataComponents/NoDataCart";
 import prisma from "../../../prisma/client";
 import { use, useEffect, useState } from "react";
-import { set } from "zod";
 import { Loader2 } from "lucide-react";
+import useFromStore from "@/lib/store/hooks/useFromStore";
 
 const stripePromise = loadStripe(
   `${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`
@@ -49,7 +49,8 @@ type CartItem = {
 export default function Panier() {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
-  const { cart, totalPrice } = useCartStore();
+  const cart = useFromStore(useCartStore, (state) => state.cart);
+  const totalPrice = useFromStore(useCartStore, (state) => state.totalPrice);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
 
   const [isReady, setIsReady] = useState(false);
@@ -96,7 +97,7 @@ export default function Panier() {
     );
   }
 
-  if (cart.length === 0) {
+  if (cart?.length === 0) {
     return <NoDataCart />;
   }
 

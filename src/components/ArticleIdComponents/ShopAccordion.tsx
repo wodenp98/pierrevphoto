@@ -8,7 +8,7 @@ import {
 
 export const AccordionShop = () => {
   return (
-    <Accordion type="single" collapsible className="w-10/12">
+    <Accordion type="single" collapsible className="w-10/12  lg:w-1/2">
       <AccordionItem value="item-1">
         <AccordionTrigger>LA SUBLIGAPHIE</AccordionTrigger>
         <AccordionContent>
