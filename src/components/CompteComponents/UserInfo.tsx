@@ -33,6 +33,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
+import notFound from "@/app/compte/error";
 
 const FormSchema = z.object({
   nom: z
@@ -56,6 +57,10 @@ export default function UserInfo() {
     },
     mode: "onChange",
   });
+
+  if (!session?.user) {
+    return notFound();
+  }
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     update({ name: data.nom });

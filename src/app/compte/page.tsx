@@ -83,7 +83,6 @@ export default async function Page() {
                 <UserInfo />
               </TabsContent>
               <TabsContent value="commandes">
-                {" "}
                 <Card>
                   <CardHeader>
                     <CardTitle className="uppercase mb-4">Commandes</CardTitle>

@@ -32,20 +32,13 @@ export default function About() {
           <p className="my-6"> Bon visionnage !</p>
           <p className="my-6"> Pierre V.</p>
         </div>
-        <div
-          className="my-2"
-          style={{ position: "relative", width: "325px", height: "200px" }}
-        >
-          <Image
-            src="/photo-pierre.jpg"
-            alt="Picture of the author"
-            sizes="325px"
-            fill
-            style={{
-              objectFit: "contain",
-            }}
-          />
-        </div>
+        <Image
+          src="/photo-pierre.jpg"
+          alt="Picture of the author"
+          width={500}
+          height={500}
+          className="object-cover object-top my-10 rounded-lg w-80 h-96"
+        />
       </section>
     </main>
   );

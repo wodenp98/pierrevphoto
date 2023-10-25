@@ -8,13 +8,14 @@ import Portfolio from "@/components/Portfolio/Portfolio";
 import { Button } from "@/components/ui/button";
 import { carouselImages } from "@/lib/carousel/carousel.query";
 import { portfolioImages } from "@/lib/portfolio/portfolio.query";
+import Loading from "./loading";
 
 export default async function Page() {
   const carouselData = await carouselImages();
   const portfolioData = await portfolioImages();
 
   if (!carouselData || !portfolioData) {
-    return <div>Chargement...</div>;
+    return Loading();
   }
 
   return (
