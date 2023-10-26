@@ -1,5 +1,7 @@
 "use client";
 
+// a customiser
+
 export default function GlobalError({
   error,
   reset,
