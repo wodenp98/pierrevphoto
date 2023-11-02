@@ -27,7 +27,7 @@ export default function Portfolio({ data }: { data: PortfolioData[] }) {
               src="/assets/Nature.jpg"
               alt="Photo de pierre"
               height={1080}
-              width={1080}
+              width={1920}
               className="rounded-md col-span-1 w-full h-full  object-cover"
             />
             <div className="rounded-md absolute h-full w-full bg-black/50 flex items-center justify-center group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">

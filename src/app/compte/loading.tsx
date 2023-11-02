@@ -7,10 +7,7 @@ export default function Loading() {
   return (
     <section className="flex flex-col items-center mt-4">
       <Tabs defaultValue="login" className="w-11/12 lg:w-8/12">
-        <TabsList
-          className="grid w-full h-10 grid-cols-2"
-          style={{ backgroundColor: "rgb(244 244 245)" }}
-        >
+        <TabsList className="grid w-full h-10 grid-cols-2">
           <Skeleton className="w-full h-full bg-zinc-500" />
         </TabsList>
         <TabsContent value="login">

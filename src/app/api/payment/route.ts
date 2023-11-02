@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/stripe";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(1, "10 s"),
+});
 
 interface Item {
   id: number;
@@ -16,6 +23,20 @@ interface Item {
 }
 
 export async function POST(request: Request) {
+  const ip = request.headers.get("x-forwaded-for") ?? "";
+  const { success, reset } = await ratelimit.limit(ip);
+
+  if (!success) {
+    const now = Date.now();
+    const retryAfter = Math.floor((reset - now) / 1000);
+    return new Response("Too Many Requests", {
+      status: 429,
+      headers: {
+        ["retry-after"]: `${retryAfter}}`,
+      },
+    });
+  }
+
   const sessionUser = await getServerSession(authOptions);
 
   if (!sessionUser?.user || !sessionUser?.user.email) {

@@ -5,7 +5,7 @@ import { Separator } from "../ui/separator";
 
 export default function Footer() {
   return (
-    <footer className="mt-5 border-t border-accent">
+    <footer className="mt-20 border-t border-accent">
       <div className="flex justify-center mt-4">
         <Link href="/">
           <Image

@@ -1,13 +1,9 @@
-import Image from "next/image";
-import prisma from "../../prisma/client";
-import { z } from "zod";
-import { NextApiResponse } from "next";
 import Carousel from "@/components/CarouselHomePage/CarouselHomePage";
 import Link from "next/link";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import { Button } from "@/components/ui/button";
-import { carouselImages } from "@/lib/carousel/carousel.query";
-import { portfolioImages } from "@/lib/portfolio/portfolio.query";
+import { carouselImages } from "@/app/carousel.query";
+import { portfolioImages } from "@/app/portfolio.query";
 import Loading from "./loading";
 
 export default async function Page() {

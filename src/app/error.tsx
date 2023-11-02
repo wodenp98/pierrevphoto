@@ -1,6 +1,7 @@
 "use client";
 
-// a customiser
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function GlobalError({
   error,
@@ -9,11 +10,26 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const windowReload = () => {
+    window.location.reload();
+  };
+
   return (
     <html>
       <body>
-        <h2>Something went wrong!</h2>
-        <button onClick={() => reset()}>Try again</button>
+        <main className="h-screen flex justify-center items-center">
+          <div className="flex flex-col items-center">
+            <h2 className="text-3xl uppercase text-center">
+              Something went wrong!
+            </h2>
+            <div className="flex mt-6 space-x-4">
+              <Button onClick={windowReload}>Reset</Button>
+              <Link href="/">
+                <Button variant={"secondary"}>Home</Button>
+              </Link>
+            </div>
+          </div>
+        </main>
       </body>
     </html>
   );

@@ -18,7 +18,7 @@ export default async function Page() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
           {articles.map((article) => (
             <Link href={`/boutique/${article.id}`} key={article.id}>
-              <div style={{ position: "relative", height: "500px" }}>
+              <div className="relative h-[500px]">
                 <Image
                   alt="Mountains"
                   src={article.imageUrl}

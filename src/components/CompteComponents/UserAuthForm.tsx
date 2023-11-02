@@ -39,6 +39,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   });
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
+  // crsf token
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true);
 

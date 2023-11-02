@@ -19,19 +19,10 @@ export default function Loading() {
           </div>
 
           <div className="lg:w-1/2 mt-3 lg:ml-6 h-full">
-            <Skeleton
-              className="text-3xl bg-zinc-500"
-              style={{ height: "30px", width: "200px" }}
-            />
+            <Skeleton className="text-3xl bg-zinc-500 w-8 h-52" />
             <Skeleton className="text-sm bg-zinc-500 mt-6 text-gray-500" />
-            <Skeleton
-              className="mt-6 bg-zinc-500"
-              style={{ width: "200px", height: "40px" }}
-            />
-            <Skeleton
-              className="object-cover mt-6 bg-zinc-500 h-full w-full"
-              style={{ width: "300px", height: "200px" }}
-            />
+            <Skeleton className="mt-6 bg-zinc-500 w-8 h-52" />
+            <Skeleton className="object-cover mt-6 bg-zinc-500 h-52 w-80" />
           </div>
         </div>
 

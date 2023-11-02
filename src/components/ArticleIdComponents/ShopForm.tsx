@@ -113,6 +113,8 @@ export const ShopForm = ({ article }: { article: Article }) => {
 
   const price = getPrice(formValues);
 
+  // csrfToken
+
   const onSubmit = () => {
     const productToCart = {
       ...article,
