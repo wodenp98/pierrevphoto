@@ -2,13 +2,15 @@ import Carousel from "@/components/CarouselHomePage/CarouselHomePage";
 import Link from "next/link";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import { Button } from "@/components/ui/button";
-import { carouselImages } from "@/app/carousel.query";
-import { portfolioImages } from "@/app/portfolio.query";
+import { carouselImages } from "@/utils/carousel.query";
+import { portfolioImages } from "@/utils/portfolio.query";
 import Loading from "./loading";
 
 export default async function Page() {
   const carouselData = await carouselImages();
   const portfolioData = await portfolioImages();
+
+  //https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
 
   if (!carouselData || !portfolioData) {
     return Loading();

@@ -2,7 +2,10 @@ import { AccordionShop } from "@/components/ArticleIdComponents/ShopAccordion";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
-  // You can add any UI inside Loading, including a Skeleton.
+  {
+    /* voir le loading */
+  }
+
   return (
     <main>
       <ul className="flex ml-6">
@@ -19,10 +22,10 @@ export default function Loading() {
           </div>
 
           <div className="lg:w-1/2 mt-3 lg:ml-6 h-full">
-            <Skeleton className="text-3xl bg-zinc-500 w-8 h-52" />
+            <Skeleton className="text-3xl bg-zinc-500 w-full h-20" />
             <Skeleton className="text-sm bg-zinc-500 mt-6 text-gray-500" />
-            <Skeleton className="mt-6 bg-zinc-500 w-8 h-52" />
-            <Skeleton className="object-cover mt-6 bg-zinc-500 h-52 w-80" />
+            <Skeleton className="mt-6 bg-zinc-500 w-full h-20" />
+            <Skeleton className="object-cover mt-6 bg-zinc-500 h-20 w-full" />
           </div>
         </div>
 

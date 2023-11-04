@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import AuthContext from "@/lib/auth/AuthContext";
 import Footer from "@/components/Footer/Footer";
-import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 

@@ -1,5 +1,5 @@
 import CustomerDetails from "@/components/CustomerDetails/CustomerDetails";
-import { stripe } from "@/lib/stripe/stripe";
+import { stripe } from "@/utils/stripe/stripe";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import { getArticleById } from "../boutique/[id]/boutiqueId.query";
 import prisma from "../../../prisma/client";

@@ -3,6 +3,7 @@ import ShopForm from "@/components/ArticleIdComponents/ShopForm";
 import { getArticleById } from "./boutiqueId.query";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import Loading from "./loading";
 
 interface Props {
   id: string;
@@ -10,8 +11,7 @@ interface Props {
 
 export default async function Page({ params: { id } }: { params: Props }) {
   const article = await getArticleById(id);
-
-  // faire un if else du composant en fonction de l'aspect ratio de l'image
+  // faire loading comme le component et flex
 
   return (
     <main>

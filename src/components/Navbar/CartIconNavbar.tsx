@@ -16,7 +16,7 @@ import {
 } from "../ui/sheet";
 import { Separator } from "../ui/separator";
 import { useSession } from "next-auth/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsCreditCard } from "react-icons/bs";
 import { ToastAction } from "../ui/toast";
 import { toast } from "../ui/use-toast";
@@ -28,10 +28,8 @@ import {
   AccordionContent,
 } from "../ui/accordion";
 import Image from "next/image";
-
-const stripePromise = loadStripe(
-  `${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`
-);
+import { postData } from "@/utils/helpers";
+import { getStripe } from "@/utils/stripe/stripe-client";
 
 type CartItem = {
   id: number;
@@ -52,7 +50,49 @@ export default function CartIconNavbar() {
   const totalPrice = useFromStore(useCartStore, (state) => state.totalPrice);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
 
+  // const handleCheckout = async () => {
+  //   if (!session?.user) {
+  //     return toast({
+  //       variant: "destructive",
+  //       className: "bg-red-500 text-white",
+  //       title: "Vous devez avoir un compte pour passer commande.",
+  //       action: (
+  //         <Link href={"/compte"}>
+  //           <ToastAction altText="Go to account">Compte</ToastAction>
+  //         </Link>
+  //       ),
+  //     });
+  //   }
+
+  //   setIsLoading(true);
+
+  //   const stripe = await stripePromise;
+  //   const response = await fetch("/api/payment", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       cart: cart,
+  //       userId: session?.user?.id,
+  //       email: session?.user?.email,
+  //     }),
+  //   });
+
+  //   const responseData = await response.json();
+
+  //   const result = await stripe?.redirectToCheckout({
+  //     sessionId: responseData.id,
+  //   });
+
+  //   if (result?.error) {
+  //     toast({
+  //       variant: "destructive",
+  //       className: "bg-red-500 text-white",
+  //       title: "Une erreur est survenue lors du paiement.",
+  //     });
+  //   }
+  // };
+
   const handleCheckout = async () => {
+    setIsLoading(true);
     if (!session?.user) {
       return toast({
         variant: "destructive",
@@ -66,37 +106,25 @@ export default function CartIconNavbar() {
       });
     }
 
-    setIsLoading(true);
-
-    const stripe = await stripePromise;
-    const response = await fetch("/api/payment", {
-      method: "POST",
-      body: JSON.stringify({
-        cart: cart,
-        userId: session?.user?.id,
-        email: session?.user?.email,
-      }),
-    });
-
-    const responseData = await response.json();
-
-    const result = await stripe?.redirectToCheckout({
-      sessionId: responseData.id,
-    });
-
-    if (result?.error) {
-      toast({
-        variant: "destructive",
-        className: "bg-red-500 text-white",
-        title: "Une erreur est survenue lors du paiement.",
+    try {
+      const { sessionId } = await postData({
+        url: "/api/stripe-session",
+        data: cart,
       });
+
+      const stripe = await getStripe();
+      stripe?.redirectToCheckout({ sessionId });
+    } catch (error) {
+      return alert((error as Error)?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <span className="relative cursor-pointer ">
+        <span className="relative cursor-pointer">
           <ShoppingCart size={24} strokeWidth={1.5} className="mr-4" />
           <span className="absolute top-1 right-4 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
             {cart ? cart.length : 0}

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe/stripe";
+import { stripe } from "@/utils/stripe/stripe";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { Ratelimit } from "@upstash/ratelimit";
