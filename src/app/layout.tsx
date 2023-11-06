@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
@@ -22,17 +23,40 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={inter.className}>
+      {/* <body className={inter.className}> */}
+      <body className={`min-h-screen bg-background ${GeistSans.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthContext>
-            <NextTopLoader />
-            <Navbar />
-            {children}
-            <Toaster />
-            <Footer />
+            <div className="relative flex min-h-screen flex-col">
+              <NextTopLoader />
+              <Navbar />
+              {children}
+              <Toaster />
+              <Footer />
+            </div>
           </AuthContext>
         </ThemeProvider>
       </body>
     </html>
   );
 }
+
+/*
+
+faire un layout pour les pages pour que ca soit niquel?
+<html lang="fr" suppressHydrationWarning>
+ <body className={inter.className}> 
+<body className={`min-h-screen bg-background ${inter.className}`}>
+  <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <AuthContext>
+      <div className="relative flex min-h-screen flex-col">
+        <NextTopLoader />
+        <Navbar />
+        <div className="flex 1">{children}</div>
+        <Toaster />
+        <Footer />
+      </div>
+    </AuthContext>
+  </ThemeProvider>
+</body>
+</html> */

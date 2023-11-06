@@ -35,10 +35,14 @@ export default async function Page({
   });
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <BsFillPatchCheckFill size={50} color="green" />
-      <p>Thank you for your purchase!</p>
-      <CustomerDetails customerDetails={items as Customer[]} />
-    </div>
+    <main className="flex 1">
+      <div className="container relative">
+        <div className="flex flex-col items-center justify-center">
+          <BsFillPatchCheckFill size={50} color="green" />
+          <p>Thank you for your purchase!</p>
+          <CustomerDetails customerDetails={items as Customer[]} />
+        </div>
+      </div>
+    </main>
   );
 }
