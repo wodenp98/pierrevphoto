@@ -3,6 +3,13 @@ import { getArticleById } from "../../../utils/prisma/boutiqueId.query";
 import Image from "next/image";
 import ShopFormPaysage from "@/components/BoutiqueIdComponents/ShopFormPaysage";
 import ShopFormPortrait from "@/components/BoutiqueIdComponents/ShopFormPortrait";
+import { Button } from "@/components/ui/button";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "@/components/ui/hover-card";
+import { Info, CalendarIcon } from "lucide-react";
 
 interface Props {
   id: string;
@@ -31,6 +38,33 @@ export default async function Page({ params: { id } }: { params: Props }) {
                 <div className="md:w-1/2">
                   <h1 className="text-3xl">{article.name}</h1>
                   <p className="text-sm mt-6">{article.description}</p>
+                  <HoverCard>
+                    <HoverCardTrigger asChild className="px-1 mt-2">
+                      <Button variant="link" className="flex items-center">
+                        <Info className="mr-2" />
+                        Informations livraisons
+                      </Button>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-80">
+                      <div className="flex justify-between space-x-4">
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-semibold">
+                            Informations livraisons
+                          </h4>
+                          <p className="text-sm">
+                            The React Framework – created and maintained by
+                            @vercel.
+                          </p>
+                          <div className="flex items-center pt-2">
+                            <CalendarIcon className="mr-2 h-4 w-4 opacity-70" />{" "}
+                            <span className="text-xs text-muted-foreground">
+                              Joined December 2021
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
                 </div>
                 <ShopFormPortrait article={article} />
               </div>
@@ -50,6 +84,28 @@ export default async function Page({ params: { id } }: { params: Props }) {
                 <div className="md:w-1/2">
                   <h1 className="text-3xl">{article.name}</h1>
                   <p className="text-sm mt-6">{article.description}</p>
+                  <HoverCard>
+                    <HoverCardTrigger asChild className="px-0 mt-4">
+                      <Button variant="link" className="flex items-center">
+                        <Info className="mr-2" />
+                        Informations livraisons
+                      </Button>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-80">
+                      <div className="flex justify-between space-x-4">
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-semibold">
+                            Informations livraisons
+                          </h4>
+                          <p className="text-sm">
+                            Toutes nos livraisons sont envoyées en point relais.
+                            Un point relais vous sera demandé une fois votre
+                            commande passée.
+                          </p>
+                        </div>
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
                 </div>
 
                 <ShopFormPaysage article={article} />

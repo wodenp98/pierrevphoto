@@ -1,7 +1,7 @@
 "use client";
 import useFromStore from "@/lib/store/hooks/useFromStore";
 import { useCartStore } from "@/lib/store/useCartStore";
-import { Loader2, ShoppingCart } from "lucide-react";
+import { CalendarIcon, Info, Loader2, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import {
@@ -29,6 +29,11 @@ import {
 import Image from "next/image";
 import { postData } from "@/utils/helpers";
 import { getStripe } from "@/utils/stripe/stripe-client";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "@/components/ui/hover-card";
 
 type CartItem = {
   id: number;
@@ -155,7 +160,8 @@ export default function CartIconNavbar() {
                 <span className="text-lg">{totalPrice} €</span>
               </div>
             </div>
-            <SheetFooter className="flex flex-col">
+
+            <SheetFooter className="flex flex-col justify-center items-center sm:justify-center">
               <SheetClose asChild>
                 <Button
                   className=" mt-8 w-1/2"

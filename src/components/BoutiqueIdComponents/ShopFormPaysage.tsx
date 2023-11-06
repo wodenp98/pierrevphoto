@@ -6,6 +6,12 @@ import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/lib/store/useCartStore";
 import useFromStore from "@/lib/store/hooks/useFromStore";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "@/components/ui/hover-card";
+import { Info, CalendarIcon } from "lucide-react";
 
 type Article = {
   name: string;
@@ -176,7 +182,7 @@ export const ShopForm = ({ article }: { article: Article }) => {
           }}
           register={register}
         />
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex flex-col justify-center">
           <Button type="submit" className="uppercase py-2 px-4">
             Ajouter au panier {price.toFixed(2)}€
           </Button>

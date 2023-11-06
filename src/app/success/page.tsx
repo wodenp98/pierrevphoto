@@ -41,6 +41,10 @@ export default async function Page({
         <div className="flex flex-col items-center justify-center">
           <BsFillPatchCheckFill size={50} color="green" />
           <p>Merci d'avoir passer commande!</p>
+          <p>
+            Vous recevrez un mail sous 48H vous demandant de sélectionner un
+            point relais, une facture récapitulative vous sera également envoyée
+          </p>
           <CustomerDetails customerDetails={items as Customer[]} />
         </div>
       </div>
