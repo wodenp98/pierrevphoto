@@ -17,7 +17,7 @@ export function ToggleDarkMode() {
     >
       <SunIcon className="h-5 w-5 dark:hidden" />
       <MoonIcon className="hidden h-5 w-5 dark:block" />
-      <span className="sr-only">Toggle theme</span>
+      <span className="sr-only">Theme Bouton</span>
     </Button>
   );
 }

@@ -3,7 +3,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsContent } from "@/components/ui/tabs";
 
 export default function Loading() {
-  // You can add any UI inside Loading, including a Skeleton.
   return (
     <section className="flex flex-col items-center mt-4">
       <Tabs defaultValue="login" className="w-11/12 lg:w-8/12">

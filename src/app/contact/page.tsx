@@ -8,7 +8,7 @@ export default function Contact() {
   return (
     <main className="flex 1">
       <div className="container relative">
-        <h1 className="ml-6 mt-6 text-4xl">Contact</h1>
+        <h1 className="flex justify-center my-6 text-4xl uppercase">Contact</h1>
         <section className="flex flex-col items-center">
           <h2 className="w-10/12 m-3 text-center">
             Pour toute question, n'hésitez pas à me contacter ! Je vous

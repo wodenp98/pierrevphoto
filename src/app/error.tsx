@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -20,12 +21,12 @@ export default function GlobalError({
         <main className="h-screen flex justify-center items-center">
           <div className="flex flex-col items-center">
             <h2 className="text-3xl uppercase text-center">
-              Something went wrong!
+              Une erreur s'est produite!
             </h2>
             <div className="flex mt-6 space-x-4">
-              <Button onClick={windowReload}>Reset</Button>
+              <Button onClick={windowReload}>Recharger la page</Button>
               <Link href="/">
-                <Button variant={"secondary"}>Home</Button>
+                <Button variant={"secondary"}>Accueil</Button>
               </Link>
             </div>
           </div>

@@ -1,9 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
-import { Session, getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import SignOutButton from "@/components/SignOutButton/SignOutButton";
-import { Login } from "@/components/CompteComponents/Login";
 import prisma from "../../../prisma/client";
 import UserInfo from "@/components/CompteComponents/UserInfo";
 import { Button } from "@/components/ui/button";

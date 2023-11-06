@@ -1,5 +1,5 @@
-import prisma from "../../../../prisma/client";
-import { ArticlesSchema } from "../boutique.query";
+import prisma from "../../../prisma/client";
+import { ArticlesSchema } from "./boutique.query";
 
 export const getArticleById = async (articleId: string) => {
   const articleById = await prisma.article.findUnique({

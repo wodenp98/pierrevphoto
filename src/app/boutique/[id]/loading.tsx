@@ -1,20 +1,9 @@
-import { AccordionShop } from "@/components/ArticleIdComponents/ShopAccordion";
+import { AccordionShop } from "@/components/BoutiqueIdComponents/ShopAccordion";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
-  {
-    /* voir le loading */
-  }
-
   return (
     <main>
-      <ul className="flex ml-6">
-        <li className="text-gray-300">Accueil</li>
-        <li className="text-gray-300 mx-2">-</li>
-        <li className="text-gray-300">Boutique</li>
-        <li className="text-gray-300 mx-2">-</li>
-        <li>Loading...</li>
-      </ul>
       <section className="w-11/12 mt-6 mx-auto">
         <div className="flex flex-col md:items-center">
           <div className="lg:w-1/2  flex md:justify-center">

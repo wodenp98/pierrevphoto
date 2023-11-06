@@ -3,7 +3,9 @@ export default function CGVU() {
   return (
     <main className="flex 1">
       <div className="container relative">
-        <h1 className="ml-6 mt-6 text-4xl">Conditions générales de vente</h1>
+        <h1 className="flex justify-center my-6 text-4xl uppercase">
+          Conditions Générales de Vente
+        </h1>
         <section className="flex justify-center items-center flex-col w-5/6 mx-auto">
           <span className="text-xs m-2">En vigueur au 22/02/2022</span>
           <div>

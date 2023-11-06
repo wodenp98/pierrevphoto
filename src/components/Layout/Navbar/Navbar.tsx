@@ -6,7 +6,7 @@ import {
   AiOutlinePhone,
 } from "react-icons/ai";
 import { VscAccount } from "react-icons/vsc";
-import { ToggleDarkMode } from "@/components/Navbar/ToggleDarkMode";
+import { ToggleDarkMode } from "@/components/Layout/Navbar/ToggleDarkMode";
 import Link from "next/link";
 import Image from "next/image";
 import { AlignJustify, ShoppingCart } from "lucide-react";
@@ -59,14 +59,7 @@ export default function Navbar() {
                 </DropdownMenuShortcut>
               </DropdownMenuItem>
             </Link>
-            <Link href="/panier">
-              <DropdownMenuItem className="space-x-2 uppercase">
-                Panier
-                <DropdownMenuShortcut>
-                  <HiOutlineShoppingBag className="w-5 h-5 " />
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
-            </Link>
+
             <Link href="/apropos">
               <DropdownMenuItem className="space-x-2 uppercase">
                 A propos
@@ -130,7 +123,6 @@ export default function Navbar() {
         />
       </Link>
       <div className="flex items-center">
-        {/* <ToggleDarkMode /> */}
         <CartIconNavbar />
       </div>
     </header>

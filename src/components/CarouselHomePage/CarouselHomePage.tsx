@@ -1,11 +1,9 @@
 "use client";
-// import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+
 import { Pagination } from "swiper/modules";
-import { Skeleton } from "../ui/skeleton";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

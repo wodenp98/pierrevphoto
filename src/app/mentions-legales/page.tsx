@@ -3,7 +3,9 @@ export default function MentionsLegales() {
   return (
     <main className="flex 1">
       <div className="container relative">
-        <h1 className="ml-6 mt-6 text-4xl">Mentions légales</h1>
+        <h1 className="flex justify-center my-6 text-4xl uppercase">
+          Mentions legales
+        </h1>
 
         <section className="flex justify-center items-center flex-col w-5/6 mx-auto">
           <span className="text-xs m-2">En vigueur au 22/02/2022</span>

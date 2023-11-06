@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { ImQuotesLeft } from "react-icons/im";
-// a tester le layout avec flex 1 pas applicable a la page de garde car carousel
 
 /* eslint-disable react/no-unescaped-entities */
 export default function About() {
   return (
     <main className="flex 1">
       <div className="container relative">
+        <h1 className="flex justify-center my-6 text-4xl uppercase">
+          A propos
+        </h1>
         <section className="flex flex-col items-center mt-3">
           <div className="w-5/6 my-2">
             <ImQuotesLeft className="text-4xl my-2 text-blue-600" />

@@ -1,7 +1,8 @@
-import CustomerDetails from "@/components/CustomerDetails/CustomerDetails";
+/* eslint-disable react/no-unescaped-entities */
+import CustomerDetails from "@/components/CommandesDetails/CustomerDetails";
 import { stripe } from "@/utils/stripe/stripe";
 import { BsFillPatchCheckFill } from "react-icons/bs";
-import { getArticleById } from "../boutique/[id]/boutiqueId.query";
+import { getArticleById } from "../../utils/prisma/boutiqueId.query";
 import prisma from "../../../prisma/client";
 import { Customer } from "@/types/CustomerTypes";
 
@@ -39,7 +40,7 @@ export default async function Page({
       <div className="container relative">
         <div className="flex flex-col items-center justify-center">
           <BsFillPatchCheckFill size={50} color="green" />
-          <p>Thank you for your purchase!</p>
+          <p>Merci d'avoir passer commande!</p>
           <CustomerDetails customerDetails={items as Customer[]} />
         </div>
       </div>

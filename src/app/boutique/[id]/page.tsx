@@ -1,11 +1,8 @@
-import { AccordionShop } from "@/components/ArticleIdComponents/ShopAccordion";
-import ShopForm from "@/components/ArticleIdComponents/ShopForm";
-import { getArticleById } from "./boutiqueId.query";
+import { AccordionShop } from "@/components/BoutiqueIdComponents/ShopAccordion";
+import { getArticleById } from "../../../utils/prisma/boutiqueId.query";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
-import Loading from "./loading";
-
-//choix de format impossible du au format de l'image????
+import ShopFormPaysage from "@/components/BoutiqueIdComponents/ShopFormPaysage";
+import ShopFormPortrait from "@/components/BoutiqueIdComponents/ShopFormPortrait";
 
 interface Props {
   id: string;
@@ -13,43 +10,11 @@ interface Props {
 
 export default async function Page({ params: { id } }: { params: Props }) {
   const article = await getArticleById(id);
-  // faire loading comme le component et flex
 
   return (
-    // <main>
-    //   <ul className="flex ml-6">
-    //     <li className="text-gray-300">Accueil</li>
-    //     <li className="text-gray-300 mx-2">-</li>
-    //     <li className="text-gray-300">Boutique</li>
-    //     <li className="text-gray-300 mx-2">-</li>
-    //     <li>{article.name}</li>
-    //   </ul>
     <main className="flex 1">
       <div className="container relative">
         <section className="w-11/12 mt-6 mx-auto">
-          {/* <div className="flex flex-col  items-center ">
-          <Image
-            key={article.name}
-            src={article.imageUrl}
-            alt={article.name}
-            quality={100}
-            width={1080}
-            height={1080}
-            className={cn(
-              "object-contain h-full w-full md:h-[90vh] ",
-              article.aspectRatio === "portrait"
-                ? "aspect-[3/4]"
-                : "aspect-[16/9]"
-            )}
-          />
-
-          <div className="flex flex-col w-full md:w-10/12 justify-center mt-6 lg:w-1/2 lg:ml-6 ">
-            <h1 className="text-3xl">{article.name}</h1>
-            <p className="text-sm mt-6">{article.description}</p>
-            <ShopForm article={article} />
-          </div>
-        </div> */}
-
           {article.aspectRatio === "portrait" ? (
             <div className="flex flex-col  items-center">
               <Image
@@ -67,7 +32,7 @@ export default async function Page({ params: { id } }: { params: Props }) {
                   <h1 className="text-3xl">{article.name}</h1>
                   <p className="text-sm mt-6">{article.description}</p>
                 </div>
-                <ShopForm article={article} />
+                <ShopFormPortrait article={article} />
               </div>
             </div>
           ) : (
@@ -87,7 +52,7 @@ export default async function Page({ params: { id } }: { params: Props }) {
                   <p className="text-sm mt-6">{article.description}</p>
                 </div>
 
-                <ShopForm article={article} />
+                <ShopFormPaysage article={article} />
               </div>
             </div>
           )}

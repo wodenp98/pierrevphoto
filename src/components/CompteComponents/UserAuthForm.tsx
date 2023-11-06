@@ -39,8 +39,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   });
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  // crsf token
-
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true);
 
@@ -51,14 +49,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     });
 
     toast({
-      title: "Email sent",
-      description: "Check your inbox to sign in, check your spam folder too!",
+      title: "Email envoyé",
+      description:
+        "Vérifiez votre boîte de réception pour vous connecter, vérifiez également votre dossier spam !",
       duration: 5000,
     });
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
   }
 
   return (
@@ -85,7 +80,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             {isLoading && (
               <PiSpinnerGapBold className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Sign In with Email
+            Se connecter avec votre email
           </Button>
         </form>
       </Form>
@@ -94,9 +89,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
+          <span className="bg-background px-2 text-muted-foreground">Ou</span>
         </div>
       </div>
       <Button

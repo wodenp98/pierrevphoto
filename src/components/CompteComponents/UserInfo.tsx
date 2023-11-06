@@ -12,7 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { signOut, useSession } from "next-auth/react";
 
-import { useForm, Form } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import prisma from "../../../prisma/client";
 import { AlertDialogHeader, AlertDialogFooter } from "../ui/alert-dialog";
@@ -25,6 +25,7 @@ import {
   CardFooter,
 } from "../ui/card";
 import {
+  Form,
   FormField,
   FormItem,
   FormLabel,

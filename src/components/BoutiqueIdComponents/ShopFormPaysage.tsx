@@ -2,10 +2,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
-import { ToastAction } from "@radix-ui/react-toast";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/lib/store/useCartStore";
 import useFromStore from "@/lib/store/hooks/useFromStore";
@@ -29,9 +26,9 @@ type FormValues = {
 const prices: Record<string, Record<string, number>> = {
   format: {
     "30*45 cm": 150,
-    "60*40 cm": 200,
-    "90*60 cm": 250,
-    "100*70 cm": 300,
+    "40*60 cm": 200,
+    "60*90 cm": 250,
+    "70*100 cm": 300,
   },
   rendu: {
     Mat: 10,
@@ -66,7 +63,7 @@ const SelectInput: React.FC<{
         className="px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 border-gray-300 w-full"
       >
         <option value="" disabled hidden>
-          -- Select an option --
+          -- Option --
         </option>
         {options.map((option: string, index: number) => (
           <option key={index} value={option}>
@@ -74,7 +71,7 @@ const SelectInput: React.FC<{
           </option>
         ))}
       </select>
-      {errors[name] && <p className="text-red-500 mb-2">{label} is required</p>}
+      {errors[name] && <p className="text-red-500 mb-2">{label} est requis</p>}
     </div>
   );
 };
@@ -113,8 +110,6 @@ export const ShopForm = ({ article }: { article: Article }) => {
 
   const price = getPrice(formValues);
 
-  // csrfToken
-
   const onSubmit = () => {
     const productToCart = {
       ...article,
@@ -130,11 +125,6 @@ export const ShopForm = ({ article }: { article: Article }) => {
       return toast({
         className: "bg-red-500 text-white",
         title: `Cet article est déjà dans votre panier`,
-        action: (
-          <Link href="/panier">
-            <ToastAction altText="Voir le panier">Voir le panier</ToastAction>
-          </Link>
-        ),
         duration: 3000,
       });
     } else {
@@ -142,11 +132,6 @@ export const ShopForm = ({ article }: { article: Article }) => {
       toast({
         className: "bg-green-500 text-white",
         title: `Votre article a été ajouté à votre panier`,
-        action: (
-          <Link href="/panier">
-            <ToastAction altText="Voir le panier">Voir le panier</ToastAction>
-          </Link>
-        ),
         duration: 3000,
       });
     }
@@ -161,7 +146,7 @@ export const ShopForm = ({ article }: { article: Article }) => {
         <SelectInput
           label="Format"
           name="format"
-          options={["30*45 cm", "60*40 cm", "90*60 cm", "100*70 cm"]}
+          options={["30*45 cm", "40*60 cm", "60*90 cm", "70*100 cm"]}
           required={true}
           onChange={(value) =>
             setFormValues((prevState) => ({ ...prevState, format: value }))

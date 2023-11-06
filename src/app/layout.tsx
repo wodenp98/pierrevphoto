@@ -1,15 +1,12 @@
-import Navbar from "@/components/Navbar/Navbar";
+import Navbar from "@/components/Layout/Navbar/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font";
-import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import AuthContext from "@/lib/auth/AuthContext";
-import Footer from "@/components/Footer/Footer";
-
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+import Footer from "@/components/Layout/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Pierre.V Photographie",
@@ -23,7 +20,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      {/* <body className={inter.className}> */}
       <body className={`min-h-screen bg-background ${GeistSans.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthContext>

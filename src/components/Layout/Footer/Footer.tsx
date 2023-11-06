@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LinkInstagram, LinkGmail } from "../LinkPlatfrom/LinkPlatform";
-import { Separator } from "../ui/separator";
+import { LinkInstagram, LinkGmail } from "../../LinkPlatfrom/LinkPlatform";
+import { Separator } from "../../ui/separator";
 
 export default function Footer() {
   return (

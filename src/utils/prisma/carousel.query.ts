@@ -1,5 +1,6 @@
 import { z } from "zod";
-import prisma from "../../prisma/client";
+import prisma from "../../../prisma/client";
+import { getServerSession } from "next-auth";
 
 export const CarouselImageSchema = z.object({
   id: z.number(),

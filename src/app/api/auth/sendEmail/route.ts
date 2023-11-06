@@ -183,18 +183,16 @@ function html(params: { url: string; host: string }) {
                           <tr>
                             <td>
                               <h1 class="dark-text-gray-50" style="margin: 0; font-size: 36px; font-weight: 700; line-height: 1; letter-spacing: -0.025em; color: #191847">
-                                Let's get you signed in
+                                Connectez-vous à votre compte
                               </h1>
                               <div role="separator" style="line-height: 24px">
                                 &zwnj;
                               </div>
                               <p class="dark-text-gray-50" style="margin: 0; font-size: 16px; line-height: 26px; color: #191847">
-                                Hi,
+                                Bonjour,
                                 <br>
                                 <br>
-                                We use this easy sign-in button so you don't
-                                have to remember or type in yet another long
-                                password.
+                                Nous utilisons ce bouton de connexion facile pour que vous n'ayez pas à vous souvenir ou à taper un autre mot de passe long.
                               </p>
                             </td>
                           </tr>
@@ -203,7 +201,7 @@ function html(params: { url: string; host: string }) {
                           </tr>
                           <tr>
                             <td>
-                              <a href="${url}" class="sm-block dark-text-primary-500 hover-bg-primary-600 dark-bg-gray-50 dark-hover-bg-gray-50" style="text-decoration: none; display: inline-block; border-radius: 8px; background-color: #0047FF; padding: 14px 24px; text-align: center; font-size: 16px; font-weight: 700; color: #f9fafb; box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.1)">
+                              <a href="${url}" class="sm-block dark-text-primary-500 hover-bg-gray-600 dark-bg-gray-50 dark-hover-bg-gray-50" style="text-decoration: none; display: inline-block; border-radius: 8px; background-color: #0A0A0A; padding: 14px 24px; text-align: center; font-size: 16px; font-weight: 700; color: #f9fafb; box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.1)">
                                 <!--[if mso
                                   ]><i
                                     style="
@@ -213,7 +211,7 @@ function html(params: { url: string; host: string }) {
                                     "
                                     >&nbsp;</i><!
                                 [endif]-->
-                                <span style="mso-text-raise: 15px">Sign in</span>
+                                <span style="mso-text-raise: 15px">Se connecter</span>
                                 <!--[if mso
                                   ]><i
                                     style="
@@ -227,10 +225,10 @@ function html(params: { url: string; host: string }) {
                                 &zwnj;
                               </div>
                               <p style="margin: 0; font-size: 16px">
-                                <span style="font-weight: 700">Or copy and paste the following URL into your
-                                  browser:</span>
+                                <span style="font-weight: 700">Ou copiez et collez l'URL suivante dans votre
+                                navigateur:</span>
                                 <br>
-                                <a href="${url}" class="hover-text-primary-600 dark-text-primary-200 dark-hover-text-primary-100" style="text-decoration: none; font-size: 11px; line-height: 26px; color: #0047FF">
+                                <a href="${url}" class="hover-text-primary-600 dark-text-primary-200 dark-hover-text-primary-100" style="text-decoration: none; font-size: 11px; line-height: 26px; color: #0A0A0A">
                                   ${url}
                                 </a>
                               </p>

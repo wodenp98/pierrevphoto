@@ -3,6 +3,13 @@ import { stripe } from "@/utils/stripe/stripe";
 import { getURL } from "@/utils/helpers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(1, "10 s"),
+});
 
 interface Item {
   id: number;
@@ -18,39 +25,28 @@ interface Item {
 
 export async function POST(req: Request) {
   if (req.method === "POST") {
-    // 1. Destructure the price and quantity from the POST body
+    const ip = req.headers.get("x-forwaded-for") ?? "";
+    const { success, reset } = await ratelimit.limit(ip);
+
+    if (!success) {
+      const now = Date.now();
+      const retryAfter = Math.floor((reset - now) / 1000);
+      return new Response("Too Many Requests", {
+        status: 429,
+        headers: {
+          ["retry-after"]: `${retryAfter}}`,
+        },
+      });
+    }
+
     const cart = await req.json();
 
     try {
-      // 2. Get the user from Supabase auth
       const sessionUser = await getServerSession(authOptions);
       if (!sessionUser?.user || !sessionUser?.user.email) {
         return new Response(null, { status: 403 });
       }
-      // 4. Create a checkout session in Stripe
 
-      // const session = await stripe.checkout.sessions.create({
-      //   payment_method_types: ["card"],
-      //   billing_address_collection: "required",
-      //   customer,
-      //   customer_update: {
-      //     address: "auto",
-      //   },
-      //   line_items: [
-      //     {
-      //       price: price.id,
-      //       quantity,
-      //     },
-      //   ],
-      //   mode: "subscription",
-      //   allow_promotion_codes: true,
-      //   subscription_data: {
-      //     trial_from_plan: true,
-      //     metadata,
-      //   },
-      //   success_url: `${getURL()}/account`,
-      //   cancel_url: `${getURL()}/`,
-      // });
       const taxRate = await stripe.taxRates.create({
         display_name: "TVA",
         description: "VAT France",

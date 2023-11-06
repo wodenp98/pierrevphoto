@@ -23,7 +23,7 @@ export default function CustomerDetails({
   return (
     <div className="mt-8 w-full">
       <h2 className="text-2xl font-bold mb-4 flex flex-col items-center">
-        Order Details
+        Détails de la commande
       </h2>
       <div className="flex flex-wrap flex-row justify-center">
         {customerDetails.length > 0 ? (
@@ -46,7 +46,7 @@ export default function CustomerDetails({
         ) : (
           <div className="flex items-center justify-center">
             <VscLoading className="animate-spin mr-2" />
-            <p>Loading...</p>
+            <p>Chargement...</p>
           </div>
         )}
       </div>

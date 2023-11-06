@@ -3,7 +3,7 @@ import useFromStore from "@/lib/store/hooks/useFromStore";
 import { useCartStore } from "@/lib/store/useCartStore";
 import { Loader2, ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   Sheet,
   SheetTrigger,
@@ -13,20 +13,19 @@ import {
   SheetDescription,
   SheetFooter,
   SheetClose,
-} from "../ui/sheet";
-import { Separator } from "../ui/separator";
+} from "../../ui/sheet";
+import { Separator } from "../../ui/separator";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { BsCreditCard } from "react-icons/bs";
-import { ToastAction } from "../ui/toast";
-import { toast } from "../ui/use-toast";
-import { loadStripe } from "@stripe/stripe-js";
+import { ToastAction } from "../../ui/toast";
+import { toast } from "../../ui/use-toast";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "../ui/accordion";
+} from "../../ui/accordion";
 import Image from "next/image";
 import { postData } from "@/utils/helpers";
 import { getStripe } from "@/utils/stripe/stripe-client";
@@ -50,47 +49,6 @@ export default function CartIconNavbar() {
   const totalPrice = useFromStore(useCartStore, (state) => state.totalPrice);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
 
-  // const handleCheckout = async () => {
-  //   if (!session?.user) {
-  //     return toast({
-  //       variant: "destructive",
-  //       className: "bg-red-500 text-white",
-  //       title: "Vous devez avoir un compte pour passer commande.",
-  //       action: (
-  //         <Link href={"/compte"}>
-  //           <ToastAction altText="Go to account">Compte</ToastAction>
-  //         </Link>
-  //       ),
-  //     });
-  //   }
-
-  //   setIsLoading(true);
-
-  //   const stripe = await stripePromise;
-  //   const response = await fetch("/api/payment", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       cart: cart,
-  //       userId: session?.user?.id,
-  //       email: session?.user?.email,
-  //     }),
-  //   });
-
-  //   const responseData = await response.json();
-
-  //   const result = await stripe?.redirectToCheckout({
-  //     sessionId: responseData.id,
-  //   });
-
-  //   if (result?.error) {
-  //     toast({
-  //       variant: "destructive",
-  //       className: "bg-red-500 text-white",
-  //       title: "Une erreur est survenue lors du paiement.",
-  //     });
-  //   }
-  // };
-
   const handleCheckout = async () => {
     setIsLoading(true);
     if (!session?.user) {
@@ -100,7 +58,7 @@ export default function CartIconNavbar() {
         title: "Vous devez avoir un compte pour passer commande.",
         action: (
           <Link href={"/compte"}>
-            <ToastAction altText="Go to account">Compte</ToastAction>
+            <ToastAction altText="Compte">Compte</ToastAction>
           </Link>
         ),
       });
@@ -140,7 +98,7 @@ export default function CartIconNavbar() {
           <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
             <ShoppingCart size={64} className="h-16" />
             <p className="mt-6 text-center text-2xl font-bold">
-              Your cart is empty.
+              Votre panier est vide.
             </p>
           </div>
         ) : (
