@@ -3,7 +3,7 @@ import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import SignOutButton from "@/components/SignOutButton/SignOutButton";
-import prisma from "../../../prisma/client";
+import { prisma } from "../../utils/prisma/prisma";
 import UserInfo from "@/components/CompteComponents/UserInfo";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,9 @@ import Link from "next/link";
 import OrderComponent from "@/components/CompteComponents/OrderComponent";
 import { Separator } from "@/components/ui/separator";
 import { OrdersProps } from "@/types/OrderTypes";
+import { redirect } from "next/navigation";
+
+// faire un layout récupérant la session? meilleure opti?
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -37,10 +40,9 @@ export default async function Page() {
         },
       },
     },
-  });
-
-  const sortedOrders = ordersWithArticles.sort((a, b) => {
-    return new Date(b.orderedAt).getTime() - new Date(a.orderedAt).getTime();
+    orderBy: {
+      orderedAt: "desc",
+    },
   });
 
   return (
@@ -88,7 +90,7 @@ export default async function Page() {
                         <span>Mais vous pouvez changer ça 😉</span>
                       </div>
                     ) : (
-                      sortedOrders?.map((command: OrdersProps) => (
+                      ordersWithArticles?.map((command: OrdersProps) => (
                         <div key={command.id}>
                           <OrderComponent historyCommand={command} />
                           <Separator />

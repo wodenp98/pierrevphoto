@@ -6,7 +6,7 @@ export default function SignOutButton() {
   return (
     <CgLogOff
       className="text-3xl  text-red-500 cursor-pointer absolute bottom-[-5px] right-[-5px]"
-      onClick={() => signOut()}
+      onClick={() => signOut({ callbackUrl: "/connexion" })}
     />
   );
 }

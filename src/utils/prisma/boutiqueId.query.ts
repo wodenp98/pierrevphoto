@@ -1,4 +1,4 @@
-import prisma from "../../../prisma/client";
+import { prisma } from "./prisma";
 import { ArticlesSchema } from "./boutique.query";
 
 export const getArticleById = async (articleId: string) => {

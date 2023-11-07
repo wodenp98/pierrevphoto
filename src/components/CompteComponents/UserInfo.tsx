@@ -14,7 +14,7 @@ import { signOut, useSession } from "next-auth/react";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import prisma from "../../../prisma/client";
+import { prisma } from "../../utils/prisma/prisma";
 import { AlertDialogHeader, AlertDialogFooter } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import {

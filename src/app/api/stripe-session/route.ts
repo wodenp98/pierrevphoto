@@ -25,6 +25,11 @@ interface Item {
 
 export async function POST(req: Request) {
   if (req.method === "POST") {
+    const origin = req.headers.get("Origin");
+    console.log("origin", origin);
+    if (origin && origin !== "http://localhost:3000") {
+      return new Response("Mauvaise origine de la requête", { status: 403 });
+    }
     const ip = req.headers.get("x-forwaded-for") ?? "";
     const { success, reset } = await ratelimit.limit(ip);
 

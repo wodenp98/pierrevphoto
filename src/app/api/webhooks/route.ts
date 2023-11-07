@@ -1,7 +1,7 @@
 import { stripe } from "../../../utils/stripe/stripe";
 import { headers } from "next/headers";
 import Stripe from "stripe";
-import prisma from "../../../../prisma/client";
+import { prisma } from "../../../utils/prisma/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
