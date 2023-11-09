@@ -34,6 +34,7 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "@/components/ui/hover-card";
+import { usePathname } from "next/navigation";
 
 type CartItem = {
   id: number;
@@ -49,6 +50,7 @@ type CartItem = {
 
 export default function CartIconNavbar() {
   const { data: session } = useSession();
+  const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(false);
   const cart = useFromStore(useCartStore, (state) => state.cart);
   const totalPrice = useFromStore(useCartStore, (state) => state.totalPrice);
@@ -57,6 +59,16 @@ export default function CartIconNavbar() {
   const handleCheckout = async () => {
     setIsLoading(true);
     if (!session?.user) {
+      setIsLoading(false);
+
+      if (pathname === "/connexion") {
+        toast({
+          variant: "destructive",
+          className: "bg-red-500 text-white",
+          title: "Connectez-vous pour passer commande.",
+        });
+        return;
+      }
       return toast({
         variant: "destructive",
         className: "bg-red-500 text-white",
@@ -87,12 +99,12 @@ export default function CartIconNavbar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <span className="relative cursor-pointer">
-          <ShoppingCart size={24} strokeWidth={1.5} className="mr-4" />
-          <span className="absolute top-1 right-4 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+        <Button variant="ghost" className="relative cursor-pointer py-0 px-0">
+          <ShoppingCart size={24} strokeWidth={1.5} className="mr-2" />
+          <span className="absolute top-1 right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
             {cart ? cart.length : 0}
           </span>
-        </span>
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

@@ -23,17 +23,20 @@ import {
 import CartIconNavbar from "./CartIconNavbar";
 import { headers } from "next/headers";
 import Script from "next/script";
+import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   return (
     <header className="flex items-center justify-between z-50 p-4">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <AlignJustify
-            size={32}
-            strokeWidth={1.5}
-            className="cursor-pointer"
-          />
+        <DropdownMenuTrigger asChild aria-label="Ouvrir menu">
+          <Button variant="ghost" className="relative cursor-pointer py-0 px-0">
+            <AlignJustify
+              size={32}
+              strokeWidth={1.5}
+              className="cursor-pointer"
+            />
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-64 p-2">
           <DropdownMenuLabel className="flex items-center justify-between pr-0">

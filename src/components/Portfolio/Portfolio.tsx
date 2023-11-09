@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { Button } from "../ui/button";
 
 type PortfolioData = {
   id: number;
@@ -21,7 +22,7 @@ export default function Portfolio({ data }: { data: PortfolioData[] }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="group mt-6 h-96 w-9/12">
+        <button className="group mt-6 h-96 w-9/12">
           <div className="relative overflow-hidden h-full cursor-pointer">
             <Image
               src="/assets/Nature.jpg"
@@ -36,7 +37,7 @@ export default function Portfolio({ data }: { data: PortfolioData[] }) {
               </p>
             </div>
           </div>
-        </div>
+        </button>
       </DialogTrigger>
       <DialogContent className="p-0 bg-transparent border-none shadow-none w-4/5 md:w-4/5 lg:w-2/3 xl:w-2/3 ">
         <Swiper

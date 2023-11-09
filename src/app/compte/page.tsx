@@ -19,44 +19,32 @@ import OrderComponent from "@/components/CompteComponents/OrderComponent";
 import { Separator } from "@/components/ui/separator";
 import { OrdersProps } from "@/types/OrderTypes";
 import { redirect } from "next/navigation";
+import { itemsPurchased } from "@/utils/prisma/historiqueCommande.query";
 
-// faire un layout récupérant la session? meilleure opti?
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pierre.V | Mon compte",
+  description:
+    "Consultez votre profil utilisateur sur le site Pierre.V. Accédez à vos informations personnelles et vos commandes passées. Gérez votre compte. Bienvenue dans votre espace personnel !",
+};
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-
-  const ordersWithArticles = await prisma.order.findMany({
-    where: {
-      userId: session?.user.id,
-    },
-    include: {
-      articles: {
-        select: {
-          id: true,
-          name: true,
-          price: true,
-          imageUrl: true,
-          description: true,
-        },
-      },
-    },
-    orderBy: {
-      orderedAt: "desc",
-    },
-  });
+  const orders = await itemsPurchased();
 
   return (
     <main className="flex 1">
       <div className="container relative">
-        <section className="flex flex-col items-center justify-center mt-4 mb-12">
-          <div className="flex items-end justify-end">
+        <section className="flex flex-col items-center justify-center mt-8 mb-12">
+          <div className="flex items-center justify-center w-full">
             <div className="relative">
               <Image
                 src={session?.user.image ?? "/photo-utilisateur.jpg"}
                 alt="Photo de profil"
                 width={80}
                 height={80}
-                className="rounded-full object-cover"
+                className="rounded-full object-cover "
               />
               <SignOutButton />
             </div>
@@ -81,7 +69,7 @@ export default async function Page() {
                     <Separator />
                   </CardHeader>
                   <CardContent className="space-y-2">
-                    {ordersWithArticles.length === 0 ? (
+                    {orders.length === 0 ? (
                       <div className="flex flex-col items-center text-center">
                         <p>
                           Vous n'avez pas encore effectué d'achat sur notre
@@ -90,7 +78,7 @@ export default async function Page() {
                         <span>Mais vous pouvez changer ça 😉</span>
                       </div>
                     ) : (
-                      ordersWithArticles?.map((command: OrdersProps) => (
+                      orders?.map((command: OrdersProps) => (
                         <div key={command.id}>
                           <OrderComponent historyCommand={command} />
                           <Separator />

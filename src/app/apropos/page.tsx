@@ -1,6 +1,13 @@
 import Image from "next/image";
 import { ImQuotesLeft } from "react-icons/im";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pierre.V | A propos",
+  description: "A propos de Pierre.V. Apprenez en plus sur moi.",
+};
+
 /* eslint-disable react/no-unescaped-entities */
 export default function About() {
   return (

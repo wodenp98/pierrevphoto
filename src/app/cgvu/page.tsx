@@ -1,4 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pierre.V | CGVU",
+  description:
+    "Consultez nos Conditions Générales de Vente (CGVU) pour comprendre les modalités, les règles et les engagements associés à vos achats sur notre site. Découvrez nos politiques de vente, de paiement, de livraison et de retour. Informez-vous sur vos droits et obligations en tant que client de Pierre.V.",
+};
 export default function CGVU() {
   return (
     <main className="flex 1">

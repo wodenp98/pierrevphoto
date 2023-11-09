@@ -6,6 +6,14 @@ import { getArticleById } from "../../utils/prisma/boutiqueId.query";
 import { prisma } from "../../utils/prisma/prisma";
 import { Customer } from "@/types/CustomerTypes";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pierre.V | Paiement réussi",
+  description:
+    "Votre paiement sur le site Pierre.V a été effectué avec succès. Vous avez passé commande et recevrez prochainement un e-mail pour la sélection d'un point relais. Une facture récapitulative vous sera également envoyée. Merci pour votre achat !",
+};
+
 interface SessionProps {
   session_id: string;
 }

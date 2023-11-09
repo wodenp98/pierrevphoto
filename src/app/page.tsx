@@ -6,6 +6,13 @@ import { carouselImages } from "@/utils/prisma/carousel.query";
 import { portfolioImages } from "@/utils/prisma/portfolio.query";
 import Loading from "./loading";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pierre.V | Accueil",
+  description: "Bienvenue sur le site de Pierre V. Découvrez mon travail.",
+};
+
 export default async function Page() {
   const carouselData = await carouselImages();
   const portfolioData = await portfolioImages();

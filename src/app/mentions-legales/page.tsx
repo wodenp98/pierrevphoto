@@ -1,4 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pierre.V | Mentions légales",
+  description:
+    "Consultez les mentions légales du site Pierre.V. Découvrez les informations importantes concernant la publication, l'hébergement, l'accès au site, la collecte des données, et vos droits en matière de protection des données personnelles. Garantissez la transparence et la conformité du site avec la loi. Informations juridiques à jour au 22/02/2022.",
+};
 export default function MentionsLegales() {
   return (
     <main className="flex 1">

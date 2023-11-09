@@ -4,6 +4,14 @@ import { IoMdPaperPlane } from "react-icons/io";
 import { BiPhoneCall } from "react-icons/bi";
 import Link from "next/link";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pierre.V | Contact",
+  description:
+    "Contactez Pierre Vigneron pour toutes vos questions et demandes. Nous sommes à votre disposition pour discuter de vos besoins, répondre à vos préoccupation. N'hésitez pas à nous contacter!",
+};
+
 export default function Contact() {
   return (
     <main className="flex 1">
@@ -14,7 +22,7 @@ export default function Contact() {
             Pour toute question, n'hésitez pas à me contacter ! Je vous
             répondrai dans les meilleurs délais. A bientôt !
           </h2>
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 w-10/12 place-items-center">
+          <div className="grid grid-cols-1 gap-2  lg:grid-cols-3 xl:grid-cols-3 w-3/4 place-items-center">
             <a
               href={`mailto:pierrev.photographie@gmail.com`}
               className="relative w-full h-full my-1"
@@ -30,7 +38,7 @@ export default function Contact() {
 
               <div className="absolute inset-0 bg-white/70 flex flex-col items-center justify-center">
                 <IoMdPaperPlane className="text-4xl text-black" />
-                <p className="text-black text-lg md:text-xs lg:text-base xs:text-xs font-bold">
+                <p className="text-black text-xs font-bold">
                   pierre.v.photographie@gmail.com
                 </p>
               </div>

@@ -6,12 +6,6 @@ import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/lib/store/useCartStore";
 import useFromStore from "@/lib/store/hooks/useFromStore";
-import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "@/components/ui/hover-card";
-import { Info, CalendarIcon } from "lucide-react";
 
 type Article = {
   name: string;
@@ -58,7 +52,7 @@ const SelectInput: React.FC<{
 }> = ({ label, name, options, errors, required, register, onChange }) => {
   return (
     <div className="flex flex-col mb-2 w-full md:w-3/4">
-      <label htmlFor={name} className="mb-1 text-sm font-medium text-gray-700">
+      <label htmlFor={name} className="mb-1 text-sm font-medium ">
         {label}
       </label>
       <select

@@ -52,7 +52,7 @@ const SelectInput: React.FC<{
 }> = ({ label, name, options, errors, required, register, onChange }) => {
   return (
     <div className="flex flex-col mb-2 w-full md:w-3/4">
-      <label htmlFor={name} className="mb-1 text-sm font-medium text-gray-700">
+      <label htmlFor={name} className="mb-1 text-sm font-medium ">
         {label}
       </label>
       <select
