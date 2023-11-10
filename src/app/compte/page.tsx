@@ -65,7 +65,7 @@ export default async function Page() {
               <TabsContent value="commandes">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="uppercase mb-4">Commandes</CardTitle>
+                    <CardTitle className="mb-4">Commandes</CardTitle>
                     <Separator />
                   </CardHeader>
                   <CardContent className="space-y-2">

@@ -12,7 +12,7 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       {
         src: "/logo blanc.png",
-        sizes: "<generated>",
+        sizes: "36x36",
         type: "image/png",
       },
     ],

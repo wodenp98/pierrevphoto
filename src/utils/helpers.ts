@@ -17,8 +17,6 @@ export const postData = async ({
   url: string;
   data?: Item[];
 }) => {
-  console.log("posting,", url, data);
-
   const res = await fetch(url, {
     method: "POST",
     headers: new Headers({ "Content-Type": "application/json" }),
@@ -33,6 +31,28 @@ export const postData = async ({
   }
 
   return res.json();
+};
+
+export const postDataSession = async ({
+  url,
+  data,
+}: {
+  url: string;
+  data: string;
+}) => {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: new Headers({ "Content-Type": "application/json" }),
+    credentials: "same-origin",
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    console.log("Error in postData", { url, data, res });
+
+    throw Error(res.statusText);
+  }
+
+  return res;
 };
 
 export const getURL = () => {

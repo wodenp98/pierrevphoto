@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     locale: "fr-FR",
     type: "website",
   },
+  metadataBase: new URL("http://localhost:3000"),
 };
 
 export default function RootLayout({
@@ -38,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logo blanc.png" sizes="<generated>" />
+        <link rel="icon" href="/logo blanc.png" sizes="32x32" />
       </head>
       <body className={`min-h-screen bg-background ${GeistSans.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

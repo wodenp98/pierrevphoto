@@ -34,6 +34,8 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
+import { postDataSession } from "@/utils/helpers";
+import { Separator } from "@/components/ui/separator";
 
 const FormSchema = z.object({
   nom: z
@@ -58,8 +60,6 @@ export default function UserInfo() {
     mode: "onChange",
   });
 
-  // crsf token
-
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     update({ name: data.nom });
     toast({
@@ -68,16 +68,20 @@ export default function UserInfo() {
   };
 
   const deleteAccount = async () => {
-    const deleteUser = await prisma.user
-      .delete({
-        where: {
-          id: session?.user.id,
-        },
-      })
-      .then(() => signOut());
+    const response = await postDataSession({
+      url: "/api/delete-user",
+      data: session?.user.id as string,
+    });
 
-    if (deleteUser) {
-      toast({
+    if (response.status !== 200) {
+      return toast({
+        title: "Une erreur est survenue",
+      });
+    }
+
+    if (response.status === 200) {
+      signOut();
+      return toast({
         title: "Votre compte a bien été supprimé",
       });
     }
@@ -85,7 +89,8 @@ export default function UserInfo() {
   return (
     <Card>
       <CardHeader className="flex flex-col">
-        <CardTitle>Informations Personnelles</CardTitle>
+        <CardTitle className="mb-4">Informations Personnelles</CardTitle>
+        <Separator />
       </CardHeader>
       <CardContent className="space-y-2">
         {session?.user?.name === null ? (
