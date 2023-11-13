@@ -38,8 +38,8 @@ export default function MentionsLegales() {
             <p className="text-sm m-2">
               L’édition et la direction de la publication du Site est assurée
               par Pierre Vigneron, domiciliée 9 Avenue du Pouligou, Maison 4,
-              44380 Pornichet FRANCE dont le numéro de téléphone est 0614253912,
-              et l'adresse e-mail pierre.v.photographie@gmail.com.
+              44380 Pornichet FRANCE, et l'adresse e-mail
+              pierre.v.photographie@gmail.com.
             </p>
           </div>
           <div>

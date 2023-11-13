@@ -43,19 +43,6 @@ export default function Contact() {
                 </p>
               </div>
             </a>
-            <div className="relative w-full h-full my-1">
-              <Image
-                src="/assets/phonefond.jpg"
-                alt="Votre image"
-                className="w-full h-full"
-                width={325}
-                height={325}
-              />
-              <div className="absolute inset-0 bg-white/70 flex flex-col items-center justify-center">
-                <BiPhoneCall className="text-4xl text-black" />
-                <p className="text-black text-lg font-bold">06 14 25 39 12</p>
-              </div>
-            </div>
             <Link
               href="https://www.instagram.com/pierrev.photographie"
               target="_blank"

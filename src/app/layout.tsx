@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logo blanc.png" sizes="32x32" />
+        <link rel="icon" href="/logo blanc.png" sizes="36x36" />
       </head>
       <body className={`min-h-screen bg-background ${GeistSans.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

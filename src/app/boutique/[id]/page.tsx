@@ -19,11 +19,11 @@ export default async function Page({ params: { id } }: { params: Props }) {
   const article = await getArticleById(id);
 
   return (
-    <main className="flex 1">
-      <div className="container relative">
-        <section className="w-11/12 mt-6 mx-auto">
+    <main className="flex flex-col items-center">
+      <div className="w-11/12">
+        <section className="w-full mt-6">
           {article.aspectRatio === "portrait" ? (
-            <div className="flex flex-col  items-center">
+            <div className="flex flex-col  items-start md:flex-row">
               <Image
                 key={article.name}
                 src={article.imageUrl}
@@ -31,15 +31,15 @@ export default async function Page({ params: { id } }: { params: Props }) {
                 quality={100}
                 width={1080}
                 height={1080}
-                className="object-contain h-full w-full md:h-[90vh] aspect-[3/4]"
+                className="object-contain h-full w-full md:h-[85vh] aspect-[3/4]"
               />
 
-              <div className="flex flex-col w-full md:w-10/12 xl:w-1/2 md:flex-row  justify-center mt-6  lg:ml-6 ">
-                <div className="md:w-1/2">
+              <div className="flex flex-col w-full h-full md:w-10/12 md:flex-col lg:ml-6 ">
+                <div className="">
                   <h1 className="text-3xl">{article.name}</h1>
                   <p className="text-sm mt-6">{article.description}</p>
                   <HoverCard>
-                    <HoverCardTrigger asChild className="px-1 mt-2">
+                    <HoverCardTrigger asChild className="pl-0 mt-4">
                       <Button variant="link" className="flex items-center">
                         <Info className="mr-2" />
                         Informations livraisons
@@ -52,25 +52,21 @@ export default async function Page({ params: { id } }: { params: Props }) {
                             Informations livraisons
                           </h4>
                           <p className="text-sm">
-                            The React Framework – created and maintained by
-                            @vercel.
+                            Toutes nos livraisons sont envoyées en point relais.
+                            Un point relais vous sera demandé une fois votre
+                            commande passée.
                           </p>
-                          <div className="flex items-center pt-2">
-                            <CalendarIcon className="mr-2 h-4 w-4 opacity-70" />{" "}
-                            <span className="text-xs text-muted-foreground">
-                              Joined December 2021
-                            </span>
-                          </div>
                         </div>
                       </div>
                     </HoverCardContent>
                   </HoverCard>
                 </div>
+
                 <ShopFormPortrait article={article} />
               </div>
             </div>
           ) : (
-            <div className="flex flex-col  items-center">
+            <div className="flex flex-col items-start md:flex-row">
               <Image
                 key={article.name}
                 src={article.imageUrl}
@@ -80,12 +76,12 @@ export default async function Page({ params: { id } }: { params: Props }) {
                 height={1080}
               />
 
-              <div className="flex flex-col w-full md:w-10/12 xl:w-3/5 md:flex-row  justify-center mt-6 lg:ml-6 ">
-                <div className="md:w-1/2">
+              <div className="flex flex-col w-full h-full md:w-10/12 md:flex-col lg:ml-6 ">
+                <div className="">
                   <h1 className="text-3xl">{article.name}</h1>
                   <p className="text-sm mt-6">{article.description}</p>
                   <HoverCard>
-                    <HoverCardTrigger asChild className="px-0 mt-4">
+                    <HoverCardTrigger asChild className="pl-0 mt-4">
                       <Button variant="link" className="flex items-center">
                         <Info className="mr-2" />
                         Informations livraisons
@@ -113,7 +109,17 @@ export default async function Page({ params: { id } }: { params: Props }) {
             </div>
           )}
 
-          <div className="flex items-center justify-center mt-6">
+          <div className="flex flex-col items-center justify-center mt-6">
+            <div className="flex flex-col items-center mt-6">
+              <h2>Impression 100% MADE IN FRANCE</h2>
+
+              <Image
+                src="/france.png"
+                alt="Drapeau de la France"
+                width={50}
+                height={50}
+              />
+            </div>
             <AccordionShop />
           </div>
         </section>

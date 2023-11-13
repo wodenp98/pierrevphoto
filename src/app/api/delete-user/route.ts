@@ -19,8 +19,8 @@ export const BodySchema = z.string();
 
 export type BodyValidation = z.infer<typeof BodySchema>;
 
-export async function POST(req: Request) {
-  if (req.method === "POST") {
+export async function DELETE(req: Request) {
+  if (req.method === "DELETE") {
     const origin = req.headers.get("Origin");
     if (origin && origin !== "http://localhost:3000") {
       return new Response("Mauvaise origine de la requête", { status: 403 });

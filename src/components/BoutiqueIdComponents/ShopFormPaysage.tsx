@@ -138,10 +138,11 @@ export const ShopForm = ({ article }: { article: Article }) => {
   };
 
   return (
-    <div className="mt-6 md:w-1/2 md:mt-0">
+    <div className="mt-28">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-col sm:items-center md:items-center lg:items-center"
+        className="w-full flex flex-col
+ sm:items-center md:items-center lg:items-center"
       >
         <SelectInput
           label="Format"
@@ -176,23 +177,12 @@ export const ShopForm = ({ article }: { article: Article }) => {
           }}
           register={register}
         />
-        <div className="mt-8 flex flex-col justify-center">
+        <div className="mt-8 flex flex-col  justify-center">
           <Button type="submit" className="uppercase py-2 px-4">
             Ajouter au panier {price.toFixed(2)}€
           </Button>
         </div>
       </form>
-
-      <div className="flex flex-col items-center mt-6">
-        <h2>Impression 100% MADE IN FRANCE</h2>
-
-        <Image
-          src="/france.png"
-          alt="Drapeau de la France"
-          width={50}
-          height={50}
-        />
-      </div>
     </div>
   );
 };

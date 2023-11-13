@@ -138,7 +138,7 @@ export const ShopForm = ({ article }: { article: Article }) => {
   };
 
   return (
-    <div className="mt-6 md:w-1/2 md:mt-0">
+    <div className="mt-28">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col sm:items-center md:items-center lg:items-center"

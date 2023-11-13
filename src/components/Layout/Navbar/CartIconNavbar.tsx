@@ -99,8 +99,8 @@ export default function CartIconNavbar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="relative cursor-pointer py-0 px-0">
-          <ShoppingCart size={24} strokeWidth={1.5} className="mr-2" />
+        <Button variant="ghost" size="icon" className="relative cursor-pointer">
+          <ShoppingCart size={36} strokeWidth={1.5} className="mr-1" />
           <span className="absolute top-1 right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
             {cart ? cart.length : 0}
           </span>

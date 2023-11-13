@@ -64,7 +64,6 @@ export default function CGVU() {
               <li className="text-sm m-2">
                 Email: pierre.v.photoraphie@gmail.com
               </li>
-              <li className="text-sm m-2">Télephone: 06 14 25 39 12</li>
             </ul>
           </div>
           <div>

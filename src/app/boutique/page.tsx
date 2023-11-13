@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const articles = await getArticles();
+  //montrer les deux possibilités avec et sans container
 
   return (
     <main className="flex 1">

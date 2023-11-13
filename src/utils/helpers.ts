@@ -41,7 +41,7 @@ export const postDataSession = async ({
   data: string;
 }) => {
   const res = await fetch(url, {
-    method: "POST",
+    method: "DELETE",
     headers: new Headers({ "Content-Type": "application/json" }),
     credentials: "same-origin",
     body: JSON.stringify(data),
@@ -53,6 +53,22 @@ export const postDataSession = async ({
   }
 
   return res;
+};
+
+export const getData = async ({ url }: { url: string }) => {
+  const res = await fetch(url, {
+    method: "GET",
+    headers: new Headers({ "Content-Type": "application/json" }),
+    credentials: "same-origin",
+  });
+
+  if (!res.ok) {
+    console.log("Error in getData", { url, res });
+
+    throw Error(res.statusText);
+  }
+
+  return res.json();
 };
 
 export const getURL = () => {
