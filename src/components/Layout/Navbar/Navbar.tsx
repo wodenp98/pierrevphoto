@@ -1,4 +1,3 @@
-import { HiOutlineShoppingBag } from "react-icons/hi";
 import {
   AiOutlineHome,
   AiOutlineShoppingCart,
@@ -9,7 +8,7 @@ import { VscAccount } from "react-icons/vsc";
 import { ToggleDarkMode } from "@/components/Layout/Navbar/ToggleDarkMode";
 import Link from "next/link";
 import Image from "next/image";
-import { AlignJustify, ShoppingCart } from "lucide-react";
+import { AlignJustify } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -21,8 +20,6 @@ import {
   DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
 import CartIconNavbar from "./CartIconNavbar";
-import { headers } from "next/headers";
-import Script from "next/script";
 import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
@@ -98,7 +95,7 @@ export default function Navbar() {
               className="flex items-center p-2"
             >
               <Image
-                src="/icon-instagram.svg"
+                src="/svg/icon-instagram.svg"
                 alt="Instagram"
                 width={36}
                 height={36}
@@ -111,14 +108,14 @@ export default function Navbar() {
       </DropdownMenu>
       <Link href="/">
         <Image
-          src="/logo noir.png"
+          src="/assets/logo noir.png"
           alt="Logo"
           width={90}
           height={90}
           className=" dark:hidden"
         />
         <Image
-          src="/logo blanc.png"
+          src="/assets/logo blanc.png"
           alt="Logo"
           width={90}
           height={90}

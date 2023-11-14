@@ -4,14 +4,13 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { PiSpinnerGapBold } from "react-icons/pi";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,

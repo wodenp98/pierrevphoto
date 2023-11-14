@@ -1,4 +1,3 @@
-import { cookies, headers } from "next/headers";
 import { stripe } from "@/utils/stripe/stripe";
 import { getURL } from "@/utils/helpers";
 import { getServerSession } from "next-auth";

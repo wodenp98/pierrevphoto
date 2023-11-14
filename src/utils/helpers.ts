@@ -33,7 +33,7 @@ export const postData = async ({
   return res.json();
 };
 
-export const postDataSession = async ({
+export const deleteUserAccount = async ({
   url,
   data,
 }: {

@@ -9,14 +9,14 @@ export default function Footer() {
       <div className="flex justify-center mt-4">
         <Link href="/">
           <Image
-            src="/logo noir.png"
+            src="/assets/logo noir.png"
             alt="Logo"
             width={90}
             height={90}
             className=" dark:hidden"
           />
           <Image
-            src="/logo blanc.png"
+            src="/assets/logo blanc.png"
             alt="Logo"
             width={90}
             height={90}

@@ -14,7 +14,6 @@ import { signOut, useSession } from "next-auth/react";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { prisma } from "../../utils/prisma/prisma";
 import { AlertDialogHeader, AlertDialogFooter } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import {
@@ -34,7 +33,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
-import { postDataSession } from "@/utils/helpers";
+import { deleteUserAccount } from "@/utils/helpers";
 import { Separator } from "@/components/ui/separator";
 
 const FormSchema = z.object({
@@ -68,7 +67,7 @@ export default function UserInfo() {
   };
 
   const deleteAccount = async () => {
-    const response = await postDataSession({
+    const response = await deleteUserAccount({
       url: "/api/delete-user",
       data: session?.user.id as string,
     });

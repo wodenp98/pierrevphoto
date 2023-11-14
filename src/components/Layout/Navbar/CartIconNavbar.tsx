@@ -1,7 +1,7 @@
 "use client";
 import useFromStore from "@/lib/store/hooks/useFromStore";
 import { useCartStore } from "@/lib/store/useCartStore";
-import { CalendarIcon, Info, Loader2, ShoppingCart } from "lucide-react";
+import { Loader2, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import {
@@ -10,13 +10,12 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
   SheetFooter,
   SheetClose,
 } from "../../ui/sheet";
 import { Separator } from "../../ui/separator";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { BsCreditCard } from "react-icons/bs";
 import { ToastAction } from "../../ui/toast";
 import { toast } from "../../ui/use-toast";
@@ -29,11 +28,7 @@ import {
 import Image from "next/image";
 import { postData } from "@/utils/helpers";
 import { getStripe } from "@/utils/stripe/stripe-client";
-import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "@/components/ui/hover-card";
+
 import { usePathname } from "next/navigation";
 
 type CartItem = {

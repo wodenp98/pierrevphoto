@@ -18,7 +18,6 @@ import Link from "next/link";
 import OrderComponent from "@/components/CompteComponents/OrderComponent";
 import { Separator } from "@/components/ui/separator";
 import { OrdersProps } from "@/types/OrderTypes";
-import { redirect } from "next/navigation";
 import { itemsPurchased } from "@/utils/prisma/historiqueCommande.query";
 
 import type { Metadata } from "next";
@@ -40,7 +39,7 @@ export default async function Page() {
           <div className="flex items-center justify-center w-full">
             <div className="relative">
               <Image
-                src={session?.user.image ?? "/photo-utilisateur.jpg"}
+                src={session?.user.image ?? "/assets/photo-utilisateur.jpg"}
                 alt="Photo de profil"
                 width={80}
                 height={80}

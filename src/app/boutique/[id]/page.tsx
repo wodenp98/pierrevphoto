@@ -9,7 +9,7 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "@/components/ui/hover-card";
-import { Info, CalendarIcon } from "lucide-react";
+import { Info } from "lucide-react";
 
 interface Props {
   id: string;

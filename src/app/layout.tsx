@@ -1,7 +1,7 @@
 import Navbar from "@/components/Layout/Navbar/Navbar";
 import "./globals.css";
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font";
+import { GeistSans } from "geist/font/sans";
 import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "Pierre.V",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/assets/opengraph-image.png",
         width: 1260,
         height: 800,
       },
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logo blanc.png" sizes="36x36" />
+        <link rel="icon" href="/assets/logo blanc.png" sizes="36x36" />
       </head>
       <body className={`min-h-screen bg-background ${GeistSans.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

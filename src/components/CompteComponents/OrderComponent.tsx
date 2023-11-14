@@ -1,10 +1,3 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/ui/accordion";
-
 import Image from "next/image";
 import { OrdersProps } from "@/types/OrderTypes";
 

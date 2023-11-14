@@ -8,13 +8,13 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.slidingWindow(5, "10 s"),
 });
 
-export const CarouselImageSchema = z.object({
+const CarouselImageSchema = z.object({
   id: z.number(),
   name: z.string(),
   imageUrl: z.string(),
 });
 
-export type CarouselImageSchema = z.infer<typeof CarouselImageSchema>;
+type CarouselImageSchema = z.infer<typeof CarouselImageSchema>;
 
 export async function GET(request: Request) {
   console.log("ok", request);

@@ -10,7 +10,7 @@ export const LinkInstagram = () => {
       className="flex items-center"
     >
       <Image
-        src="/icon-instagram.svg"
+        src="/svg/icon-instagram.svg"
         alt="Instagram"
         width={40}
         height={40}
@@ -29,7 +29,7 @@ export const LinkGmail = () => {
       rel="noopener noreferrer"
     >
       <Image
-        src="/icon-gmail.svg"
+        src="/svg/icon-gmail.svg"
         alt="Gmail"
         width={40}
         height={40}

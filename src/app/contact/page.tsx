@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
 import { IoMdPaperPlane } from "react-icons/io";
-import { BiPhoneCall } from "react-icons/bi";
 import Link from "next/link";
 
 import type { Metadata } from "next";

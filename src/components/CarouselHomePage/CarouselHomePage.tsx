@@ -36,8 +36,8 @@ export default function Carousel({ data }: { data: CarouselData[] }) {
                   src={slide.imageUrl}
                   alt={slide.name}
                   className="object-cover object-center w-full h-full"
-                  width={2000}
-                  height={2000}
+                  width={1920}
+                  height={1080}
                   priority={true}
                 />
               </div>

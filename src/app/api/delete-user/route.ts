@@ -1,23 +1,23 @@
-import { cookies, headers } from "next/headers";
-import { stripe } from "@/utils/stripe/stripe";
-import { getURL } from "@/utils/helpers";
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
 import { prisma } from "@/utils/prisma/prisma";
-import { signOut } from "next-auth/react";
-import { NextResponse } from "next/server";
+
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(3, "10 s"),
 });
 
-export const BodySchema = z.string();
+const BodySchema = z.object({
+  // Define your properties here
+  id: z.string(),
+});
 
-export type BodyValidation = z.infer<typeof BodySchema>;
+type BodyValidation = z.infer<typeof BodySchema>;
 
 export async function DELETE(req: Request) {
   if (req.method === "DELETE") {
@@ -51,13 +51,13 @@ export async function DELETE(req: Request) {
       return new Response("Bad Request", { status: 403 });
     }
 
-    if (session.user.id !== bodyResult.data) {
+    if (session.user.id !== bodyResult.data.id) {
       return new Response("Bad Request", { status: 403 });
     }
 
     const deleteUser = await prisma.user.delete({
       where: {
-        id: bodyResult.data,
+        id: bodyResult.data.id,
       },
     });
 

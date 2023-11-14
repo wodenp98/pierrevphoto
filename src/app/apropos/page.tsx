@@ -38,8 +38,8 @@ export default function About() {
             <p className="my-6"> Pierre V.</p>
           </div>
           <Image
-            src="/photo-pierre.jpg"
-            alt="Picture of the author"
+            src="/assets/photo-pierre.jpg"
+            alt="Photo du photographe"
             width={500}
             height={500}
             className="object-cover object-top my-10 rounded-lg w-80 h-96"

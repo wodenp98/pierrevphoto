@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Image from "next/image";
 import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/lib/store/useCartStore";

@@ -2,8 +2,6 @@
 import CustomerDetails from "@/components/CommandesDetails/CustomerDetails";
 import { stripe } from "@/utils/stripe/stripe";
 import { BsFillPatchCheckFill } from "react-icons/bs";
-import { getArticleById } from "../../utils/prisma/boutiqueId.query";
-import { prisma } from "../../utils/prisma/prisma";
 import { Customer } from "@/types/CustomerTypes";
 
 import type { Metadata } from "next";
