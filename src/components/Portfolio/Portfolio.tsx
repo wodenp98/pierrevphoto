@@ -1,23 +1,34 @@
-"use client";
+import Loading from "@/app/loading";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import { EffectCoverflow, Pagination } from "swiper/modules";
-import { SwiperSlide, Swiper } from "swiper/react";
 
 import Image from "next/image";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import PortfolioSwiper from "./PortfolioSwiper";
 
 type PortfolioData = {
   id: number;
   name: string;
   imageUrl: string;
-};
+}[];
 
-export default function Portfolio({ data }: { data: PortfolioData[] }) {
+async function getPortfolioImages() {
+  const res = await fetch(`${process.env.BASE_URL}/api/portfolio`);
+
+  if (!res.ok) {
+    return null;
+  }
+
+  const data = (await res.json()) as PortfolioData;
+
+  return data;
+}
+
+export default async function Portfolio() {
+  const portfolioImages = await getPortfolioImages();
+
+  if (!portfolioImages) {
+    return Loading();
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -39,35 +50,7 @@ export default function Portfolio({ data }: { data: PortfolioData[] }) {
         </button>
       </DialogTrigger>
       <DialogContent className="p-0 bg-transparent border-none shadow-none w-4/5 md:w-4/5 lg:w-2/3 xl:w-2/3 ">
-        <Swiper
-          effect={"coverflow"}
-          grabCursor={true}
-          centeredSlides={true}
-          loop={true}
-          slidesPerView={"auto"}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
-          pagination={true}
-          modules={[EffectCoverflow, Pagination]}
-          className="mySwiper"
-        >
-          {data?.map((item) => (
-            <SwiperSlide key={item.id}>
-              <Image
-                src={item.imageUrl}
-                alt={item.name}
-                height={1080}
-                width={1080}
-                className="rounded-md  w-full h-full object-cover "
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <PortfolioSwiper data={portfolioImages} />
       </DialogContent>
     </Dialog>
   );

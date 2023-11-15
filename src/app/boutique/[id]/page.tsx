@@ -1,5 +1,4 @@
 import { AccordionShop } from "@/components/BoutiqueIdComponents/ShopAccordion";
-import { getArticleById } from "../../../utils/prisma/boutiqueId.query";
 import Image from "next/image";
 import ShopFormPaysage from "@/components/BoutiqueIdComponents/ShopFormPaysage";
 import ShopFormPortrait from "@/components/BoutiqueIdComponents/ShopFormPortrait";
@@ -10,13 +9,38 @@ import {
   HoverCardContent,
 } from "@/components/ui/hover-card";
 import { Info } from "lucide-react";
+import Loading from "./loading";
 
-interface Props {
-  id: string;
+type Article = {
+  id: number;
+  name: string;
+  imageUrl: string;
+  description: string;
+  aspectRatio: string;
+  price: number;
+};
+async function getArticleById(id: number) {
+  const res = await fetch(`${process.env.BASE_URL}/api/boutique/${id}`);
+
+  if (!res.ok) {
+    return null;
+  }
+
+  const data = (await res.json()) as Article;
+
+  return data;
 }
 
-export default async function Page({ params: { id } }: { params: Props }) {
+export default async function Page({
+  params: { id },
+}: {
+  params: { id: number };
+}) {
   const article = await getArticleById(id);
+
+  if (!article) {
+    return Loading();
+  }
 
   return (
     <main className="flex flex-col items-center">
@@ -114,7 +138,7 @@ export default async function Page({ params: { id } }: { params: Props }) {
               <h2>Impression 100% MADE IN FRANCE</h2>
 
               <Image
-                src="/france.png"
+                src="/assets/france.png"
                 alt="Drapeau de la France"
                 width={50}
                 height={50}

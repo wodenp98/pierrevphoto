@@ -12,22 +12,22 @@ export const metadata: Metadata = {
   title: "Pierre.V Photographie",
   description:
     "Découvrez les photographies de Pierre V. Parcourez sa collection d'images captivantes et explorez son travail. Site officiel de Pierre.V Photographie.",
-  openGraph: {
-    title: "Pierre.V",
-    description:
-      "Découvrez les photographies de Pierre V. Parcourez sa collection d'images captivantes et explorez son travail. Site officiel de Pierre.V.",
-    url: "http://localhost:3000",
-    siteName: "Pierre.V",
-    images: [
-      {
-        url: "/assets/opengraph-image.png",
-        width: 1260,
-        height: 800,
-      },
-    ],
-    locale: "fr-FR",
-    type: "website",
-  },
+  // openGraph: {
+  //   title: "Pierre.V",
+  //   description:
+  //     "Découvrez les photographies de Pierre V. Parcourez sa collection d'images captivantes et explorez son travail. Site officiel de Pierre.V.",
+  //   url: "http://localhost:3000",
+  //   siteName: "Pierre.V",
+  //   images: [
+  //     {
+  //       url: "/assets/opengraph-image.png",
+  //       width: 1260,
+  //       height: 800,
+  //     },
+  //   ],
+  //   locale: "fr-FR",
+  //   type: "website",
+  // },
   metadataBase: new URL("http://localhost:3000"),
 };
 

@@ -9,24 +9,27 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.slidingWindow(5, "10 s"),
 });
 
-const CarouselImageSchema = z.object({
+const ArticlesSchema = z.object({
   id: z.number(),
   name: z.string(),
   imageUrl: z.string(),
+  description: z.string(),
+  aspectRatio: z.string(),
+  price: z.number(),
 });
 
-type CarouselImageSchema = z.infer<typeof CarouselImageSchema>;
+type ArticlesSchema = z.infer<typeof ArticlesSchema>;
 
 export async function GET() {
-  const carousel = await prisma.carousel.findMany();
+  const articles = await prisma.article.findMany();
 
-  const validateCarousel = CarouselImageSchema.array().safeParse(carousel);
+  const validateArticles = ArticlesSchema.array().safeParse(articles);
 
-  if (!validateCarousel.success) {
-    throw new Error(validateCarousel.error.message);
+  if (!validateArticles.success) {
+    throw new Error(validateArticles.error.message);
   }
 
-  return NextResponse.json(validateCarousel.data, {
+  return NextResponse.json(validateArticles.data, {
     headers: {
       "Content-Type": "application/json",
     },

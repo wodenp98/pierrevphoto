@@ -1,11 +1,9 @@
-
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
 import { prisma } from "@/utils/prisma/prisma";
-
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
@@ -43,7 +41,7 @@ export async function DELETE(req: Request) {
       return new Response("Bad Request", { status: 403 });
     }
 
-    const body = await req.json();
+    const body: BodyValidation = await req.json();
 
     const bodyResult = BodySchema.safeParse(body);
 

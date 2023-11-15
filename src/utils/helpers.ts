@@ -33,28 +33,7 @@ export const postData = async ({
   return res.json();
 };
 
-export const deleteUserAccount = async ({
-  url,
-  data,
-}: {
-  url: string;
-  data: string;
-}) => {
-  const res = await fetch(url, {
-    method: "DELETE",
-    headers: new Headers({ "Content-Type": "application/json" }),
-    credentials: "same-origin",
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) {
-    console.log("Error in postData", { url, data, res });
-
-    throw Error(res.statusText);
-  }
-
-  return res;
-};
-
+// move to the initial fetch and type it
 export const getData = async ({ url }: { url: string }) => {
   const res = await fetch(url, {
     method: "GET",

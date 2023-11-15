@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getArticles } from "../../utils/prisma/boutique.query";
 
 import type { Metadata } from "next";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Pierre.V | Boutique",
@@ -10,9 +10,32 @@ export const metadata: Metadata = {
     "Explorez la boutique de Pierre Vigneron, où vous trouverez une sélection de superbes articles. Découvrez des produits uniques et inspirants, parfaits pour les amoureux de la photographie. Parcourez notre collection et trouvez l'article idéal pour enrichir votre passion pour la photographie.",
 };
 
+type Articles = {
+  id: number;
+  name: string;
+  imageUrl: string;
+  description: string;
+  aspectRatio: string;
+  price: number;
+}[];
+async function getArticles() {
+  const res = await fetch(`${process.env.BASE_URL}/api/boutique`);
+
+  if (!res.ok) {
+    return null;
+  }
+
+  const data = (await res.json()) as Articles;
+
+  return data;
+}
+
 export default async function Page() {
   const articles = await getArticles();
-  //montrer les deux possibilités avec et sans container
+
+  if (!articles) {
+    return Loading();
+  }
 
   return (
     <main className="flex 1">

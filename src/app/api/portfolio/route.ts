@@ -9,24 +9,26 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.slidingWindow(5, "10 s"),
 });
 
-const CarouselImageSchema = z.object({
+const PortfolioImageSchema = z.object({
   id: z.number(),
   name: z.string(),
   imageUrl: z.string(),
 });
 
-type CarouselImageSchema = z.infer<typeof CarouselImageSchema>;
+type PortfolioImageSchema = z.infer<typeof PortfolioImageSchema>;
+
+// rendre le swiper plus rapide
 
 export async function GET() {
-  const carousel = await prisma.carousel.findMany();
+  const portfolio = await prisma.portfolio.findMany();
 
-  const validateCarousel = CarouselImageSchema.array().safeParse(carousel);
+  const validatePortfolio = PortfolioImageSchema.array().safeParse(portfolio);
 
-  if (!validateCarousel.success) {
-    throw new Error(validateCarousel.error.message);
+  if (!validatePortfolio.success) {
+    throw new Error(validatePortfolio.error.message);
   }
 
-  return NextResponse.json(validateCarousel.data, {
+  return NextResponse.json(validatePortfolio.data, {
     headers: {
       "Content-Type": "application/json",
     },

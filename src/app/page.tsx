@@ -2,9 +2,6 @@ import Carousel from "@/components/CarouselHomePage/CarouselHomePage";
 import Link from "next/link";
 import Portfolio from "@/components/Portfolio/Portfolio";
 import { Button } from "@/components/ui/button";
-import { carouselImages } from "@/utils/prisma/carousel.query";
-import { portfolioImages } from "@/utils/prisma/portfolio.query";
-import Loading from "./loading";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,17 +9,10 @@ export const metadata: Metadata = {
   description: "Bienvenue sur le site de Pierre V. Découvrez mon travail.",
 };
 
-export default async function Page() {
-  const carouselData = await carouselImages();
-  const portfolioData = await portfolioImages();
-
-  if (!carouselData || !portfolioData) {
-    return Loading();
-  }
-
+export default function Page() {
   return (
     <main>
-      <Carousel data={carouselData} />
+      <Carousel />
       <section>
         <h1 className="flex items-center justify-center text-2xl pt-8">
           Bonjour, je suis Pierre Vigneron
@@ -32,7 +22,7 @@ export default async function Page() {
         </h2>
 
         <div className="flex items-center flex-col h-5/6 ">
-          <Portfolio data={portfolioData} />
+          <Portfolio />
 
           <div className="w-full flex justify-center p-4 z-10">
             <Link href="/boutique">

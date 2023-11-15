@@ -77,7 +77,7 @@ export default function CartIconNavbar() {
     }
 
     try {
-      const { sessionId } = await postData({
+      const { sessionId }: { sessionId: string } = await postData({
         url: "/api/stripe-session",
         data: cart,
       });

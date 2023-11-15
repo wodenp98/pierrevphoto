@@ -33,7 +33,6 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
-import { deleteUserAccount } from "@/utils/helpers";
 import { Separator } from "@/components/ui/separator";
 
 const FormSchema = z.object({
@@ -67,23 +66,27 @@ export default function UserInfo() {
   };
 
   const deleteAccount = async () => {
-    const response = await deleteUserAccount({
-      url: "/api/delete-user",
-      data: session?.user.id as string,
+    const response = await fetch("/api/delete-user", {
+      method: "DELETE",
+      headers: new Headers({ "Content-Type": "application/json" }),
+      credentials: "same-origin",
+      body: JSON.stringify({
+        id: session?.user.id as string,
+      }),
     });
 
-    if (response.status !== 200) {
-      return toast({
-        title: "Une erreur est survenue",
-      });
+    if (!response.ok) {
+      throw Error(response.statusText);
     }
 
     if (response.status === 200) {
       signOut();
-      return toast({
+      toast({
         title: "Votre compte a bien été supprimé",
       });
     }
+
+    return;
   };
   return (
     <Card>

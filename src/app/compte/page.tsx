@@ -28,9 +28,30 @@ export const metadata: Metadata = {
     "Consultez votre profil utilisateur sur le site Pierre.V. Accédez à vos informations personnelles et vos commandes passées. Gérez votre compte. Bienvenue dans votre espace personnel !",
 };
 
+async function getOrders(userId: string) {
+  const res = await fetch(`${process.env.BASE_URL}/api/historique-commande`, {
+    body: JSON.stringify(userId),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+
+  const data = (await res.json()) as OrdersProps[];
+
+  console.log("data", data);
+
+  return data;
+}
+
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  const orders = await itemsPurchased();
+  // const orders = await itemsPurchased();
+  const orders = await getOrders(session?.user.id as string);
 
   return (
     <main className="flex 1">
@@ -68,7 +89,7 @@ export default async function Page() {
                     <Separator />
                   </CardHeader>
                   <CardContent className="space-y-2">
-                    {orders.length === 0 ? (
+                    {orders?.length === 0 ? (
                       <div className="flex flex-col items-center text-center">
                         <p>
                           Vous n'avez pas encore effectué d'achat sur notre
