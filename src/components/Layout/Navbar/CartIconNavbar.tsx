@@ -1,7 +1,8 @@
 "use client";
 import useFromStore from "@/lib/store/hooks/useFromStore";
 import { useCartStore } from "@/lib/store/useCartStore";
-import { Loader2, ShoppingCart } from "lucide-react";
+import { Loader2, ShoppingCart, Trash2 } from "lucide-react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import {
@@ -30,6 +31,12 @@ import { postData } from "@/utils/helpers";
 import { getStripe } from "@/utils/stripe/stripe-client";
 
 import { usePathname } from "next/navigation";
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 type CartItem = {
   id: number;
@@ -115,22 +122,21 @@ export default function CartIconNavbar() {
           </div>
         ) : (
           <>
-            <div>
+            <div className="w-full">
               {cart?.map((item: CartItem) => (
-                <div key={item.id} className="flex mt-5">
-                  <div className="flex-shrink-0">
-                    <Image
-                      key={item.id}
-                      src={item.imageUrl}
-                      alt={item.name}
-                      width={360}
-                      height={360}
-                      className="object-cover w-28 h-28 sm:w-36 sm:h-36"
-                    />
-                  </div>
-                  <div className="flex-grow ml-4">
-                    <p className="text-sm lg:text-xl font-bold">{item.name}</p>
-                    <Accordion type="single" collapsible>
+                <div key={item.id} className="flex mt-5 w-full">
+                  <Image
+                    key={item.id}
+                    src={item.imageUrl}
+                    alt={item.name}
+                    width={360}
+                    height={360}
+                    className="object-cover h-24 w-24 sm:h-28 sm:w-28"
+                  />
+
+                  <div className="flex flex-col justify-between ml-2 grow sm:ml-4">
+                    <p className="text-xs md:text-sm font-bold">{item.name}</p>
+                    {/* <Accordion type="single" collapsible>
                       <AccordionItem value="item-1">
                         <AccordionTrigger className="text-sm ">
                           Détails
@@ -145,18 +151,34 @@ export default function CartIconNavbar() {
                           {item.rendu}
                         </AccordionContent>
                       </AccordionItem>
-                    </Accordion>
+                    </Accordion>   */}
+
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <p className="text-xs mb-2 cursor-pointer hover:underline">
+                            Détails
+                          </p>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-xs">
+                            {item.format} - {item.impression} - {item.rendu}
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
-                  <div className="flex flex-col items-end justify-between ml-4">
-                    <span className="text-sm lg:text-xl px-4">
-                      {item.price} €
+                  <div className="flex flex-col items-end justify-between ml-2 sm:ml-4">
+                    <span className="text-sm flex pl-2 sm:pl-4">
+                      {item.price}€
                     </span>
                     <Button
                       variant="ghost"
+                      size="icon"
                       onClick={() => removeFromCart(item)}
                       className=" text-xs  hover:bg-red-600 hover:text-white"
                     >
-                      Supprimer
+                      <Trash2 size={20} />
                     </Button>
                   </div>
                 </div>
@@ -169,29 +191,24 @@ export default function CartIconNavbar() {
             </div>
 
             <SheetFooter className="flex flex-col justify-center items-center sm:justify-center">
-              <SheetClose asChild>
-                <Button
-                  className=" mt-8 w-1/2"
-                  onClick={handleCheckout}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <div className="flex items-center justify-center">
-                      <Loader2
-                        size={16}
-                        className="mr-2 h-4 w-4 animate-spin"
-                      />
-                      <p className="ml-4">Paiement en cours...</p>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center">
-                      <p>Paiement</p>
-                      <BsCreditCard className="ml-4 w-5 h-5 text-center" />
-                    </div>
-                  )}
-                </Button>
-              </SheetClose>
+              <Button
+                className=" mt-8 w-1/2"
+                onClick={handleCheckout}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                    Paiement...
+                  </>
+                ) : (
+                  <>
+                    <BsCreditCard className="mr-2 h-4 w-4" /> Paiement
+                  </>
+                )}
+              </Button>
             </SheetFooter>
+            <p className="text-center mt-2 text-sm">Prix HT</p>
           </>
         )}
       </SheetContent>

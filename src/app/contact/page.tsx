@@ -21,7 +21,7 @@ export default function Contact() {
             Pour toute question, n'hésitez pas à me contacter ! Je vous
             répondrai dans les meilleurs délais. A bientôt !
           </h2>
-          <div className="grid grid-cols-1 gap-2  lg:grid-cols-3 xl:grid-cols-3 w-3/4 place-items-center">
+          <div className="grid grid-cols-1 gap-2  md:grid-cols-2 w-3/4 place-items-center">
             <a
               href={`mailto:pierrev.photographie@gmail.com`}
               className="relative w-full h-full my-1"
@@ -31,13 +31,13 @@ export default function Contact() {
                 src="/assets/mailfond.jpg"
                 alt="Votre image"
                 className="w-full h-full"
-                width={325}
-                height={325}
+                width={500}
+                height={500}
               />
 
-              <div className="absolute inset-0 bg-white/70 flex flex-col items-center justify-center">
+              <div className="absolute inset-0 bg-white/60 flex flex-col items-center justify-center">
                 <IoMdPaperPlane className="text-4xl text-black" />
-                <p className="text-black text-xs font-bold">
+                <p className="text-black text-xs lg:text-lg font-bold">
                   pierre.v.photographie@gmail.com
                 </p>
               </div>
@@ -52,16 +52,16 @@ export default function Contact() {
                 src="/assets/instafond.jpg"
                 alt="Votre image"
                 className="w-full h-full"
-                width={325}
-                height={325}
+                width={500}
+                height={500}
               />
 
-              <div className="absolute inset-0 bg-white/70 flex flex-col items-center justify-center">
+              <div className="absolute inset-0 bg-white/60 flex flex-col items-center justify-center">
                 <Image
-                  src="/icon-instagram.svg"
+                  src="/svg/icon-instagram.svg"
                   alt="Instagram"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                   className="text-4xl text-black"
                 />
                 <p className="text-black text-lg font-bold">

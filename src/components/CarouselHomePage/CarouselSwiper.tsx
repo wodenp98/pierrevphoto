@@ -1,6 +1,6 @@
 "use client";
 
-import { Pagination } from "swiper/modules";
+import { Pagination, Navigation } from "swiper/modules";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -19,9 +19,13 @@ type CarouselData = {
 export default function CarouselSwiper({ data }: { data: CarouselData[] }) {
   return (
     <Swiper
-      modules={[Pagination]}
+      modules={[Pagination, Navigation]}
       slidesPerView={1}
       pagination={{ clickable: true }}
+      navigation={{
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      }}
       loop={true}
       className="h-full"
     >
@@ -41,6 +45,8 @@ export default function CarouselSwiper({ data }: { data: CarouselData[] }) {
           </div>
         </SwiperSlide>
       ))}
+      <div className="swiper-button-next" id="test"></div>
+      <div className="swiper-button-prev" id="test"></div>
     </Swiper>
   );
 }

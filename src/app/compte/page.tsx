@@ -18,7 +18,6 @@ import Link from "next/link";
 import OrderComponent from "@/components/CompteComponents/OrderComponent";
 import { Separator } from "@/components/ui/separator";
 import { OrdersProps } from "@/types/OrderTypes";
-import { itemsPurchased } from "@/utils/prisma/historiqueCommande.query";
 
 import type { Metadata } from "next";
 
@@ -42,15 +41,11 @@ async function getOrders(userId: string) {
   }
 
   const data = (await res.json()) as OrdersProps[];
-
-  console.log("data", data);
-
   return data;
 }
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  // const orders = await itemsPurchased();
   const orders = await getOrders(session?.user.id as string);
 
   return (

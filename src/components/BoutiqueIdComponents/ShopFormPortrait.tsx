@@ -1,7 +1,7 @@
 "use client";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Image from "next/image";
 import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/lib/store/useCartStore";
@@ -51,7 +51,7 @@ const SelectInput: React.FC<{
   onChange: (value: string) => void;
 }> = ({ label, name, options, errors, required, register, onChange }) => {
   return (
-    <div className="flex flex-col mb-2 w-full md:w-3/4">
+    <div className="flex flex-col mb-2 w-full md:w-3/5">
       <label htmlFor={name} className="mb-1 text-sm font-medium ">
         {label}
       </label>
@@ -77,6 +77,7 @@ const SelectInput: React.FC<{
 };
 
 export const ShopForm = ({ article }: { article: Article }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const cart = useFromStore(useCartStore, (state) => state.cart);
   const addToCart = useCartStore((state) => state.addToCart);
   const {
@@ -111,34 +112,45 @@ export const ShopForm = ({ article }: { article: Article }) => {
   const price = getPrice(formValues);
 
   const onSubmit = () => {
-    const productToCart = {
-      ...article,
-      price,
-      format: formValues.format,
-      rendu: formValues.rendu,
-      impression: formValues.impression,
-    };
+    setIsLoading(true);
+    try {
+      const productToCart = {
+        ...article,
+        price,
+        format: formValues.format,
+        rendu: formValues.rendu,
+        impression: formValues.impression,
+      };
 
-    const itemExist = cart?.find((item) => item.id === productToCart.id);
+      const itemExist = cart?.find((item) => item.id === productToCart.id);
 
-    if (itemExist) {
-      return toast({
-        className: "bg-red-500 text-white",
-        title: `Cet article est déjà dans votre panier`,
-        duration: 3000,
-      });
-    } else {
-      addToCart(productToCart);
+      if (itemExist) {
+        return toast({
+          className: "bg-red-500 text-white",
+          title: `Cet article est déjà dans votre panier`,
+          duration: 3000,
+        });
+      } else {
+        addToCart(productToCart);
+        toast({
+          className: "bg-green-500 text-white",
+          title: `Votre article a été ajouté à votre panier`,
+          duration: 3000,
+        });
+      }
+    } catch (error) {
       toast({
-        className: "bg-green-500 text-white",
-        title: `Votre article a été ajouté à votre panier`,
+        className: "bg-red-500 text-white",
+        title: `Une erreur est survenue`,
         duration: 3000,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="mt-28">
+    <div className="mt-10">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col sm:items-center md:items-center lg:items-center"
@@ -176,23 +188,21 @@ export const ShopForm = ({ article }: { article: Article }) => {
           }}
           register={register}
         />
-        <div className="mt-8 flex justify-center">
-          <Button type="submit" className="uppercase py-2 px-4">
-            Ajouter au panier {price.toFixed(2)}€
-          </Button>
+        <div className="mt-8 flex flex-col justify-center">
+          {isLoading ? (
+            <Button className="uppercase py-2 px-4" disabled>
+              <ReloadIcon className="mr-2 h-4 w-4 animate-spin " />
+              Ajout en cours...
+            </Button>
+          ) : (
+            <Button type="submit" className="uppercase py-2 px-4">
+              Ajouter au panier {price.toFixed(2)}€
+            </Button>
+          )}
+
+          <p className="text-center mt-2 text-sm">Prix HT</p>
         </div>
       </form>
-
-      <div className="flex flex-col items-center mt-6">
-        <h2>Impression 100% MADE IN FRANCE</h2>
-
-        <Image
-          src="/france.png"
-          alt="Drapeau de la France"
-          width={50}
-          height={50}
-        />
-      </div>
     </div>
   );
 };

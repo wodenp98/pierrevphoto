@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import * as React from "react";
@@ -20,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
 import { useToast } from "../ui/use-toast";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -76,10 +78,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             )}
           />
           <Button disabled={isLoading} type="submit" className="w-full">
-            {isLoading && (
-              <PiSpinnerGapBold className="mr-2 h-4 w-4 animate-spin" />
+            {isLoading ? (
+              <>
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                Mail en cours d'envoi
+              </>
+            ) : (
+              <>Se connecter avec votre email</>
             )}
-            Se connecter avec votre email
           </Button>
         </form>
       </Form>
@@ -98,7 +104,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         onClick={() => signIn("google", { callbackUrl: "/compte" })}
       >
         {isLoading ? (
-          <PiSpinnerGapBold className="mr-2 h-4 w-4 animate-spin" />
+          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <FcGoogle className="mr-2 h-4 w-4" />
         )}{" "}

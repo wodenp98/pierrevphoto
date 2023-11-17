@@ -73,7 +73,7 @@ export default function Navbar() {
               <DropdownMenuItem className="space-x-2 uppercase">
                 Contact
                 <DropdownMenuShortcut>
-                  <AiOutlinePhone className="w-6 h-6" />
+                  <AiOutlinePhone className="w-5 h-5" />
                 </DropdownMenuShortcut>
               </DropdownMenuItem>
             </Link>
@@ -112,7 +112,7 @@ export default function Navbar() {
           alt="Logo"
           width={90}
           height={90}
-          className=" dark:hidden"
+          className="dark:hidden"
         />
         <Image
           src="/assets/logo blanc.png"

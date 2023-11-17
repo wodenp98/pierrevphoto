@@ -10,6 +10,12 @@ import {
 } from "@/components/ui/hover-card";
 import { Info } from "lucide-react";
 import Loading from "./loading";
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 type Article = {
   id: number;
@@ -19,6 +25,7 @@ type Article = {
   aspectRatio: string;
   price: number;
 };
+
 async function getArticleById(id: number) {
   const res = await fetch(`${process.env.BASE_URL}/api/boutique/${id}`);
 
@@ -29,6 +36,31 @@ async function getArticleById(id: number) {
   const data = (await res.json()) as Article;
 
   return data;
+}
+
+export async function generateMetadata({ params }: any) {
+  const { name, description, imageUrl } = (await getArticleById(
+    params.id
+  )) as Article;
+
+  return {
+    title: name,
+    description: description,
+    openGraph: {
+      title: name,
+      description: description,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: name,
+        },
+      ],
+    },
+    locale: "fr-FR",
+    type: "website",
+  };
 }
 
 export default async function Page({
@@ -42,12 +74,14 @@ export default async function Page({
     return Loading();
   }
 
+  // format lg et xl + voir l'erreur sur hover card
+
   return (
     <main className="flex flex-col items-center">
       <div className="w-11/12">
         <section className="w-full mt-6">
           {article.aspectRatio === "portrait" ? (
-            <div className="flex flex-col  items-start md:flex-row">
+            <div className="flex flex-col  items-center lg:flex-row lg:items-start">
               <Image
                 key={article.name}
                 src={article.imageUrl}
@@ -59,38 +93,42 @@ export default async function Page({
               />
 
               <div className="flex flex-col w-full h-full md:w-10/12 md:flex-col lg:ml-6 ">
-                <div className="">
-                  <h1 className="text-3xl">{article.name}</h1>
-                  <p className="text-sm mt-6">{article.description}</p>
-                  <HoverCard>
-                    <HoverCardTrigger asChild className="pl-0 mt-4">
-                      <Button variant="link" className="flex items-center">
-                        <Info className="mr-2" />
-                        Informations livraisons
-                      </Button>
-                    </HoverCardTrigger>
-                    <HoverCardContent className="w-80">
-                      <div className="flex justify-between space-x-4">
-                        <div className="space-y-1">
-                          <h4 className="text-sm font-semibold">
-                            Informations livraisons
-                          </h4>
-                          <p className="text-sm">
-                            Toutes nos livraisons sont envoyées en point relais.
-                            Un point relais vous sera demandé une fois votre
-                            commande passée.
-                          </p>
+                <div className="mt-4">
+                  <h1 className="text-3xl text-center">{article.name}</h1>
+                  <p className="text-sm mt-6 text-center">
+                    {article.description}
+                  </p>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild className="pl-0 mt-4">
+                        <Button variant="link" className="flex items-center">
+                          <Info className="mr-2" />
+                          Informations livraisons
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className="w-80">
+                        <div className="flex justify-between space-x-4">
+                          <div className="space-y-1">
+                            <h4 className="text-sm font-semibold">
+                              Informations livraisons
+                            </h4>
+                            <p className="text-sm">
+                              Toutes nos livraisons sont envoyées en point
+                              relais. Un point relais vous sera demandé une fois
+                              votre commande passée.
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </HoverCardContent>
-                  </HoverCard>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
 
                 <ShopFormPortrait article={article} />
               </div>
             </div>
           ) : (
-            <div className="flex flex-col items-start md:flex-row">
+            <div className="flex flex-col items-center lg:flex-row lg:items-start">
               <Image
                 key={article.name}
                 src={article.imageUrl}
@@ -98,34 +136,39 @@ export default async function Page({
                 quality={100}
                 width={1080}
                 height={1080}
+                className="lg:w-3/5"
               />
 
-              <div className="flex flex-col w-full h-full md:w-10/12 md:flex-col lg:ml-6 ">
-                <div className="">
-                  <h1 className="text-3xl">{article.name}</h1>
-                  <p className="text-sm mt-6">{article.description}</p>
-                  <HoverCard>
-                    <HoverCardTrigger asChild className="pl-0 mt-4">
-                      <Button variant="link" className="flex items-center">
-                        <Info className="mr-2" />
-                        Informations livraisons
-                      </Button>
-                    </HoverCardTrigger>
-                    <HoverCardContent className="w-80">
-                      <div className="flex justify-between space-x-4">
-                        <div className="space-y-1">
-                          <h4 className="text-sm font-semibold">
-                            Informations livraisons
-                          </h4>
-                          <p className="text-sm">
-                            Toutes nos livraisons sont envoyées en point relais.
-                            Un point relais vous sera demandé une fois votre
-                            commande passée.
-                          </p>
+              <div className="flex flex-col w-full h-full mt-4 md:w-10/12 md:flex-col lg:ml-6 lg:w-1/2">
+                <div className="mt-4 sm:mt-0">
+                  <h1 className="text-3xl text-center">{article.name}</h1>
+                  <p className="text-sm text-center mt-6">
+                    {article.description}
+                  </p>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild className="pl-0 mt-4">
+                        <Button variant="link" className="flex items-center">
+                          <Info className="mr-2" />
+                          Informations livraisons
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className="w-80">
+                        <div className="flex justify-between space-x-4">
+                          <div className="space-y-1">
+                            <h4 className="text-sm font-semibold">
+                              Informations livraisons
+                            </h4>
+                            <p className="text-sm">
+                              Toutes nos livraisons sont envoyées en point
+                              relais. Un point relais vous sera demandé une fois
+                              votre commande passée.
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </HoverCardContent>
-                  </HoverCard>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
 
                 <ShopFormPaysage article={article} />

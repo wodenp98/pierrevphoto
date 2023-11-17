@@ -34,7 +34,6 @@ export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
 
   const id = await req.json();
-  console.log("test", id);
 
   const ordersArticles = await prisma.order.findMany({
     where: {

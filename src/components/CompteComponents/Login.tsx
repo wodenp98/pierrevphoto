@@ -27,7 +27,7 @@ export const Login = () => {
           <p className="px-8 text-center text-sm text-muted-foreground">
             En cliquant, vous acceptez les{" "}
             <Link
-              href="/cgvu"
+              href="/cgv"
               className="underline underline-offset-4 hover:text-primary"
             >
               CGV

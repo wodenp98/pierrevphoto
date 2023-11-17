@@ -33,23 +33,6 @@ export const postData = async ({
   return res.json();
 };
 
-// move to the initial fetch and type it
-export const getData = async ({ url }: { url: string }) => {
-  const res = await fetch(url, {
-    method: "GET",
-    headers: new Headers({ "Content-Type": "application/json" }),
-    credentials: "same-origin",
-  });
-
-  if (!res.ok) {
-    console.log("Error in getData", { url, res });
-
-    throw Error(res.statusText);
-  }
-
-  return res.json();
-};
-
 export const getURL = () => {
   let url =
     process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.

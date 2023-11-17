@@ -15,7 +15,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { AlertDialogHeader, AlertDialogFooter } from "../ui/alert-dialog";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import {
   Card,
   CardHeader,
@@ -34,6 +34,8 @@ import {
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { C } from "@upstash/redis/zmscore-10fd3773";
+import { cn } from "@/lib/utils";
 
 const FormSchema = z.object({
   nom: z
@@ -147,8 +149,11 @@ export default function UserInfo() {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Annuler</AlertDialogCancel>
-              <AlertDialogAction onClick={deleteAccount}>
-                Confimer
+              <AlertDialogAction
+                className={cn(buttonVariants({ variant: "destructive" }))}
+                onClick={deleteAccount}
+              >
+                Supprimer
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

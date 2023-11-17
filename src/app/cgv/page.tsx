@@ -2,11 +2,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pierre.V | CGVU",
+  title: "Pierre.V | CGV",
   description:
-    "Consultez nos Conditions Générales de Vente (CGVU) pour comprendre les modalités, les règles et les engagements associés à vos achats sur notre site. Découvrez nos politiques de vente, de paiement, de livraison et de retour. Informez-vous sur vos droits et obligations en tant que client de Pierre.V.",
+    "Consultez nos Conditions Générales de Vente (CGV) pour comprendre les modalités, les règles et les engagements associés à vos achats sur notre site. Découvrez nos politiques de vente, de paiement, de livraison et de retour. Informez-vous sur vos droits et obligations en tant que client de Pierre.V.",
 };
-export default function CGVU() {
+export default function CGV() {
   return (
     <main className="flex 1">
       <div className="container relative">
@@ -25,7 +25,7 @@ export default function CGVU() {
               conclues par le vendeur auprès d'acheteurs non professionnels («
               Les clients ou le client »), désirant acquérir les produits
               proposés à la vente (« Les produits ») par le vendeur sur le site
-              https://www.pierrevphotographie.fr. Les produits proposés à la
+              https://www.pierrevphotographie.com. Les produits proposés à la
               vente sur le site sont les suivants : impressions de photo et des
               prestations photos.
             </p>
@@ -33,7 +33,7 @@ export default function CGVU() {
               Les caractéristiques principales des produits et notamment les
               spécifications, illustrations et indications de dimensions ou de
               capacité des produits, sont présentées sur le site
-              https://www.pierrevphotographie.fr ce dont le client est tenu de
+              https://www.pierrevphotographie.com ce dont le client est tenu de
               prendre connaissance avant de commander. Le choix et l'achat d'un
               produit sont de la seule responsabilité du client. Les offres de
               produits s'entendent dans la limite des stocks disponibles, tels
@@ -41,43 +41,28 @@ export default function CGVU() {
             </p>
             <p className="text-sm m-2">
               Ces CGV sont accessibles à tout moment sur le site
-              https://www.pierrevphotographie.fr et prévaudront sur toute autre
+              https://www.pierrevphotographie.com et prévaudront sur toute autre
               document. Le client déclare avoir pris connaissance des présentes
               CGV et les avoir acceptées en cochant la case prévue à cet effet
               avant la mise en œuvre de la procédure de commande en ligne du
-              site https://www.pierrevphotographie.fr. Sauf preuve contraire,
+              site https://www.pierrevphotographie.com. Sauf preuve contraire,
               les données enregistrées dans le système informatique du vendeur
               constituent la preuve de l'ensemble des transactions conclues avec
               le client.
             </p>
-            <p className="text-sm m-2">
-              Les coordonnées du vendeur sont les suivantes:
-            </p>
-            <ul>
-              <li className="text-sm m-2">Vigneron Pierre</li>
-              <li className="text-sm m-2">9 Avenue du Pouligou, Maison 4</li>
-              <li className="text-sm m-2">44380 Pornichet</li>
-              <li className="text-sm m-2">France</li>
-              <li className="text-sm m-2">
-                Numéro d'immatriculation: 907 664 627 00029
-              </li>
-              <li className="text-sm m-2">
-                Email: pierre.v.photoraphie@gmail.com
-              </li>
-            </ul>
           </div>
           <div>
             <h2 className="text-2xl font-bold m-2">Article 2 - Prix</h2>
             <p className="text-sm m-2">
               Les produits sont fournis aux tarifs en vigueur figurant sur le
-              site https://www.pierrevphotographie.fr, lors de l'enregistrement
+              site https://www.pierrevphotographie.com, lors de l'enregistrement
               de la commande par le vendeur.
             </p>
-            <p className="text-sm m-2">Les prix sont exprimés en Euros TTC.</p>
+            <p className="text-sm m-2">Les prix sont exprimés en Euros HT.</p>
             <p className="text-sm m-2">
               Les tarifs tiennent compte d'éventuelles réductions qui seraient
               consenties par le vendeur sur le site
-              https://www.pierrevphotographie.fr.
+              https://www.pierrevphotographie.com.
             </p>
             <p className="text-sm m-2">
               Ces tarifs sont fermes et non révisables pendant leur période de
@@ -95,10 +80,10 @@ export default function CGVU() {
             </p>
           </div>
           <div>
-            <h2 className="text-2xl font-bold m-2">Article 3 - Commandess</h2>
+            <h2 className="text-2xl font-bold m-2">Article 3 - Commandes</h2>
             <p className="text-sm m-2">
               Il appartient au client de sélectionner sur le site
-              https://www.pierrevphotographie.fr les produits qu'il désire
+              https://www.pierrevphotographie.com les produits qu'il désire
               commander.
             </p>
             <p className="text-sm m-2">
@@ -112,7 +97,7 @@ export default function CGVU() {
             </p>
             <p className="text-sm m-2">
               Toute commande passée sur le site
-              https://www.pierrevphotographie.fr constitue la formation d'un
+              https://www.pierrevphotographie.com constitue la formation d'un
               contrat conclu à distance entre le client et le vendeur.
             </p>
             <p className="text-sm m-2">
@@ -159,7 +144,7 @@ export default function CGVU() {
             </p>
             <p className="text-sm m-2">
               En cas de non respect des conditions générales de vente et/ou
-              d’utilisation, le site https://www.pierrevphotographie.fr aura la
+              d’utilisation, le site https://www.pierrevphotographie.com aura la
               possibilité de suspendre voire de fermer le compte d’un client
               après mise en demeure adressée par voie électronique et restée
               sans effet.
@@ -199,7 +184,7 @@ export default function CGVU() {
               Les données de paiement sont échangées en mode crypté grâce au
               protocole défini par le prestataire de paiement agréé intervenant
               pour les transactions bancaires réalisée sur le site
-              https://www.pierrevphotographie.fr.
+              https://www.pierrevphotographie.com.
             </p>
             <p className="text-sm m-2">
               Les paiements effectués par le client ne seront considérés comme
@@ -218,7 +203,7 @@ export default function CGVU() {
               métropolitaine.
             </p>
             <p className="text-sm m-2">
-              Les livraisons interviennent dans un délai de 7-10 jours à
+              Les livraisons interviennent dans un délai de 15-20 jours à
               l'adresse indiquée par le client lors de sa commande sur le site.
             </p>
             <p className="text-sm m-2">
@@ -482,20 +467,17 @@ export default function CGVU() {
             </h3>
             <p className="text-sm m-2">
               Les données à caractère personnel qui sont collectées sur le site
-              https://www.pierrevphotographie.fr sont les suivantes :
+              https://www.pierrevphotographie.com sont les suivantes :
             </p>
             <p className="text-sm m-2">Ouverture de compte</p>
             <p className="text-sm m-2">
               Lors de la création du compte client / utilisateur :
             </p>
-            <p className="text-sm m-2">
-              Noms, prénoms, adresse postale, numéro de téléphone et adresse
-              e-mail.
-            </p>
+            <p className="text-sm m-2">Nom, adresse e-mail.</p>
             <p className="text-sm m-2">Paiement</p>
             <p className="text-sm m-2">
               Dans le cadre du paiement des produits proposés sur le site
-              https://www.pierrevphotographie.fr, celui-ci enregistre des
+              https://www.pierrevphotographie.com, celui-ci enregistre des
               données financières relatives au compte bancaire ou à la carte de
               crédit du client / utilisateur.
             </p>
@@ -543,7 +525,8 @@ export default function CGVU() {
             <p className="text-sm m-2">
               En application de la règlementation applicable aux données à
               caractère personnel, les Clients et utilisateurs du site
-              https://www.pierrevphotographie.fr disposent des droits suivants :
+              https://www.pierrevphotographie.com disposent des droits suivants
+              :
             </p>
             <ul>
               <li className="text-sm m-2">
@@ -614,7 +597,7 @@ export default function CGVU() {
               Article 10 - Propriété intellectuelle
             </h2>
             <p className="text-sm m-2">
-              Le contenu du site https://www.pierrevphotographie.fr est la
+              Le contenu du site https://www.pierrevphotographie.com est la
               propriété du vendeur et de ses partenaires et est protégé par les
               lois françaises et internationales relatives à la propriété
               intellectuelle.
@@ -674,50 +657,6 @@ export default function CGVU() {
           <span className="text-xs m-2">
             Réalisé sur https://www.legalplace.fr
           </span>
-        </section>
-        <section className="flex justify-center items-center flex-col w-5/6 mx-auto">
-          <h2 className="text-2xl font-bold m-2">ANNEXE I</h2>
-          <p className="text-sm m-2">Formulaire de rétractation</p>
-          <div>
-            <p className="text-sm m-2">Date ________________________________</p>
-            <p className="text-sm m-2">
-              Le présent formulaire doit être complété et renvoyé uniquement si
-              le Client souhaite se rétracter de la commande passée sur
-              https://www.pierrevphotographie.fr sauf exclusions ou limites à
-              l'exercice du droit de rétractation suivant les Conditions
-              Générales de Vente applicables.
-            </p>
-            <p className="text-sm m-2">A l'attention de Vigneron Pierre</p>
-            <p className="text-sm m-2">9 Avenue du Pouligou, Maison 4</p>
-            <p className="text-sm m-2">44380 Pornichet</p>
-            <p className="text-sm m-2">FRANCE</p>
-            <p className="text-sm m-2">
-              Je notifie par la présente la rétractation du contrat portant sur
-              le bien ci-dessous :
-            </p>
-            <ul>
-              <li className="text-sm m-2">
-                - Commande du (indiquer la date) :
-                .............................................
-              </li>
-              <li className="text-sm m-2">
-                - Numéro de la commande :
-                ...........................................................
-              </li>
-              <li className="text-sm m-2">
-                - Nom du Client :
-                ...........................................................................
-              </li>
-              <li className="text-sm m-2">
-                - Adresse du Client :
-                .......................................................................
-              </li>
-            </ul>
-            <p className="text-sm m-2">
-              Signature du Client (uniquement en cas de notification du présent
-              formulaire sur papier)
-            </p>
-          </div>
         </section>
       </div>
     </main>

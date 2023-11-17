@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: "http:/localhost:3000/cgvu",
+      url: "http:/localhost:3000/cgv",
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.5,
