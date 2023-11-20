@@ -25,21 +25,21 @@ export default function CustomerDetails({
       <h2 className="text-2xl font-bold mb-4 flex flex-col items-center">
         Détails de la commande
       </h2>
-      <div className="flex flex-wrap flex-row justify-center">
+      <div className="flex flex-wrap mt-12 flex-row justify-center">
         {customerDetails.length > 0 ? (
           customerDetails.map((item: Customer) => (
-            <div key={item.id} className="flex flex-col items-center">
+            <div key={item.id} className="flex flex-col mt-4 items-center">
               <Image
                 src={item.imageUrl}
                 alt={item.name}
-                width={100}
-                height={100}
+                width={300}
+                height={300}
                 className="w-32 h-32 object-cover"
               />
-              <div className="flex flex-col ml-4">
+              <div className="flex flex-col items-center ml-4">
                 <p className="text-lg font-bold">{item.name}</p>
-                <p className="text-gray-500">{item.details}</p>
-                <p className="text-gray-500">{item.price} €</p>
+                <p>{item.details}</p>
+                <p>{item.price} €</p>
               </div>
             </div>
           ))

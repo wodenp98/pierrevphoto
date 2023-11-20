@@ -1,20 +1,75 @@
 "use client";
-import { useState } from "react";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "../ui/use-toast";
-import { Button } from "../ui/button";
+import * as z from "zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useCartStore } from "@/lib/store/useCartStore";
 import useFromStore from "@/lib/store/hooks/useFromStore";
+import { toast } from "@/components/ui/use-toast";
+import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 
-type Article = {
+interface Article {
   name: string;
   id: number;
   imageUrl: string;
   aspectRatio: string;
   description: string;
   price: number;
-};
+}
+
+const FormSchema = z.object({
+  format: z.enum(["30*45 cm", "40*60 cm", "60*90 cm", "70*100 cm"], {
+    errorMap: (issue, ctx) => {
+      return {
+        message: "Veuillez choisir un format",
+      };
+    },
+  }),
+  rendu: z.enum(["Mat", "Satiné"], {
+    errorMap: (issue, ctx) => {
+      return {
+        message: "Veuillez choisir un rendu",
+      };
+    },
+  }),
+  impression: z.enum(["Subligraphie", "Fine Art seul", "Alu Dibond"], {
+    errorMap: (issue, ctx) => {
+      return {
+        message: "Veuillez choisir une impression",
+      };
+    },
+  }),
+});
+
+const OrderSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  imageUrl: z.string(),
+  aspectRatio: z.string(),
+  description: z.string(),
+  price: z.number(),
+  format: z.enum(["30*45 cm", "40*60 cm", "60*90 cm", "70*100 cm"]),
+  rendu: z.enum(["Mat", "Satiné"]),
+  impression: z.enum(["Subligraphie", "Fine Art seul", "Alu Dibond"]),
+});
 
 type FormValues = {
   [key: string]: string;
@@ -41,57 +96,14 @@ const prices: Record<string, Record<string, number>> = {
   },
 };
 
-const SelectInput: React.FC<{
-  label: string;
-  name: string;
-  options: string[];
-  required: boolean;
-  errors: any;
-  register: any;
-  onChange: (value: string) => void;
-}> = ({ label, name, options, errors, required, register, onChange }) => {
-  return (
-    <div className="flex flex-col mb-2 w-full md:w-3/5">
-      <label htmlFor={name} className="mb-1 text-sm font-medium ">
-        {label}
-      </label>
-      <select
-        id={name}
-        name={name}
-        {...register(name, { required })}
-        onChange={(e) => onChange(e.target.value)}
-        className="px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 border-gray-300 w-full"
-      >
-        <option value="" disabled hidden>
-          -- Option --
-        </option>
-        {options.map((option: string, index: number) => (
-          <option key={index} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      {errors[name] && <p className="text-red-500 mb-2">{label} est requis</p>}
-    </div>
-  );
-};
-
-export const ShopForm = ({ article }: { article: Article }) => {
-  const [isLoading, setIsLoading] = useState(false);
+export const ShopFormPaysage = ({ article }: { article: Article }) => {
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
   const cart = useFromStore(useCartStore, (state) => state.cart);
   const addToCart = useCartStore((state) => state.addToCart);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      format: "",
-      rendu: "",
-      impression: "",
-    },
-    mode: "onChange",
-  });
+  const [isLoading, setIsLoading] = useState(false);
+
   const [formValues, setFormValues] = useState<FormValues>({
     format: "",
     rendu: "",
@@ -111,19 +123,32 @@ export const ShopForm = ({ article }: { article: Article }) => {
 
   const price = getPrice(formValues);
 
-  const onSubmit = () => {
+  function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true);
     try {
       const productToCart = {
-        ...article,
+        id: article.id,
+        name: article.name,
+        imageUrl: article.imageUrl,
+        aspectRatio: article.aspectRatio,
+        description: article.description,
         price,
-        format: formValues.format,
-        rendu: formValues.rendu,
-        impression: formValues.impression,
+        format: data.format,
+        rendu: data.rendu,
+        impression: data.impression,
       };
 
-      const itemExist = cart?.find((item) => item.id === productToCart.id);
+      const validateOrder = OrderSchema.safeParse(productToCart);
 
+      if (!validateOrder.success) {
+        return toast({
+          className: "bg-red-500 text-white",
+          title: `Une erreur est survenue`,
+          duration: 3000,
+        });
+      }
+
+      const itemExist = cart?.find((item) => item.id === validateOrder.data.id);
       if (itemExist) {
         return toast({
           className: "bg-red-500 text-white",
@@ -131,7 +156,7 @@ export const ShopForm = ({ article }: { article: Article }) => {
           duration: 3000,
         });
       } else {
-        addToCart(productToCart);
+        addToCart({ ...validateOrder.data });
         toast({
           className: "bg-green-500 text-white",
           title: `Votre article a été ajouté à votre panier`,
@@ -147,63 +172,123 @@ export const ShopForm = ({ article }: { article: Article }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   return (
     <div className="mt-10 sm:flex sm:flex-col sm:items-center">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-col sm:items-center sm:w-3/4"
-      >
-        <SelectInput
-          label="Format"
-          name="format"
-          options={["30*45 cm", "40*60 cm", "60*90 cm", "70*100 cm"]}
-          required={true}
-          onChange={(value) =>
-            setFormValues((prevState) => ({ ...prevState, format: value }))
-          }
-          errors={errors}
-          register={register}
-        />
-        <SelectInput
-          label="Rendu"
-          name="rendu"
-          options={["Mat", "Satiné"]}
-          required={true}
-          errors={errors}
-          onChange={(value) => {
-            setFormValues((prevState) => ({ ...prevState, rendu: value }));
-          }}
-          register={register}
-        />
-        <SelectInput
-          label="Impression"
-          name="impression"
-          options={["Subligraphie", "Fine Art seul", "Alu Dibond"]}
-          required={true}
-          errors={errors}
-          onChange={(value) => {
-            setFormValues((prevState) => ({ ...prevState, impression: value }));
-          }}
-          register={register}
-        />
-        <div className="mt-8 flex flex-col  justify-center">
-          {isLoading ? (
-            <Button className="uppercase py-2 px-4" disabled>
-              <ReloadIcon className="mr-2 h-4 w-4 animate-spin " />
-              Ajout en cours...
-            </Button>
-          ) : (
-            <Button type="submit" className="uppercase py-2 px-4">
-              Ajouter au panier {price.toFixed(2)}€
-            </Button>
-          )}
-          <p className="text-center mt-2 text-sm">Prix HT</p>
-        </div>
-      </form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 ">
+          <FormField
+            control={form.control}
+            name="format"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Format</FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    setFormValues((prevState) => ({
+                      ...prevState,
+                      format: value,
+                    }));
+                    field.onChange(value);
+                  }}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choisissez un format" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="30*45 cm">30*45 cm</SelectItem>
+                    <SelectItem value="40*60 cm">40*60 cm</SelectItem>
+                    <SelectItem value="60*90 cm">60*90 cm</SelectItem>
+                    <SelectItem value="70*100 cm">70*100 cm</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="impression"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Impression</FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    setFormValues((prevState) => ({
+                      ...prevState,
+                      impression: value,
+                    }));
+                    field.onChange(value);
+                  }}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choisissez une impression" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Subligraphie">Subligraphie</SelectItem>
+                    <SelectItem value="Fine Art seul">Fine Art seul</SelectItem>
+                    <SelectItem value="Alu Dibond">Alu Dibond</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="rendu"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Rendu</FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    setFormValues((prevState) => ({
+                      ...prevState,
+                      rendu: value,
+                    }));
+                    field.onChange(value);
+                  }}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choisissez un rendu" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Mat">Mat</SelectItem>
+                    <SelectItem value="Satiné">Satiné</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex flex-col  justify-center">
+            {isLoading ? (
+              <Button className="uppercase py-2 px-4" disabled>
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin " />
+                Ajout en cours...
+              </Button>
+            ) : (
+              <Button type="submit" className="uppercase py-2 px-4">
+                Ajouter au panier {price.toFixed(2)}€
+              </Button>
+            )}
+            <p className="text-center mt-2 text-sm">Prix HT</p>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 };
 
-export default ShopForm;
+export default ShopFormPaysage;

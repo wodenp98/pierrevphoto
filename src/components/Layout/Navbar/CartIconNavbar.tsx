@@ -1,7 +1,7 @@
 "use client";
 import useFromStore from "@/lib/store/hooks/useFromStore";
 import { useCartStore } from "@/lib/store/useCartStore";
-import { Loader2, ShoppingCart, Trash2 } from "lucide-react";
+import { Info, Loader2, ShoppingCart, Trash2 } from "lucide-react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Button } from "../../ui/button";
@@ -20,12 +20,6 @@ import { useState } from "react";
 import { BsCreditCard } from "react-icons/bs";
 import { ToastAction } from "../../ui/toast";
 import { toast } from "../../ui/use-toast";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "../../ui/accordion";
 import Image from "next/image";
 import { postData } from "@/utils/helpers";
 import { getStripe } from "@/utils/stripe/stripe-client";
@@ -37,6 +31,11 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
 
 type CartItem = {
   id: number;
@@ -136,37 +135,18 @@ export default function CartIconNavbar() {
 
                   <div className="flex flex-col justify-between ml-2 grow sm:ml-4">
                     <p className="text-xs md:text-sm font-bold">{item.name}</p>
-                    {/* <Accordion type="single" collapsible>
-                      <AccordionItem value="item-1">
-                        <AccordionTrigger className="text-sm ">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <p className="text-xs mb-2 cursor-pointer hover:underline">
                           Détails
-                        </AccordionTrigger>
-                        <AccordionContent className="text-xs">
-                          {item.format}
-                        </AccordionContent>
-                        <AccordionContent className="text-xs">
-                          {item.impression}
-                        </AccordionContent>
-                        <AccordionContent className="text-xs">
-                          {item.rendu}
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>   */}
-
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <p className="text-xs mb-2 cursor-pointer hover:underline">
-                            Détails
-                          </p>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p className="text-xs">
-                            {item.format} - {item.impression} - {item.rendu}
-                          </p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+                        </p>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-56">
+                        <p className="text-xs">
+                          {item.format} - {item.impression} - {item.rendu}
+                        </p>
+                      </PopoverContent>
+                    </Popover>
                   </div>
                   <div className="flex flex-col items-end justify-between ml-2 sm:ml-4">
                     <span className="text-sm flex pl-2 sm:pl-4">

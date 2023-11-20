@@ -3,23 +3,40 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 
 import Image from "next/image";
 import PortfolioSwiper from "./PortfolioSwiper";
+import { z } from "zod";
 
-type PortfolioData = {
-  id: number;
-  name: string;
-  imageUrl: string;
-}[];
+const PortfolioSchema = z.array(
+  z.object({
+    id: z.number(),
+    name: z.string(),
+    imageUrl: z.string(),
+  })
+);
 
 async function getPortfolioImages() {
-  const res = await fetch(`${process.env.BASE_URL}/api/portfolio`);
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/portfolio`, {
+      method: "GET",
+      credentials: "same-origin",
+      next: {
+        revalidate: 3600,
+      },
+    });
 
-  if (!res.ok) {
+    if (!res.ok) {
+      return null;
+    }
+
+    const data = PortfolioSchema.safeParse(await res.json());
+
+    if (!data.success) {
+      return null;
+    }
+
+    return data.data;
+  } catch (error) {
     return null;
   }
-
-  const data = (await res.json()) as PortfolioData;
-
-  return data;
 }
 
 export default async function Portfolio() {
@@ -49,7 +66,7 @@ export default async function Portfolio() {
           </div>
         </button>
       </DialogTrigger>
-      <DialogContent className="p-0 bg-transparent border-none shadow-none w-4/5 md:w-4/5 lg:w-2/3 xl:w-2/3 ">
+      <DialogContent className="p-0 bg-transparent border-none shadow-none w-11/12 h-96 md:h-4/5 md:w-4/5 lg:w-2/3 xl:w-2/3 ">
         <PortfolioSwiper data={portfolioImages} />
       </DialogContent>
     </Dialog>

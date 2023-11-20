@@ -44,10 +44,10 @@ export default async function Page({
   return (
     <main className="flex 1">
       <div className="container relative">
-        <div className="flex flex-col items-center justify-center">
-          <BsFillPatchCheckFill size={50} color="green" />
-          <p>Merci d'avoir passer commande!</p>
-          <p>
+        <div className="flex flex-col mt-14 items-center justify-center">
+          <BsFillPatchCheckFill size={100} className="mb-12" color="green" />
+          <p className="text-center">Merci d'avoir passer commande!</p>
+          <p className="text-center">
             Vous recevrez un mail sous 48H vous demandant de sélectionner un
             point relais, une facture récapitulative vous sera également envoyée
           </p>

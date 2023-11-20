@@ -24,8 +24,8 @@ interface Item {
 
 export async function POST(req: Request) {
   if (req.method === "POST") {
-    const origin = req.headers.get("Origin");
-    console.log("origin", origin);
+    const origin = req.headers.get("origin");
+
     if (origin && origin !== "http://localhost:3000") {
       return new Response("Mauvaise origine de la requête", { status: 403 });
     }
@@ -43,10 +43,11 @@ export async function POST(req: Request) {
       });
     }
 
-    const cart = await req.json();
+    const cart: Item[] = await req.json();
 
     try {
       const sessionUser = await getServerSession(authOptions);
+
       if (!sessionUser?.user || !sessionUser?.user.email) {
         return new Response(null, { status: 403 });
       }

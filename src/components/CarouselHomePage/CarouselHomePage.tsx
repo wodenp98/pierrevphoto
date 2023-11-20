@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import CarouselSwiper from "./CarouselSwiper";
 import Loading from "@/app/loading";
+import { z } from "zod";
 
 type CarouselData = {
   carousel: {
@@ -11,16 +12,38 @@ type CarouselData = {
   }[];
 };
 
-async function getCarouselImages() {
-  const res = await fetch(`${process.env.BASE_URL}/api/carousel`);
+const CarouselSchema = z.array(
+  z.object({
+    id: z.number(),
+    name: z.string(),
+    imageUrl: z.string(),
+  })
+);
 
-  if (!res.ok) {
+async function getCarouselImages() {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/carousel`, {
+      method: "GET",
+      credentials: "same-origin",
+      next: {
+        revalidate: 3600,
+      },
+    });
+
+    if (!res.ok) {
+      return null;
+    }
+
+    const data = CarouselSchema.safeParse(await res.json());
+
+    if (!data.success) {
+      return null;
+    }
+
+    return data.data;
+  } catch (error) {
     return null;
   }
-
-  const data = (await res.json()) as CarouselData;
-
-  return data.carousel;
 }
 
 export default async function Carousel() {

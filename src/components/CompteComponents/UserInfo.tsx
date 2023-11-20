@@ -34,7 +34,6 @@ import {
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
 import { Separator } from "@/components/ui/separator";
-import { C } from "@upstash/redis/zmscore-10fd3773";
 import { cn } from "@/lib/utils";
 
 const FormSchema = z.object({

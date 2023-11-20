@@ -35,7 +35,7 @@ export default function PortfolioSwiper({ data }: { data: PortfolioData[] }) {
             src={item.imageUrl}
             alt={item.name}
             height={1080}
-            width={1080}
+            width={1920}
             className="rounded-md  w-full h-full object-cover "
           />
         </SwiperSlide>

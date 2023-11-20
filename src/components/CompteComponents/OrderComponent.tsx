@@ -1,5 +1,21 @@
 import Image from "next/image";
-import { OrdersProps } from "@/types/OrderTypes";
+
+type OrdersProps = {
+  id: string;
+  userId: string;
+  articleId: number;
+  orderedAt: string;
+  totalPrice: number;
+  description: string;
+  status: string;
+  articles: {
+    id: number;
+    name: string;
+    price: number;
+    imageUrl: string;
+    description: string;
+  };
+};
 
 export default function CardHistoryItem({
   historyCommand,
@@ -17,8 +33,8 @@ export default function CardHistoryItem({
             key={historyCommand.articles.id}
             src={historyCommand.articles.imageUrl}
             alt={historyCommand.articles.name}
-            width={100}
-            height={100}
+            width={325}
+            height={325}
             className="object-cover w-28 h-28 sm:w-36 sm:h-36"
           />
         </div>

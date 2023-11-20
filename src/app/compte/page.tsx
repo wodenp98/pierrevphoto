@@ -18,8 +18,9 @@ import Link from "next/link";
 import OrderComponent from "@/components/CompteComponents/OrderComponent";
 import { Separator } from "@/components/ui/separator";
 import { OrdersProps } from "@/types/OrderTypes";
-
 import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { z } from "zod";
 
 export const metadata: Metadata = {
   title: "Pierre.V | Mon compte",
@@ -27,21 +28,46 @@ export const metadata: Metadata = {
     "Consultez votre profil utilisateur sur le site Pierre.V. Accédez à vos informations personnelles et vos commandes passées. Gérez votre compte. Bienvenue dans votre espace personnel !",
 };
 
+const OrdersSchema = z.array(
+  z.object({
+    id: z.string(),
+    userId: z.string(),
+    articleId: z.number(),
+    orderedAt: z.string(),
+    totalPrice: z.number(),
+    description: z.string(),
+    status: z.string(),
+    articles: z.object({
+      id: z.number(),
+      name: z.string(),
+      price: z.number(),
+      imageUrl: z.string(),
+      description: z.string(),
+    }),
+  })
+);
+
+type Order = z.infer<typeof OrdersSchema>;
+
 async function getOrders(userId: string) {
   const res = await fetch(`${process.env.BASE_URL}/api/historique-commande`, {
     body: JSON.stringify(userId),
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: new Headers(headers()),
+    credentials: "same-origin",
   });
 
   if (!res.ok) {
     return null;
   }
 
-  const data = (await res.json()) as OrdersProps[];
-  return data;
+  const data = OrdersSchema.safeParse(await res.json());
+
+  if (!data.success) {
+    return null;
+  }
+
+  return data.data;
 }
 
 export default async function Page() {
@@ -93,7 +119,7 @@ export default async function Page() {
                         <span>Mais vous pouvez changer ça 😉</span>
                       </div>
                     ) : (
-                      orders?.map((command: OrdersProps) => (
+                      orders?.map((command) => (
                         <div key={command.id}>
                           <OrderComponent historyCommand={command} />
                           <Separator />

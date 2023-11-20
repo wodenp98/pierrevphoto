@@ -1,13 +1,6 @@
 import { prisma } from "@/utils/prisma/prisma";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(5, "10 s"),
-});
 
 const ArticleSchema = z.object({
   id: z.number(),
@@ -24,22 +17,50 @@ export async function GET(
   request: Request,
   { params }: { params: { id: number } }
 ) {
-  const articleById = await prisma.article.findUnique({
-    where: {
-      id: Number(params.id),
-    },
-  });
+  if (request.method === "GET") {
+    const origin = request.headers.get("origin");
 
-  const validateArticles = ArticleSchema.safeParse(articleById);
+    if (origin && origin !== `${process.env.BASE_URL}`) {
+      return new Response("Mauvaise origine de la requête", {
+        status: 403,
+      });
+    }
+    try {
+      const articleById = await prisma.article.findUnique({
+        where: {
+          id: Number(params.id),
+        },
+      });
 
-  if (!validateArticles.success) {
-    throw new Error(validateArticles.error.message);
+      const validateArticles = ArticleSchema.safeParse(articleById);
+
+      if (!validateArticles.success) {
+        throw new Error(validateArticles.error.message);
+      }
+
+      return NextResponse.json(validateArticles.data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        status: 200,
+      });
+    } catch (error) {
+      return NextResponse.json(
+        { error: "Internal Server Error" },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          status: 500,
+        }
+      );
+    }
+  } else {
+    return new Response("Method not allowed", {
+      status: 405,
+      headers: {
+        Allow: "GET",
+      },
+    });
   }
-
-  return NextResponse.json(validateArticles.data, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    status: 200,
-  });
 }
