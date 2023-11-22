@@ -37,7 +37,7 @@ interface Article {
 }
 
 const FormSchema = z.object({
-  format: z.enum(["45*30 cm", "60*40 cm", "90*60 cm", "100*70 cm"], {
+  format: z.enum(["45*30 cm", "60*40 cm", "90*60 cm"], {
     errorMap: (issue, ctx) => {
       return {
         message: "Veuillez choisir un format",
@@ -67,7 +67,7 @@ const OrderSchema = z.object({
   aspectRatio: z.string(),
   description: z.string(),
   price: z.number(),
-  format: z.enum(["45*30 cm", "60*40 cm", "90*60 cm", "100*70 cm"]),
+  format: z.enum(["45*30 cm", "60*40 cm", "90*60 cm"]),
   rendu: z.enum(["Mat", "Satiné"]),
   impression: z.enum(["Subligraphie", "Fine Art seul", "Alu Dibond"]),
 });
@@ -80,20 +80,20 @@ type FormValues = {
 };
 
 const prices: Record<string, Record<string, number>> = {
-  format: {
-    "45*30 cm": 150,
-    "60*40 cm": 200,
-    "90*60 cm": 250,
-    "100*70 cm": 300,
+  Subligraphie: {
+    "45*30 cm": 62,
+    "60*40 cm": 107,
+    "90*60 cm": 235,
   },
-  rendu: {
-    Mat: 10,
-    Satiné: 20,
+  "Fine Art seul": {
+    "45*30 cm": 18,
+    "60*40 cm": 29,
+    "90*60 cm": 48,
   },
-  impression: {
-    Subligraphie: -5,
-    "Fine Art seul": -10,
-    "Alu Dibond": 5,
+  "Alu Dibond": {
+    "45*30 cm": 65,
+    "60*40 cm": 92,
+    "90*60 cm": 158,
   },
 };
 
@@ -111,18 +111,14 @@ export const ShopFormPortrait = ({ article }: { article: Article }) => {
     impression: "",
   });
 
-  const getPrice = (formValues: FormValues) => {
-    let price = 150;
-    Object.keys(formValues).forEach((key) => {
-      const value = formValues[key];
-      if (prices[key] && prices[key][value]) {
-        price += prices[key][value];
-      }
-    });
-    return price;
+  const calculatePrice = (formValues: FormValues) => {
+    let initialPrice = 150;
+    const price = prices[formValues.impression]?.[formValues.format];
+
+    return initialPrice + (price || 0);
   };
 
-  const price = getPrice(formValues);
+  const price = calculatePrice(formValues);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true);
@@ -204,7 +200,6 @@ export const ShopFormPortrait = ({ article }: { article: Article }) => {
                     <SelectItem value="45*30 cm">45*30 cm</SelectItem>
                     <SelectItem value="60*40 cm">60*40 cm</SelectItem>
                     <SelectItem value="90*60 cm">90*60 cm</SelectItem>
-                    <SelectItem value="100*70 cm">100*70 cm</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

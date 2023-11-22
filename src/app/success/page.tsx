@@ -30,6 +30,8 @@ export default async function Page({
     return <div>Session not found</div>;
   }
 
+  console.log(session.line_items);
+
   const items = session?.line_items?.data.map((item: any) => {
     return {
       id: item.id,

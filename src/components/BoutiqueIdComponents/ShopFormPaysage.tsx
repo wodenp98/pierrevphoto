@@ -36,7 +36,7 @@ interface Article {
 }
 
 const FormSchema = z.object({
-  format: z.enum(["30*45 cm", "40*60 cm", "60*90 cm", "70*100 cm"], {
+  format: z.enum(["30*45 cm", "40*60 cm", "60*90 cm"], {
     errorMap: (issue, ctx) => {
       return {
         message: "Veuillez choisir un format",
@@ -66,7 +66,7 @@ const OrderSchema = z.object({
   aspectRatio: z.string(),
   description: z.string(),
   price: z.number(),
-  format: z.enum(["30*45 cm", "40*60 cm", "60*90 cm", "70*100 cm"]),
+  format: z.enum(["30*45 cm", "40*60 cm", "60*90 cm"]),
   rendu: z.enum(["Mat", "Satiné"]),
   impression: z.enum(["Subligraphie", "Fine Art seul", "Alu Dibond"]),
 });
@@ -79,23 +79,22 @@ type FormValues = {
 };
 
 const prices: Record<string, Record<string, number>> = {
-  format: {
-    "30*45 cm": 150,
-    "40*60 cm": 200,
-    "60*90 cm": 250,
-    "70*100 cm": 300,
+  Subligraphie: {
+    "30*45 cm": 62,
+    "40*60 cm": 107,
+    "60*90 cm": 235,
   },
-  rendu: {
-    Mat: 10,
-    Satiné: 20,
+  "Fine Art seul": {
+    "30*45 cm": 18,
+    "40*60 cm": 29,
+    "60*90 cm": 48,
   },
-  impression: {
-    Subligraphie: -5,
-    "Fine Art seul": -10,
-    "Alu Dibond": 5,
+  "Alu Dibond": {
+    "30*45 cm": 65,
+    "40*60 cm": 92,
+    "60*90 cm": 158,
   },
 };
-
 export const ShopFormPaysage = ({ article }: { article: Article }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -110,18 +109,13 @@ export const ShopFormPaysage = ({ article }: { article: Article }) => {
     impression: "",
   });
 
-  const getPrice = (formValues: FormValues) => {
-    let price = 150;
-    Object.keys(formValues).forEach((key) => {
-      const value = formValues[key];
-      if (prices[key] && prices[key][value]) {
-        price += prices[key][value];
-      }
-    });
-    return price;
-  };
+  const calculatePrice = (formValues: FormValues) => {
+    let initialPrice = 150;
+    const price = prices[formValues.impression]?.[formValues.format];
 
-  const price = getPrice(formValues);
+    return initialPrice + (price || 0);
+  };
+  const price = calculatePrice(formValues);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true);
@@ -203,7 +197,6 @@ export const ShopFormPaysage = ({ article }: { article: Article }) => {
                     <SelectItem value="30*45 cm">30*45 cm</SelectItem>
                     <SelectItem value="40*60 cm">40*60 cm</SelectItem>
                     <SelectItem value="60*90 cm">60*90 cm</SelectItem>
-                    <SelectItem value="70*100 cm">70*100 cm</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
