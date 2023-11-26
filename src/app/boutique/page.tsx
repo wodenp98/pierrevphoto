@@ -27,7 +27,7 @@ async function getArticles() {
       method: "GET",
       credentials: "same-origin",
       next: {
-        revalidate: 3600,
+        revalidate: 10,
       },
     });
 
@@ -61,7 +61,7 @@ export default async function Page() {
           Boutique
         </h1>
         <section>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-6">
             {articles.map((article) => (
               <Link href={`/boutique/${article.id}`} key={article.id}>
                 <div className="relative h-[500px]">
@@ -70,7 +70,7 @@ export default async function Page() {
                     src={article.imageUrl}
                     fill
                     sizes="(min-width: 808px) 50vw, 100vw"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover "
                   />
                 </div>
               </Link>

@@ -38,9 +38,9 @@ export async function POST(req: Request) {
       await prisma.order.create({
         data: {
           userId: sessionItem?.metadata?.userId as string,
-          articleId: Number(item.price.product.metadata.id),
-          totalPrice: item.amount_total,
-          description: item.price.product.description,
+          articleId: Number(item.price?.product.metadata.id) as number,
+          totalPrice: item.amount_total as number,
+          description: item.price?.product.description as string,
         },
       });
     });

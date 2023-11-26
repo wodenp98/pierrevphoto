@@ -14,14 +14,15 @@ export const AccordionShop = () => {
         <AccordionContent>
           Tirage haut de gamme direct sur un support rigide en aluminium. Cela
           donne un effet de profondeur et de réalisme à la photo. C'est assez
-          époustouflant
+          époustouflant. Crochet intégré.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
         <AccordionTrigger>FINE ART</AccordionTrigger>
         <AccordionContent>
           Impression sur un papier de grande qualité. Rendu parfait pour
-          exprimer les perceptions et les émotions.
+          exprimer les perceptions et les émotions. Cadre non fourni. Crochet
+          non intégré.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">

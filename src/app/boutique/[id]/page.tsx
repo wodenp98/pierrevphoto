@@ -91,7 +91,7 @@ export default async function Page({
       <div className="w-11/12">
         <section className="w-full mt-6">
           {article.aspectRatio === "portrait" ? (
-            <div className="flex flex-col  items-center lg:flex-row lg:items-start">
+            <div className="flex flex-col  items-center xl:flex-row xl:items-start">
               <Image
                 key={article.name}
                 src={article.imageUrl}
@@ -102,7 +102,7 @@ export default async function Page({
                 className="object-contain h-full w-full md:h-[85vh] aspect-[3/4]"
               />
 
-              <div className="flex flex-col items-center w-full h-full md:w-10/12 lg:ml-6 ">
+              <div className="flex flex-col items-center w-full h-full md:w-10/12 xl:ml-6 ">
                 <div className="mt-4 sm:mt-0">
                   <h1 className="text-3xl text-center">{article.name}</h1>
                   <p className="text-sm mt-6 text-center">
@@ -136,7 +136,7 @@ export default async function Page({
               </div>
             </div>
           ) : (
-            <div className="flex flex-col items-center lg:flex-row lg:items-start">
+            <div className="flex flex-col items-center xl:flex-row xl:items-start">
               <Image
                 key={article.name}
                 src={article.imageUrl}
@@ -147,7 +147,7 @@ export default async function Page({
                 className="lg:w-3/5"
               />
 
-              <div className="flex flex-col w-full h-full items-center mt-4 md:w-10/12 md:flex-col lg:ml-6 lg:w-1/2">
+              <div className="flex flex-col w-full h-full items-center mt-4 md:w-10/12 md:flex-col xl:ml-6 xl:w-1/2">
                 <div className="mt-4 sm:mt-0">
                   <h1 className="text-3xl text-center">{article.name}</h1>
                   <p className="text-sm text-center mt-6">

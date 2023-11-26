@@ -2,8 +2,8 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "../../../../utils/prisma/prisma";
-import Email from "next-auth/providers/email";
-import { CustomsendVerificationRequest } from "../sendEmail/route";
+import EmailProvider from "next-auth/providers/email";
+import { sendVerificationRequest } from "@/utils/resend/send-verification-request";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -12,25 +12,33 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
-    Email({
+    EmailProvider({
       server: {
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT),
-
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASSWORD,
         },
       },
-
-      sendVerificationRequest({ identifier, url, provider }) {
-        CustomsendVerificationRequest({
+      from: process.env.EMAIL_FROM,
+      sendVerificationRequest({
+        identifier,
+        url,
+        provider,
+        expires,
+        token,
+        theme,
+      }) {
+        return sendVerificationRequest({
           identifier,
           url,
           provider,
+          expires,
+          token,
+          theme,
         });
       },
-      from: process.env.EMAIL_FROM,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,

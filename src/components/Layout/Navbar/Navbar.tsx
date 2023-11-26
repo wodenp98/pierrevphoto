@@ -1,14 +1,16 @@
-import {
-  AiOutlineHome,
-  AiOutlineShoppingCart,
-  AiOutlineInfoCircle,
-  AiOutlinePhone,
-} from "react-icons/ai";
-import { VscAccount } from "react-icons/vsc";
 import { ToggleDarkMode } from "@/components/Layout/Navbar/ToggleDarkMode";
 import Link from "next/link";
 import Image from "next/image";
-import { AlignJustify } from "lucide-react";
+import {
+  AlignJustify,
+  Home,
+  Info,
+  Phone,
+  ShoppingCart,
+  Camera,
+  User,
+  ShoppingBag,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -44,45 +46,42 @@ export default function Navbar() {
           <DropdownMenuGroup>
             <Link href="/">
               <DropdownMenuItem className="space-x-2 uppercase">
-                Accueil
-                <DropdownMenuShortcut>
-                  <AiOutlineHome className="w-5 h-5" />
-                </DropdownMenuShortcut>
+                <Home className="mr-2 h-4 w-4" />
+                <span>Accueil</span>
               </DropdownMenuItem>
             </Link>
 
             <Link href="/boutique">
               <DropdownMenuItem className="space-x-2 uppercase">
-                Boutique
-                <DropdownMenuShortcut>
-                  <AiOutlineShoppingCart className="w-5 h-5" />
-                </DropdownMenuShortcut>
+                <ShoppingBag className="mr-2 h-4 w-4" />
+                <span>Boutique</span>
+              </DropdownMenuItem>
+            </Link>
+
+            <Link href="/prestations">
+              <DropdownMenuItem className="space-x-2 uppercase">
+                <Camera className="mr-2 h-4 w-4" />
+                <span>Prestations</span>
               </DropdownMenuItem>
             </Link>
 
             <Link href="/apropos">
               <DropdownMenuItem className="space-x-2 uppercase">
-                A propos
-                <DropdownMenuShortcut>
-                  <AiOutlineInfoCircle className="w-5 h-5" />
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>{" "}
+                <Info className="mr-2 h-4 w-4" />
+                <span>A propos</span>
+              </DropdownMenuItem>
             </Link>
 
             <Link href="/contact">
               <DropdownMenuItem className="space-x-2 uppercase">
-                Contact
-                <DropdownMenuShortcut>
-                  <AiOutlinePhone className="w-5 h-5" />
-                </DropdownMenuShortcut>
+                <Phone className="mr-2 h-4 w-4" />
+                <span>Contact</span>
               </DropdownMenuItem>
             </Link>
             <Link href="/compte">
               <DropdownMenuItem className="space-x-2 uppercase">
-                Compte
-                <DropdownMenuShortcut>
-                  <VscAccount className="w-5 h-5" />
-                </DropdownMenuShortcut>
+                <User className="mr-2 h-4 w-4" />
+                <span>Compte</span>
               </DropdownMenuItem>
             </Link>
           </DropdownMenuGroup>
