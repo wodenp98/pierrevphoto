@@ -6,6 +6,7 @@ const ArticleSchema = z.object({
   id: z.number(),
   name: z.string(),
   imageUrl: z.string(),
+  imagePreview: z.string(),
   description: z.string(),
   aspectRatio: z.string(),
   price: z.number(),

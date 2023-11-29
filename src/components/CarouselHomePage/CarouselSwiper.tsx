@@ -37,7 +37,7 @@ export default function CarouselSwiper({ data }: { data: CarouselData[] }) {
                 src={slide.imageUrl}
                 alt={slide.name}
                 className="object-cover object-center overflow-hidden w-full h-full"
-                width={1920}
+                width={1620}
                 height={1080}
                 priority={true}
               />

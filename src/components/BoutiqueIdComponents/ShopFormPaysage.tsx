@@ -169,7 +169,7 @@ export const ShopFormPaysage = ({ article }: { article: Article }) => {
   }
 
   return (
-    <div className="mt-10 sm:flex sm:flex-col sm:items-center">
+    <div className="mt-24 sm:flex sm:flex-col sm:items-center">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 ">
           <FormField

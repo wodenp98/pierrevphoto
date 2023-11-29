@@ -118,7 +118,7 @@ export default function Prestations() {
                         Demi-journée
                       </TableCell>
 
-                      <TableCell>800€</TableCell>
+                      <TableCell className="text-right">800€</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">Journée</TableCell>
@@ -128,6 +128,16 @@ export default function Prestations() {
                 </Table>
               </div>
             </CardContent>
+            <Separator />
+            <CardFooter>
+              <div className="flex flex-col items-center mt-8">
+                <p className="text-sm text-center">
+                  Prix à titre indicatif, un devis sera fourni avant chaque
+                  prestation
+                </p>
+                <span className="text-sm mt-8">Siret: 90766462700029</span>
+              </div>
+            </CardFooter>
           </Card>
         </section>
       </div>

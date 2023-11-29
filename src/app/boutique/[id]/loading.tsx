@@ -19,7 +19,7 @@ export default function Loading() {
         </div>
 
         <div className="flex items-center justify-center mt-6">
-          <AccordionShop />
+          <Skeleton className="bg-zinc-500 w-full h-20" />
         </div>
       </section>
     </main>

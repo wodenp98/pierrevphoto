@@ -22,5 +22,5 @@ export async function sendVerificationRequest(
 }
 
 function text({ url, host }: { url: string; host: string }) {
-  return `Sign in to ${host}\n${url}\n\n`;
+  return `Connectez-vous à ${host}\n${url}\n\n`;
 }

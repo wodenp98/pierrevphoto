@@ -27,7 +27,7 @@ async function getArticles() {
       method: "GET",
       credentials: "same-origin",
       next: {
-        revalidate: 10,
+        revalidate: 3600,
       },
     });
 

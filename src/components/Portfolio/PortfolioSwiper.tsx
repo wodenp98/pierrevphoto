@@ -27,7 +27,6 @@ export default function PortfolioSwiper({ data }: { data: PortfolioData[] }) {
       slidesPerView={"auto"}
       pagination={{ clickable: true }}
       modules={[Pagination, Navigation]}
-      className="mySwiper"
     >
       {data?.map((item) => (
         <SwiperSlide key={item.id}>
@@ -36,7 +35,7 @@ export default function PortfolioSwiper({ data }: { data: PortfolioData[] }) {
             alt={item.name}
             height={1080}
             width={1920}
-            className="rounded-md  w-full h-full object-cover "
+            className="rounded-md w-full h-full object-cover "
           />
         </SwiperSlide>
       ))}

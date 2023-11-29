@@ -17,6 +17,7 @@ const ArticleSchema = z.object({
   id: z.number(),
   name: z.string(),
   imageUrl: z.string(),
+  imagePreview: z.string(),
   description: z.string(),
   aspectRatio: z.string(),
   price: z.number(),
@@ -103,13 +104,11 @@ export default async function Page({
               />
 
               <div className="flex flex-col items-center w-full h-full md:w-10/12 xl:ml-6 ">
-                <div className="mt-4 sm:mt-0">
+                <div className="mt-4 lg:mt-0">
                   <h1 className="text-3xl text-center">{article.name}</h1>
-                  <p className="text-sm mt-6 text-center">
-                    {article.description}
-                  </p>
-                  <Popover>
-                    <PopoverTrigger asChild className="pl-0 mt-4">
+
+                  {/* <Popover>
+                    <PopoverTrigger asChild className="pl-0 mt-8">
                       <Button variant="link" className="flex items-center">
                         <Info className="mr-2" />
                         Informations livraisons
@@ -129,7 +128,7 @@ export default async function Page({
                         </div>
                       </div>
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                 </div>
 
                 <ShopFormPortrait article={article} />
@@ -148,13 +147,10 @@ export default async function Page({
               />
 
               <div className="flex flex-col w-full h-full items-center mt-4 md:w-10/12 md:flex-col xl:ml-6 xl:w-1/2">
-                <div className="mt-4 sm:mt-0">
+                <div className="mt-4 lg:mt-0">
                   <h1 className="text-3xl text-center">{article.name}</h1>
-                  <p className="text-sm text-center mt-6">
-                    {article.description}
-                  </p>
-                  <Popover>
-                    <PopoverTrigger asChild className="pl-0 mt-4">
+                  {/* <Popover>
+                    <PopoverTrigger asChild className="pl-0 mt-8">
                       <Button variant="link" className="flex items-center">
                         <Info className="mr-2" />
                         Informations livraisons
@@ -174,7 +170,7 @@ export default async function Page({
                         </div>
                       </div>
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                 </div>
 
                 <ShopFormPaysage article={article} />
@@ -193,7 +189,10 @@ export default async function Page({
                 height={50}
               />
             </div>
-            <AccordionShop />
+            <AccordionShop
+              imagePreview={article.imagePreview}
+              description={article.description}
+            />
           </div>
         </section>
       </div>

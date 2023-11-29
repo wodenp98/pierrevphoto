@@ -66,7 +66,8 @@ export default async function Portfolio() {
           </div>
         </button>
       </DialogTrigger>
-      <DialogContent className="p-0 bg-transparent border-none shadow-none w-11/12 h-96 md:h-4/5 md:w-4/5 lg:w-2/3 xl:w-2/3 ">
+
+      <DialogContent className="max-w-xs sm:max-w-screen-sm lg:max-w-screen-md  p-0 bg-transparent">
         <PortfolioSwiper data={portfolioImages} />
       </DialogContent>
     </Dialog>

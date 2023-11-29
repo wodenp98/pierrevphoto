@@ -7,6 +7,7 @@ const ArticlesSchema = z.array(
     id: z.number(),
     name: z.string(),
     imageUrl: z.string(),
+    imagePreview: z.string(),
     description: z.string(),
     aspectRatio: z.string(),
     price: z.number(),
@@ -21,7 +22,11 @@ export async function GET(req: Request) {
       return new Response("Mauvaise origine de la requête", { status: 403 });
     }
     try {
-      const articles = await prisma.article.findMany();
+      const articles = await prisma.article.findMany({
+        orderBy: {
+          id: "asc",
+        },
+      });
 
       const validateArticles = ArticlesSchema.safeParse(articles);
 

@@ -52,7 +52,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     toast({
       title: "Email envoyé",
       description:
-        "Vérifiez votre boîte de réception pour vous connecter, vérifiez également votre dossier spam !",
+        "Vérifiez votre boîte de réception pour vous connecter, vérifiez également votre dossier spam ! Cela peut prendre quelques minutes.",
       duration: 5000,
     });
   }
