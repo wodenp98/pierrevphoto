@@ -18,7 +18,11 @@ export async function GET(req: Request) {
       return new Response("Mauvaise origine de la requête", { status: 403 });
     }
     try {
-      const carousel = await prisma.carousel.findMany();
+      const carousel = await prisma.carousel.findMany({
+        orderBy: {
+          id: "desc",
+        },
+      });
 
       const validateCarousel = CarouselImageSchema.safeParse(carousel);
 
