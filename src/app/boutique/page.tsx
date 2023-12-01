@@ -55,7 +55,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="flex 1">
+    <main className="flex 1 mt-20">
       <div className="container relative">
         <h1 className="flex justify-center my-6 text-4xl uppercase">
           Boutique

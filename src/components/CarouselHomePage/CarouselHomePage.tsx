@@ -54,7 +54,7 @@ export default async function Carousel() {
   }
 
   return (
-    <div className="relative h-[calc(100vh-80px)]">
+    <div className="relative h-screen">
       <CarouselSwiper data={carouselImages} />
       <div className="absolute bottom-0 left-0 w-full flex justify-center p-14 z-10">
         <Link href="/boutique">

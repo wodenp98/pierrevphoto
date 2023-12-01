@@ -8,13 +8,13 @@ export const metadata: Metadata = {
 };
 export default function MentionsLegales() {
   return (
-    <main className="flex 1">
+    <main className="flex 1 mt-20">
       <div className="container relative">
         <h1 className="flex justify-center my-6 text-4xl uppercase">
           Mentions legales
         </h1>
 
-        <section className="flex justify-center items-center flex-col w-5/6 mx-auto">
+        <section className="flex justify-center  flex-col w-5/6 mx-auto">
           <span className="text-xs m-2">En vigueur au 22/02/2022</span>
           <p className="text-sm m-2">
             Conformément aux dispositions des Articles 6-III et 19 de la Loi

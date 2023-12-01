@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <main className="flex 1">
+    <main className="flex 1 mt-20">
       <div className="container relative">
         <h1 className="flex justify-center my-6 text-4xl uppercase">Contact</h1>
         <section className="flex flex-col items-center">

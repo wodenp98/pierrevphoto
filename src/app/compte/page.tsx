@@ -75,7 +75,7 @@ export default async function Page() {
   const orders = await getOrders(session?.user.id as string);
 
   return (
-    <main className="flex 1">
+    <main className="flex 1 mt-20">
       <div className="container relative">
         <section className="flex flex-col items-center justify-center mt-8 mb-12">
           <div className="flex items-center justify-center w-full">

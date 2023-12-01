@@ -20,7 +20,7 @@ import Link from "next/link";
 
 export default function Prestations() {
   return (
-    <main className="flex 1">
+    <main className="flex 1 mt-20">
       <div className="container relative">
         <section className="flex flex-col items-center justify-center mt-8 mb-12">
           <Card className="w-[350px]">

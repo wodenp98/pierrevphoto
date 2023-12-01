@@ -88,7 +88,7 @@ export default async function Page({
   }
 
   return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col items-center mt-20">
       <div className="w-11/12">
         <section className="w-full mt-6">
           {article.aspectRatio === "portrait" ? (

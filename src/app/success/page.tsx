@@ -64,7 +64,7 @@ export default async function Page({
   }
 
   return (
-    <main className="flex 1">
+    <main className="flex 1 mt-20">
       <div className="container relative">
         <div className="flex flex-col mt-14 items-center justify-center">
           <BsFillPatchCheckFill size={100} className="mb-12" color="green" />
