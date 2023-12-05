@@ -1,6 +1,4 @@
 import { prisma } from "@/utils/prisma/prisma";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
 import { Session, getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";

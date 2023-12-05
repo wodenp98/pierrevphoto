@@ -2,13 +2,6 @@ import { stripe } from "@/utils/stripe/stripe";
 import { getURL } from "@/utils/helpers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
-
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(3, "10 s"),
-});
 
 interface Item {
   id: number;
@@ -28,19 +21,6 @@ export async function POST(req: Request) {
 
     if (origin && origin !== "http://localhost:3000") {
       return new Response("Mauvaise origine de la requête", { status: 403 });
-    }
-    const ip = req.headers.get("x-forwaded-for") ?? "";
-    const { success, reset } = await ratelimit.limit(ip);
-
-    if (!success) {
-      const now = Date.now();
-      const retryAfter = Math.floor((reset - now) / 1000);
-      return new Response("Too Many Requests", {
-        status: 429,
-        headers: {
-          ["retry-after"]: `${retryAfter}}`,
-        },
-      });
     }
 
     const cart: Item[] = await req.json();

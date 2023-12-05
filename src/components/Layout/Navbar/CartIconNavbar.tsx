@@ -130,7 +130,7 @@ export default function CartIconNavbar() {
                     alt={item.name}
                     width={360}
                     height={360}
-                    className="object-cover h-24 w-24 sm:h-28 sm:w-28"
+                    className="object-cover max-h-[112px] max-w-[112px]"
                   />
 
                   <div className="flex flex-col justify-between ml-2 grow sm:ml-4">

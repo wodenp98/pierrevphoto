@@ -52,28 +52,35 @@ async function getArticleById(id: number) {
 }
 
 export async function generateMetadata({ params }: any) {
-  const { name, description, imageUrl } = (await getArticleById(
-    params.id
-  )) as Article;
+  try {
+    const { name, description, imageUrl } = (await getArticleById(
+      params.id
+    )) as Article;
 
-  return {
-    title: name,
-    description: description,
-    openGraph: {
+    return {
       title: name,
       description: description,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: name,
-        },
-      ],
-    },
-    locale: "fr-FR",
-    type: "website",
-  };
+      openGraph: {
+        title: name,
+        description: description,
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: name,
+          },
+        ],
+      },
+      locale: "fr-FR",
+      type: "website",
+    };
+  } catch (error) {
+    return {
+      title: "Erreur",
+      description: "Une erreur est survenue",
+    };
+  }
 }
 
 export default async function Page({

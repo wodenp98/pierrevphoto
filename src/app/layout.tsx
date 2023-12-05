@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import AuthContext from "@/lib/auth/AuthContext";
 import Footer from "@/components/Layout/Footer/Footer";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Pierre.V Photographie",
@@ -40,6 +41,20 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/assets/logo blanc.png" sizes="36x36" />
+        <Script
+          strategy="afterInteractive"
+          src={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
+        />
+        <Script
+          strategy="afterInteractive"
+          id="google-analytics"
+        >{`  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${process.env.NEXT_PUBLIC_MEASUREMENT_ID}');`}</Script>
+
+        <script></script>
       </head>
       <body className={`min-h-screen bg-background ${GeistSans.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
