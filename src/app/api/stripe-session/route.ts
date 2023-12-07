@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   if (req.method === "POST") {
     const origin = req.headers.get("origin");
 
-    if (origin && origin !== "http://localhost:3000") {
+    if (origin && origin !== `${process.env.BASE_URL}`) {
       return new Response("Mauvaise origine de la requête", { status: 403 });
     }
 
