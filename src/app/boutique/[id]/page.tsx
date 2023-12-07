@@ -113,29 +113,6 @@ export default async function Page({
               <div className="flex flex-col items-center w-full h-full md:w-10/12 xl:ml-6 ">
                 <div className="mt-4 lg:mt-0">
                   <h1 className="text-3xl text-center">{article.name}</h1>
-
-                  {/* <Popover>
-                    <PopoverTrigger asChild className="pl-0 mt-8">
-                      <Button variant="link" className="flex items-center">
-                        <Info className="mr-2" />
-                        Informations livraisons
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-80">
-                      <div className="flex justify-between space-x-4">
-                        <div className="space-y-1">
-                          <h4 className="text-sm font-semibold">
-                            Informations livraisons
-                          </h4>
-                          <p className="text-sm">
-                            Toutes nos livraisons sont envoyées en point relais.
-                            Un point relais vous sera demandé une fois votre
-                            commande passée.
-                          </p>
-                        </div>
-                      </div>
-                    </PopoverContent>
-                  </Popover> */}
                 </div>
 
                 <ShopFormPortrait article={article} />
@@ -156,28 +133,6 @@ export default async function Page({
               <div className="flex flex-col w-full h-full items-center mt-4 md:w-10/12 md:flex-col xl:ml-6 xl:w-1/2">
                 <div className="mt-4 lg:mt-0">
                   <h1 className="text-3xl text-center">{article.name}</h1>
-                  {/* <Popover>
-                    <PopoverTrigger asChild className="pl-0 mt-8">
-                      <Button variant="link" className="flex items-center">
-                        <Info className="mr-2" />
-                        Informations livraisons
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-80">
-                      <div className="flex justify-between space-x-4">
-                        <div className="space-y-1">
-                          <h4 className="text-sm font-semibold">
-                            Informations livraisons
-                          </h4>
-                          <p className="text-sm">
-                            Toutes nos livraisons sont envoyées en point relais.
-                            Un point relais vous sera demandé une fois votre
-                            commande passée.
-                          </p>
-                        </div>
-                      </div>
-                    </PopoverContent>
-                  </Popover> */}
                 </div>
 
                 <ShopFormPaysage article={article} />

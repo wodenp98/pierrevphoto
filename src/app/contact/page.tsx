@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <main className="flex 1 mt-20 mb-40">
+    <main className="flex 1 mt-20">
       <div className="container relative">
         <h1 className="flex justify-center my-6 text-4xl uppercase">Contact</h1>
-        <section className="flex flex-col items-center">
+        <section className="flex flex-col items-center h-screen">
           <h2 className="w-10/12 m-3 text-center">
             Pour toute question, n'hésitez pas à me contacter ! Je vous
             répondrai dans les meilleurs délais. A bientôt !

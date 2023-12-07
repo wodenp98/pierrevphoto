@@ -110,11 +110,11 @@ export const ShopFormPaysage = ({ article }: { article: Article }) => {
   });
 
   const calculatePrice = (formValues: FormValues) => {
-    let initialPrice = 150;
-    const price = prices[formValues.impression]?.[formValues.format];
+    const price = prices[formValues.impression]?.[formValues.format] + 150;
 
-    return initialPrice + (price || 0);
+    return price || 0;
   };
+
   const price = calculatePrice(formValues);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {

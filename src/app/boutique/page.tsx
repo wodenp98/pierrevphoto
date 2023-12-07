@@ -61,7 +61,7 @@ export default async function Page() {
           Boutique
         </h1>
         <section>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
             {articles.map((article) => (
               <Link href={`/boutique/${article.id}`} key={article.id}>
                 <div className="relative h-[500px]">

@@ -79,10 +79,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           />
           <Button disabled={isLoading} type="submit" className="w-full">
             {isLoading ? (
-              <>
-                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                Mail en cours d'envoi
-              </>
+              <>Un mail a été envoyé</>
             ) : (
               <>Se connecter avec votre email</>
             )}
@@ -103,12 +100,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         disabled={isLoading}
         onClick={() => signIn("google", { callbackUrl: "/compte" })}
       >
-        {isLoading ? (
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <FcGoogle className="mr-2 h-4 w-4" />
-        )}{" "}
-        Google
+        <FcGoogle className="mr-2 h-4 w-4" /> Google
       </Button>
     </div>
   );
