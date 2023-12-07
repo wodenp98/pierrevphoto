@@ -1,5 +1,4 @@
 import { stripe } from "@/utils/stripe/stripe";
-import { getURL } from "@/utils/helpers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 
@@ -74,8 +73,8 @@ export async function POST(req: Request) {
         metadata: {
           userId: sessionUser?.user.id,
         },
-        success_url: `${getURL()}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${getURL()}/`,
+        success_url: `${process.env.BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.BASE_URL}/`,
         client_reference_id: sessionUser?.user.id,
         phone_number_collection: {
           enabled: true,
