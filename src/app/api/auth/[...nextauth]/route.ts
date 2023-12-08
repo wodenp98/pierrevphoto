@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "../../../../utils/prisma/prisma";
 import EmailProvider from "next-auth/providers/email";
-import { sendVerificationRequest } from "@/utils/resend/send-verification-request";
+import { CustomSendVerificationRequest } from "@/utils/sendgrid/send-verification-request";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -22,21 +22,11 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM,
-      sendVerificationRequest({
-        identifier,
-        url,
-        provider,
-        expires,
-        token,
-        theme,
-      }) {
-        return sendVerificationRequest({
+      sendVerificationRequest({ identifier, url, provider }) {
+        CustomSendVerificationRequest({
           identifier,
           url,
           provider,
-          expires,
-          token,
-          theme,
         });
       },
     }),
