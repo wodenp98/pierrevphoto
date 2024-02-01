@@ -50,41 +50,41 @@ export default function Navbar() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <Link href="/">
-                <DropdownMenuItem className="space-x-2 uppercase cursor-pointer">
+                <DropdownMenuItem className="space-x-2 uppercase">
                   <Home className="mr-2 h-4 w-4" />
                   <span>Accueil</span>
                 </DropdownMenuItem>
               </Link>
 
               <Link href="/boutique">
-                <DropdownMenuItem className="space-x-2 uppercase cursor-pointer">
+                <DropdownMenuItem className="space-x-2 uppercase">
                   <ShoppingBag className="mr-2 h-4 w-4" />
                   <span>Boutique</span>
                 </DropdownMenuItem>
               </Link>
 
               <Link href="/prestations">
-                <DropdownMenuItem className="space-x-2 uppercase cursor-pointer">
+                <DropdownMenuItem className="space-x-2 uppercase">
                   <Camera className="mr-2 h-4 w-4" />
                   <span>Prestations</span>
                 </DropdownMenuItem>
               </Link>
 
               <Link href="/apropos">
-                <DropdownMenuItem className="space-x-2 uppercase cursor-pointer">
+                <DropdownMenuItem className="space-x-2 uppercase">
                   <Info className="mr-2 h-4 w-4" />
                   <span>A propos</span>
                 </DropdownMenuItem>
               </Link>
 
               <Link href="/contact">
-                <DropdownMenuItem className="space-x-2 uppercase cursor-pointer">
+                <DropdownMenuItem className="space-x-2 uppercase">
                   <Phone className="mr-2 h-4 w-4" />
                   <span>Contact</span>
                 </DropdownMenuItem>
               </Link>
               <Link href="/compte">
-                <DropdownMenuItem className="space-x-2 uppercase cursor-pointer">
+                <DropdownMenuItem className="space-x-2 uppercase">
                   <User className="mr-2 h-4 w-4" />
                   <span>Compte</span>
                 </DropdownMenuItem>
