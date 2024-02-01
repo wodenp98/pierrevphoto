@@ -58,7 +58,7 @@ export default function Prestations() {
         <section className="flex flex-col items-center justify-center mt-8 mb-12">
           <Card className="w-[350px]">
             <CardContent>
-              <div className="flex flex-col items-center mb-6">
+              <div className="flex flex-col items-center my-6">
                 <h1 className="text-2xl font-bold mb-4">Portrait</h1>
                 <Table>
                   <TableHeader>
