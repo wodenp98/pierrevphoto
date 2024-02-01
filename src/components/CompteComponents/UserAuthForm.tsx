@@ -42,22 +42,19 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true);
-    try {
-      signIn("email", {
-        email: data.email,
-        callbackUrl: "/compte",
-        redirect: false,
-      });
-      toast({
-        title: "Email envoyé",
-        description:
-          "Vérifiez votre boîte de réception pour vous connecter, vérifiez également votre dossier spam ! Cela peut prendre quelques minutes.",
-        duration: 5000,
-      });
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
+
+    signIn("email", {
+      email: data.email,
+      callbackUrl: "/compte",
+      redirect: false,
+    });
+
+    toast({
+      title: "Email envoyé",
+      description:
+        "Vérifiez votre boîte de réception pour vous connecter, vérifiez également votre dossier spam ! Cela peut prendre quelques minutes.",
+      duration: 5000,
+    });
   }
 
   return (
