@@ -4,9 +4,10 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "../../../../utils/prisma/prisma";
 import EmailProvider from "next-auth/providers/email";
 import { CustomSendVerificationRequest } from "@/utils/sendgrid/send-verification-request";
+import { Adapter } from "next-auth/adapters";
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
