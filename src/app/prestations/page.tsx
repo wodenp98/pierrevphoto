@@ -17,29 +17,48 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pierre.V | Prestations",
+  description:
+    "Vous pourrez trouver mes prestations ici. N'hésitez pas à me contacter pour plus d'informations.",
+};
 
 export default function Prestations() {
   return (
     <main className="flex 1 mt-20">
       <div className="container relative">
+        <h1 className="flex justify-center my-6 text-4xl uppercase">
+          Prestations
+        </h1>
+        <section className="text-center leading-loose">
+          <p>
+            Bienvenue dans l’univers captivant de Pierre Vigneron, photographe
+            dédié à immortaliser vos moments les plus précieux.
+          </p>
+          <p>
+            Je crois fermement que chaque instant mérite d’être préservé, chaque
+            sourire figé dans le temps et chaque émotion gravée dans l’objectif
+            d’un appareil photo.
+          </p>
+          <p>
+            Je m’engage à offrir un service professionnel et personnalisé.
+            Chaque prestation est adaptée à vos besoin spécifiques, garantissant
+            ainsi des images qui reflètent votre style et votre personnalité.
+          </p>
+          <p>
+            Si mon travail vous intéresse, n’hésitez pas à{" "}
+            <Link href="/contact">
+              <span className="underline">me contacter,</span>
+            </Link>{" "}
+            je serai ravi d’échanger avec vous.
+          </p>
+        </section>
         <section className="flex flex-col items-center justify-center mt-8 mb-12">
           <Card className="w-[350px]">
-            <CardHeader>
-              <CardTitle className="text-center text-4xl">
-                Mes prestations
-              </CardTitle>
-              <CardDescription className="text-center">
-                Pour toutes informations supplémentaires,
-                <Link
-                  href="/contact"
-                  className="pl-1 hover:underline hover:text-primary"
-                >
-                  contactez-moi
-                </Link>
-              </CardDescription>
-            </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center mb-6">
+              <div className="flex flex-col items-center my-6">
                 <h1 className="text-2xl font-bold mb-4">Portrait</h1>
                 <Table>
                   <TableHeader>
